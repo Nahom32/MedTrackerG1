@@ -23,11 +23,11 @@ class MyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          backgroundColor: Colors.blueGrey[100],
-          primaryTextTheme: TextTheme(
+          // backgroundColor: Color.fromARGB(255, 180, 231, 255),
+          primaryTextTheme: const TextTheme(
               bodyText1: TextStyle(fontFamily: "Nunito Sans", fontSize: 10))),
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
