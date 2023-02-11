@@ -10,6 +10,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var showChecklist = false;
+  bool? ischecked = false;
+  var dropdownValue = "English";
+
   @override
   Widget build(BuildContext context) {
     List<String> titleList = [
@@ -20,7 +24,6 @@ class _HomePageState extends State<HomePage> {
       "Vaccines",
       "Documents",
     ];
-
     List<Icon> iconList = [
       const Icon(Icons.no_accounts_rounded),
       const Icon(Icons.difference_sharp),
@@ -222,37 +225,9 @@ class _HomePageState extends State<HomePage> {
             color: Colors.blueGrey[200],
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.5,
-            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-            child: ListView.builder(
-                itemCount: 15,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Saccharomyces ellipsoideus dkhasdasb dsakdsahbd khasgdhsa hdsagdhasgdh",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 16),
-                        ),
-                        SizedBox(
-                          height: 6,
-                        ),
-                        Text(
-                          "WMCX0002",
-                          style: TextStyle(
-                              color: Colors.black45,
-                              // fontWeight:
-                              //     FontWeight.w200,
-                              fontSize: 12),
-                        )
-                      ],
-                    ),
-                  );
-                }),
-          ),
+              height: MediaQuery.of(context).size.height * 0.5,
+              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+              child: getDetailedList()),
           Container(
             height: 70,
             padding: EdgeInsets.symmetric(vertical: 15),
@@ -267,6 +242,36 @@ class _HomePageState extends State<HomePage> {
   }
 
   getButtons(buttonList) {
+    if (showChecklist == true) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          InkWell(
+              onTap: (() {
+                setState(() {
+                  showChecklist = false;
+                });
+              }),
+              child: Text(
+                "Cancel",
+                style: TextStyle(color: Colors.blue),
+              )),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+              onTap: (() {
+                setState(() {
+                  showChecklist = false;
+                });
+              }),
+              child: Text(
+                "Remove",
+                style: TextStyle(color: Colors.blue),
+              )),
+        ],
+      );
+    }
     return ListView.builder(
         itemCount: 4,
         scrollDirection: Axis.horizontal,
@@ -306,8 +311,7 @@ class _HomePageState extends State<HomePage> {
   handleButton(int index) {
     if (index == 0) {
       List<String> languageList = ["English", "French", "Italian", "Spanish"];
-      var dropdownValue = languageList[0];
-
+  
       showModalBottomSheet<void>(
         context: context,
         elevation: 5,
@@ -435,6 +439,111 @@ class _HomePageState extends State<HomePage> {
     } else if (index == 1) {
       Navigator.pushNamed(context, "/add");
     } else if (index == 2) {
+      showModalBottomSheet(
+          context: context,
+          elevation: 5,
+          backgroundColor: Colors.blueGrey[900],
+          isScrollControlled: true,
+          builder: ((context) {
+            return Container(
+              height: 70,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                      onTap: (() {
+                        setState(() {
+                          showChecklist = true;
+                        });
+                        Navigator.pop(context);
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "Remove item(s)",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      )),
+                ],
+              ),
+            );
+          }));
     } else {}
+  }
+
+  getDetailedList() {
+    if (showChecklist == false) {
+      return ListView.builder(
+          itemCount: 15,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6.0),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Saccharomyces ellipsoideus",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400, fontSize: 16),
+                      ),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        "WMCX0002",
+                        style: TextStyle(
+                            color: Colors.black45,
+                            // fontWeight:
+                            //     FontWeight.w200,
+                            fontSize: 12),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            );
+          });
+    }
+    return ListView.builder(
+        itemCount: 15,
+        itemBuilder: (context, index) {
+          return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6.0),
+              child: CheckboxListTile(
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Saccharomyces ellipsoideus",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400, fontSize: 16),
+                      ),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        "WMCX0002",
+                        style: TextStyle(
+                            color: Colors.black45,
+                            // fontWeight:
+                            //     FontWeight.w200,
+                            fontSize: 12),
+                      )
+                    ],
+                  ),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: ischecked,
+                  onChanged: ((value) {
+                    setState(() {
+                      ischecked = value;
+                    });
+                  })));
+        });
   }
 }
