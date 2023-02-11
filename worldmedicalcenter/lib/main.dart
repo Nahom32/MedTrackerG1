@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {"/add": (context) => Add()},
+      // routes: {"/add": (context) => Add()},
       title: 'World Medical App',
       theme: ThemeData(
         // This is the theme of your application.

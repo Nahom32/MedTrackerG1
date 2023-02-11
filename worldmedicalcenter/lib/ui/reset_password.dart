@@ -34,7 +34,7 @@ class _PasswordResetState extends State<PasswordReset> {
             ),
             
                TextButton(
-            onPressed: (){},
+            onPressed: (){print('object');},
             child: Container(
             child:Text('RESET PASSWORD', style: TextStyle(fontSize: 12, color: Colors.white),),
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 130),
