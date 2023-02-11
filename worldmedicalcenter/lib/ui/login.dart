@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:worldmedicalcenter/ui/HomePage.dart';
+import '../ui/HomePage.dart';
 
 
 
@@ -43,7 +43,7 @@ class _LoginState extends State<Login> {
             
           ]),
 
-TextButton(onPressed: (){
+          TextButton(onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (context){
               return HomePage();
             }));
