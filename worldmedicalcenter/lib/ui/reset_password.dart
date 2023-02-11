@@ -17,13 +17,22 @@ class _PasswordResetState extends State<PasswordReset> {
     return Scaffold(
       body: Column(
         children: [
+
+         SizedBox(height: 100),
          Text('Reset Password', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
          Text('Please type your email address and press the button to reset your password'),
+         SizedBox(height: 30,),
          Form(child: Column(
           children: [
-            TextFormField(
-              
+            TextField(
+              decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Email',
+  ),),
+            SizedBox(
+              height: 30
             ),
+            
                TextButton(
             onPressed: (){},
             child: Container(
