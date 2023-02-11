@@ -24,9 +24,48 @@ class _LoginState extends State<Login> {
         ),
         Text(
           'How would you like to sign-in?',
-          style: TextStyle(fontSize: 11, color: Colors.black54),
+          style: TextStyle( color: Colors.black54),
         ),
-        TextButton(onPressed: () {}, child: Text('Sign-in with google')),
+          //    TextButton(
+          // onPressed: (){
+          //   Navigator.push(context, MaterialPageRoute(builder: (context){
+          //     return HomePage();
+          //   }));
+          // }, 
+          // child: Container(
+          // child:Text('Sign-in with Google', style: TextStyle(fontSize: 12, color: Colors.black),),
+          // padding: EdgeInsets.symmetric(vertical: 10, horizontal: 150),
+          // decoration: BoxDecoration(borderRadius:  BorderRadius.all(Radius.circular(5)),
+          // color:  Colors.white54,
+          // ),
+          // )
+          // ),
+
+          Container(
+            width:300,
+            height:40,
+            decoration: BoxDecoration(color: Colors.black12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children:[
+                Container(
+                  
+                    child:
+                    Image(image: AssetImage('../../assets/google-icon-removebg-preview.png'),
+                    // fit: BoxFit.cover,
+                    width: 20,
+                    )               
+                ),
+                SizedBox(
+                  width: 5.0,
+                ),
+                Text('Sign-in with Google')
+              ],
+            ),
+          ),
+
+
         Row(children: [
           Expanded(
             child: Container(
