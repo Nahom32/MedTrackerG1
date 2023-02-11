@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:worldmedicalcenter/ui/HomePage.dart';
+import 'package:worldmedicalcenter/ui/reset_password.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
         body: Column(
       children: [
+        SizedBox(height: 50,),
         Text(
           'Login to world Medical Card',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -44,13 +46,70 @@ class _LoginState extends State<Login> {
                 )),
           ),
         ]),
-        TextButton(
-            onPressed: () {
+        Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 12
+              ),
+              TextField(
+              decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Email',
+  ),
+),
+SizedBox(height: 12,),
+TextField(
+  decoration: InputDecoration(
+    border: OutlineInputBorder(),
+    hintText: 'Password',
+    suffixIcon: IconButton(
+                    icon: Icon(
+                        _isObscure ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        _isObscure = !_isObscure;
+                      });
+                    })
+  ),
+  obscureText: _isObscure,
+
+),
+
+
+
+        ]),),
+        SizedBox(height: 130,),
+        Positioned(bottom: 12,child: Column(children: [
+          GestureDetector(
+            child: Text('Forgot Password?', style: TextStyle(decoration: TextDecoration.underline),),
+            onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return HomePage();
+                return PasswordReset();
               }));
-            },
-            child: Text('login'))
+            }),
+           TextButton(
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context){
+              return HomePage();
+            }));
+          }, 
+          child: Container(
+          child:Text('LOGIN', style: TextStyle(fontSize: 12, color: Colors.white),),
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 130),
+          decoration: BoxDecoration(borderRadius:  BorderRadius.all(Radius.circular(30)),
+          color:  Colors.blue,
+          ),
+          // shape: RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.all(Radius.circular(30))
+          // ),
+          )
+          // ,
+          )
+
+        ],))
+        
       ],
     ));
   }

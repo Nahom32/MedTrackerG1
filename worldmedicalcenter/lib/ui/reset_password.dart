@@ -4,26 +4,34 @@ import '../ui/HomePage.dart';
 
 
 
-class Login extends StatefulWidget {
-  Login({Key? key}) : super(key: key);
+class PasswordReset extends StatefulWidget {
+  PasswordReset({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<PasswordReset> createState() => _PasswordResetState();
 }
 
-class _LoginState extends State<Login> {
+class _PasswordResetState extends State<PasswordReset> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-         Text('Reset Password', style: TextStyle(fontSize: 100, fontWeight: FontWeight.bold),),
+         SizedBox(height: 100),
+         Text('Reset Password', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
          Text('Please type your email address and press the button to reset your password'),
+         SizedBox(height: 30,),
          Form(child: Column(
           children: [
-            TextFormField(
-              
+            TextField(
+              decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Email',
+  ),),
+            SizedBox(
+              height: 30
             ),
+            
                TextButton(
             onPressed: (){},
             child: Container(
