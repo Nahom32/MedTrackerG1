@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:worldmedicalcenter/ui/HomePage.dart';
 
+
+
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
 
@@ -44,52 +46,13 @@ class _LoginState extends State<Login> {
                   )),
             ),
           ]),
-         
-          Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Padding(padding: EdgeInsets.only(top: 15),
-                child: Column(children: [
-                  TextField(
-                    decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Email',
-            ),
-                  ),
-                  SizedBox(
-                    height: 30
-                  ),
-                   TextField(
-                    decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Password',
-              suffixIcon: IconButton(
-                    icon: Icon(
-                        _isObscure ? Icons.visibility : Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        _isObscure = !_isObscure;
-                      });
-                    })
-              
-            ),
-            obscureText: _isObscure,
-                  ),
-                ]),
-                
 
-                ),
-                SizedBox(
-                  height: 19
-                ),
-                 TextButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return HomePage();
-                }));
-              },
-              child: Text('login')),
+TextButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context){
+              return HomePage();
+            }));
+          }, 
+              child: Text('login'))
 
             ],)
           )
