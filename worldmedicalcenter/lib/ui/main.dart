@@ -1,13 +1,13 @@
 
+
 import 'package:flutter/material.dart';
-import '../ui/HomePage.dart';
+import 'package:worldmedicalcenter/ui/HomePage.dart';
 import '../ui/hello.dart';
 import '../ui/intro_1.dart';
 import '../ui/intro_3.dart';
 import '../ui/intro_2.dart';
 import '../ui/splash.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -80,9 +80,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
       
         GestureDetector(
-          onTap: () {
-            
-          },
+          
+             onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context){
+                return Hello();
+              }));
+             },
         child: Container(child: onLastPage? TextButton(
           onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (context){
@@ -111,3 +114,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
