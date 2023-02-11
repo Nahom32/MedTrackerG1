@@ -64,9 +64,17 @@ class _LoginState extends State<Login> {
                     decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Password',
+              suffixIcon: IconButton(
+                    icon: Icon(
+                        _isObscure ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        _isObscure = !_isObscure;
+                      });
+                    })
               
             ),
-            obscureText: true,
+            obscureText: _isObscure,
                   ),
                 ]),
                 
