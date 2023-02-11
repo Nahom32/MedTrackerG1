@@ -94,7 +94,8 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.all(0.0),
                         child: ScrollOnExpand(
                           child: ExpandablePanel(
-                            header: getExpandableHeader(iconList, titleList, index),
+                            header:
+                                getExpandableHeader(iconList, titleList, index),
                             collapsed: SizedBox.shrink(),
                             expanded: getExpandedContent(buttonList),
                           ),
@@ -165,8 +166,8 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              "https://img.freepik.com/free-vector/blue-dna-blue-medical-healthcare-background_1017-24093.jpg?w=996&t=st=1674216835~exp=1674217435~hmac=72cc1dd7e369e0bfc4b3162ecae072d8d3ce99bddd16469c66521c89014f6421",
+            Image.asset(
+              "images/wmc.png",
               width: double.maxFinite,
               height: 150,
               fit: BoxFit.cover,
@@ -255,42 +256,7 @@ class _HomePageState extends State<HomePage> {
           Container(
             height: 70,
             padding: EdgeInsets.symmetric(vertical: 15),
-            child: ListView.builder(
-                itemCount: 4,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: ((context, index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5),
-                    child: InkWell(
-                      onTap: (() {}),
-                      borderRadius: BorderRadius.circular(100),
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            border: Border.all(
-                                width: 0.5,
-                                color: Colors.black45,
-                                style: BorderStyle.solid)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            buttonList[index][1],
-                            SizedBox(
-                              width: 6,
-                            ),
-                            Text(
-                              buttonList[index][0],
-                              style:
-                                  TextStyle(fontSize: 14, color: Colors.black),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                })),
+            child: getButtons(buttonList),
           ),
           SizedBox(
             height: 6,
@@ -298,5 +264,177 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  getButtons(buttonList) {
+    return ListView.builder(
+        itemCount: 4,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: ((context, index) {
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 5),
+            child: InkWell(
+              onTap: (() => handleButton(index)),
+              borderRadius: BorderRadius.circular(100),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(
+                        width: 0.5,
+                        color: Colors.black45,
+                        style: BorderStyle.solid)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buttonList[index][1],
+                    SizedBox(
+                      width: 6,
+                    ),
+                    Text(
+                      buttonList[index][0],
+                      style: TextStyle(fontSize: 14, color: Colors.black),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        }));
+  }
+
+  handleButton(int index) {
+    if (index == 0) {
+      List<String> languageList = ["English", "French", "Italian", "Spanish"];
+      var dropdownValue = languageList[0];
+
+      showModalBottomSheet<void>(
+        context: context,
+        elevation: 5,
+        backgroundColor: Colors.blueGrey[50],
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return Container(
+            padding: EdgeInsets.all(12),
+            height: MediaQuery.of(context).size.height * 0.75,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'My Allergies',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: DropdownButton<String>(
+                      underline: SizedBox.shrink(),
+                      isExpanded: true,
+                      dropdownColor: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      value: dropdownValue,
+                      items: languageList
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            // style: TextStyle(fontSize: 30),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue!;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                //Translated version starts here
+                Text(
+                  'My Allergies',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Expanded(
+                  child: Container(
+                    child: ListView.builder(
+                        itemCount: 5,
+                        itemBuilder: ((context, index) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    left: BorderSide(
+                                      width: 4,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                  // borderRadius: BorderRadius.circular(5)
+                                ),
+                                padding: EdgeInsets.only(left: 5),
+                                child: Text(
+                                  'Hazelnut Tree pollen',
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Card(
+                                elevation: 2,
+                                color: Colors.white,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Hazelnut Tree pollen",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      ),
+                                      SizedBox(
+                                        height: 8,
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 5.0),
+                                        child: Row(
+                                          children: [Text("code: WMCX0001")],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          );
+                        })),
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      );
+    } else if (index == 1) {
+      Navigator.pushNamed(context, "/add");
+    } else if (index == 2) {
+    } else {}
   }
 }
