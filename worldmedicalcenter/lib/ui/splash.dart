@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:worldmedicalcenter/ui/MyHomePage.dart';
 import '../main.dart';
 
-
 class Splash extends StatefulWidget {
   Splash({Key? key}) : super(key: key);
 
@@ -11,27 +10,28 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _navigatetohome();
   }
 
-  _navigatetohome() async{
-    await Future.delayed(Duration(milliseconds: 2000),(){});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MyHomePage()));
+  _navigatetohome() async {
+    await Future.delayed(Duration(milliseconds: 2000), () {});
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => MyHomePage()));
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Image(image: AssetImage('../../assets/world-medical-card-removebg-preview.png',),
-        height: 80,)
-      ,)
-    );
+        body: Center(
+      child: Image(
+        image: AssetImage(
+          'assets/world-medical-card-removebg-preview.png',
+        ),
+        height: 80,
+      ),
+    ));
   }
 }
-

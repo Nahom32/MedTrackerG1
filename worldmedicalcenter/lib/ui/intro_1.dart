@@ -18,7 +18,7 @@ class _IntroductionOneState extends State<IntroductionOne> {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image(
-              image: AssetImage('../../assets/intro1.webp'),
+              image: AssetImage('assets/intro1.webp'),
               height: 150,
               ),
               

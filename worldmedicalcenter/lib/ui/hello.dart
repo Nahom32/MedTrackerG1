@@ -11,7 +11,7 @@ class Hello extends StatelessWidget {
       body: Center(child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image(image: AssetImage('../../assets/medical-card-phone.png'), height: 350,),
+          Image(image: AssetImage('assets/medical-card-phone.png'), height: 350,),
           Container(child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children:[

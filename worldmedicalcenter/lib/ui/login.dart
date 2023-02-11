@@ -52,7 +52,7 @@ class _LoginState extends State<Login> {
                 Container(
                   
                     child:
-                    Image(image: AssetImage('../../assets/google-icon-removebg-preview.png'),
+                    Image(image: AssetImage('assets/google-icon-removebg-preview.png'),
                     // fit: BoxFit.cover,
                     width: 20,
                     )               

@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(
-              "images/wmc.png",
+              "assets/wmc.png",
               width: double.maxFinite,
               height: 150,
               fit: BoxFit.cover,

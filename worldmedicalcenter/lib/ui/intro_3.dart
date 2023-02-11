@@ -18,7 +18,7 @@ class _IntroductionThreeState extends State<IntroductionThree> {
              ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image(
-              image: AssetImage('../../assets/intro3.webp'),
+              image: AssetImage('assets/intro3.webp'),
               height: 150,
               // width: 300,
               ),
