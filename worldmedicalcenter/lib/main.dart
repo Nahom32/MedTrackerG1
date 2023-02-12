@@ -7,17 +7,14 @@ import 'package:worldmedicalcenter/presentation/ui/splash.dart';
 import 'application/blocs/allergy/AllergyBloc.dart';
 import 'application/blocs/diagnoses/DiagnosesBloc.dart';
 
-
 void main() {
   runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(create: ((context) => AllergyBloc())),
-        BlocProvider(create: ((context) => MedicineBloc())),
-        BlocProvider(create: ((context) => DiagnosesBloc())),
-        BlocProvider(create: ((context) => VaccineBloc())),
-      ], 
-    child: const MyApp()),
+    MultiBlocProvider(providers: [
+      BlocProvider(create: ((context) => AllergyBloc())),
+      BlocProvider(create: ((context) => MedicineBloc())),
+      BlocProvider(create: ((context) => DiagnosesBloc())),
+      BlocProvider(create: ((context) => VaccineBloc())),
+    ], child: const MyApp()),
   );
 }
 

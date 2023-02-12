@@ -24,7 +24,7 @@ class _IntroductionTwoState extends State<IntroductionTwo> {
               ),
               
             ),
-              SizedBox(height: 50,),
+              SizedBox(height: 150,),
               Text(
                 "Travel Worry Free", 
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),

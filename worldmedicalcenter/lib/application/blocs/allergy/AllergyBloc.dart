@@ -21,9 +21,9 @@ class AllergyBloc extends Bloc<AllergyEvent, AllergyState> {
     NormalModel(userId: 1, id: "WACY001", name: "allergy6"),
   ];
 
-  FutureOr<void> _loadAllergies(LoadAllergy event, Emitter<AllergyState> emit) {
+  Future<FutureOr<void>> _loadAllergies(LoadAllergy event, Emitter<AllergyState> emit) async {
     emit(LoadingAllergy());
-    Future.delayed(Duration(seconds: 5));
+    //fetch here
     emit(LoadedAllergy(allergies: testData));
   }
 

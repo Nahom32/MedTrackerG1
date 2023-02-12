@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldmedicalcenter/presentation/ui/reset_password.dart';
@@ -25,160 +24,180 @@ class _LoginState extends State<Login> {
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(
-      children: [
-        SizedBox(
-          height: 50,
-        ),
-        Text(
-          'Login to world Medical Card',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        Text(
-          'How would you like to sign-in?',
-          style: TextStyle(color: Colors.black54),
-        ),
-        //    TextButton(
-        // onPressed: (){
-        //   Navigator.push(context, MaterialPageRoute(builder: (context){
-        //     return HomePage();
-        //   }));
-        // },
-        // child: Container(
-        // child:Text('Sign-in with Google', style: TextStyle(fontSize: 12, color: Colors.black),),
-        // padding: EdgeInsets.symmetric(vertical: 10, horizontal: 150),
-        // decoration: BoxDecoration(borderRadius:  BorderRadius.all(Radius.circular(5)),
-        // color:  Colors.white54,
-        // ),
-        // )
-        // ),
-
-        Container(
-          width: 300,
-          height: 40,
-          decoration: BoxDecoration(color: Colors.black12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                  child: Image(
-                image: AssetImage('assets/google-icon-removebg-preview.png'),
-                // fit: BoxFit.cover,
-                width: 20,
-              )),
-              SizedBox(
-                width: 5.0,
-              ),
-              Text('Sign-in with Google')
-            ],
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.blueGrey[50],
           ),
-        ),
-
-        Row(children: [
-          Expanded(
-            child: Container(
-                margin: const EdgeInsets.only(left: 10.0, right: 15.0),
-                child: Divider(
-                  color: Colors.black,
-                  height: 50,
-                )),
-          ),
-          Text("OR"),
-          Expanded(
-            child: new Container(
-                margin: const EdgeInsets.only(left: 15.0, right: 10.0),
-                child: Divider(
-                  color: Colors.black,
-                  height: 50,
-                )),
-          ),
-        ]),
-        Form(
-          key: _formKey,
-          child: Column(children: [
-            SizedBox(height: 12),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Email',
-              ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Password',
-                  suffixIcon: IconButton(
-                      icon: Icon(
-                          _isObscure ? Icons.visibility : Icons.visibility_off),
-                      onPressed: () {
-                        setState(() {
-                          _isObscure = !_isObscure;
-                        });
-                      })),
-              obscureText: _isObscure,
-            ),
-          ]),
-        ),
-        SizedBox(
-          height: 130,
-        ),
-        Positioned(
-            bottom: 12,
+          body: Container(
+            color: Colors.blueGrey[50],
+            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 12),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GestureDetector(
-                    child: Text(
-                      'Forgot Password?',
-                      style: TextStyle(decoration: TextDecoration.underline),
+                Text(
+                  'Login to world Medical Card',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'How would you like to sign-in?',
+                  style: TextStyle(color: Colors.black54, fontSize: 13),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 40, horizontal: 12),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5)),
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "../../../assets/aZqAl.png",
+                          width: 30,
+                          height: 30,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("Sign-in with Google"),
+                      ],
                     ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return PasswordReset();
-                      }));
-                    }),
-                TextButton(
-                    onPressed: () {
-                      final allergyBloc = BlocProvider.of<AllergyBloc>(context);
-                      allergyBloc.add(LoadAllergy(1));
-                      final medicineBloc =
-                          BlocProvider.of<MedicineBloc>(context);
-                      medicineBloc.add(LoadMedicine(1));
-                      final diagnosesBloc =
-                          BlocProvider.of<DiagnosesBloc>(context);
-                      diagnosesBloc.add(LoadDiagnoses(1));
-                      final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
-                      vaccineBloc.add(LoadVaccine(1));
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return HomePage();
-                      }));
-                    },
+                  ),
+                ),
+                Row(children: [
+                  Expanded(
                     child: Container(
-                      child: Text(
-                        'LOGIN',
-                        style: TextStyle(fontSize: 12, color: Colors.white),
-                      ),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 130),
+                      margin: const EdgeInsets.only(left: 10.0, right: 15.0),
+                      height: 1,
+                      decoration: BoxDecoration(color: Colors.black),
+                    ),
+                  ),
+                  Text("OR"),
+                  Expanded(
+                    child: Container(
+                      width: 100,
+                      margin: const EdgeInsets.only(left: 15.0, right: 10.0),
+                      height: 1,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                        color: Colors.blue,
+                        color: Colors.black,
                       ),
-                      // shape: RoundedRectangleBorder(
-                      //   borderRadius: BorderRadius.all(Radius.circular(30))
-                      // ),
-                    )
-                    // ,
-                    )
+                    ),
+                  ),
+                ]),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(children: [
+                      SizedBox(height: 12),
+                      TextField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          label: Text("Email"),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            label: Text('Password'),
+                            suffixIcon: IconButton(
+                                icon: Icon(_isObscure
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                                onPressed: () {
+                                  setState(() {
+                                    _isObscure = !_isObscure;
+                                  });
+                                })),
+                        obscureText: _isObscure,
+                      ),
+                    ]),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                            child: Text(
+                              'Forgot Password?',
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline),
+                            ),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return PasswordReset();
+                              }));
+                            }),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              final allergyBloc =
+                                  BlocProvider.of<AllergyBloc>(context);
+                              allergyBloc.add(LoadAllergy(1));
+                              final medicineBloc =
+                                  BlocProvider.of<MedicineBloc>(context);
+                              medicineBloc.add(LoadMedicine(1));
+                              final diagnosesBloc =
+                                  BlocProvider.of<DiagnosesBloc>(context);
+                              diagnosesBloc.add(LoadDiagnoses(1));
+                              final vaccineBloc =
+                                  BlocProvider.of<VaccineBloc>(context);
+                              vaccineBloc.add(LoadVaccine(1));
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return HomePage();
+                              }));
+                            },
+                            child: Container(
+                              child: Text(
+                                'LOGIN',
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.white),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 130),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30)),
+                                color: Colors.blue,
+                              ),
+                              // shape: RoundedRectangleBorder(
+                              //   borderRadius: BorderRadius.all(Radius.circular(30))
+                              // ),
+                            )
+                            // ,
+                            ),
+                        SizedBox(
+                          height: 20,
+                        )
+                      ],
+                    ),
+                  ),
+                )
               ],
-            ))
-      ],
-    ));
+            ),
+          )),
+    );
   }
 }
