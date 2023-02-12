@@ -5,6 +5,13 @@ import 'package:worldmedicalcenter/blocs/allergy/AllergyEvent.dart';
 import 'package:worldmedicalcenter/ui/HomePage.dart';
 import 'package:worldmedicalcenter/ui/reset_password.dart';
 
+import '../blocs/diagnoses/DiagnosesBloc.dart';
+import '../blocs/diagnoses/DiagnosesEvent.dart';
+import '../blocs/medicine/MedicineBloc.dart';
+import '../blocs/medicine/MedicineEvent.dart';
+import '../blocs/vaccine/VaccineBloc.dart';
+import '../blocs/vaccine/VaccineEvent.dart';
+
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
 
@@ -138,6 +145,14 @@ class _LoginState extends State<Login> {
                     onPressed: () {
                       final allergyBloc = BlocProvider.of<AllergyBloc>(context);
                       allergyBloc.add(LoadAllergy(1));
+                      final medicineBloc =
+                          BlocProvider.of<MedicineBloc>(context);
+                      medicineBloc.add(LoadMedicine(1));
+                      final diagnosesBloc =
+                          BlocProvider.of<DiagnosesBloc>(context);
+                      diagnosesBloc.add(LoadDiagnoses(1));
+                      final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
+                      vaccineBloc.add(LoadVaccine(1));
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return HomePage();

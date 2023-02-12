@@ -31,25 +31,25 @@ class Hello extends StatelessWidget {
             ]
           ),),
           TextButton(
-          // onPressed: (){
-          //   Navigator.push(context, MaterialPageRoute(builder: (context){
-          //     return Login();
-          //   }));
-          // },
-          onPressed: () {
-            final allergyBloc = BlocProvider.of<AllergyBloc>(context);
-            allergyBloc.add(LoadAllergy(1));
-            final medicineBloc = BlocProvider.of<MedicineBloc>(context);
-            medicineBloc.add(LoadMedicine(1));
-            final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
-            diagnosesBloc.add(LoadDiagnoses(1));
-            final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
-            vaccineBloc.add(LoadVaccine(1));
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) {
-              return HomePage();
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context){
+              return Login();
             }));
           },
+          // onPressed: () {
+          //   final allergyBloc = BlocProvider.of<AllergyBloc>(context);
+          //   allergyBloc.add(LoadAllergy(1));
+          //   final medicineBloc = BlocProvider.of<MedicineBloc>(context);
+          //   medicineBloc.add(LoadMedicine(1));
+          //   final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
+          //   diagnosesBloc.add(LoadDiagnoses(1));
+          //   final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
+          //   vaccineBloc.add(LoadVaccine(1));
+          //   Navigator.push(context,
+          //       MaterialPageRoute(builder: (context) {
+          //     return HomePage();
+          //   }));
+          // },
           child: Container(
           child:Text('LOGIN', style: TextStyle(fontSize: 12, color: Colors.white),),
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 130),
