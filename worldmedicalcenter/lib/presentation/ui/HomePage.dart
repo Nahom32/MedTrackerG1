@@ -19,6 +19,7 @@ import '../../application/blocs/medicine/MedicineState.dart';
 import '../../application/blocs/vaccine/VaccineBloc.dart';
 import '../../application/blocs/vaccine/VaccineEvent.dart';
 import '../../application/blocs/vaccine/VaccineState.dart';
+import '../ui/editPersonalInfo.dart';
 import '../../domain/models/NormalModel.dart';
 import '../../domain/models/PersonalInfo.dart';
 
@@ -284,7 +285,47 @@ class _HomePageState extends State<HomePage> {
                               color: Color.fromARGB(255, 236, 236, 236))),
                     ),
                   ),
-                  getOtherInfo()
+                  getOtherInfo(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 100,
+                      height: 40,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const EditPersonalInfo(),
+                            ),
+                          );
+                        },
+                        borderRadius: BorderRadius.circular(100),
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 4),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                border: Border.all(
+                                    width: 0.5,
+                                    color: Colors.black45,
+                                    style: BorderStyle.solid)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                buttonList[2][1],
+                                SizedBox(
+                                  width: 6,
+                                ),
+                                Text(
+                                  buttonList[2][0],
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black),
+                                )
+                              ],
+                            )),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
