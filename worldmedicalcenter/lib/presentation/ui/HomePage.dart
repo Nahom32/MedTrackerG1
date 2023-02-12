@@ -78,6 +78,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: Colors.blueGrey[50],
           elevation: 0,
+          automaticallyImplyLeading: false,
           title: appbarHeader(),
           actions: [
             IconButton(

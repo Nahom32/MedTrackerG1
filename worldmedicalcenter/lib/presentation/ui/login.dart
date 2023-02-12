@@ -26,6 +26,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.blueGrey[50],
@@ -38,7 +39,7 @@ class _LoginState extends State<Login> {
               children: [
                 Text(
                   'Login to world Medical Card',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 10,
@@ -58,7 +59,7 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          "../../../assets/aZqAl.png",
+                          "assets/aZqAl.png",
                           width: 30,
                           height: 30,
                         ),
@@ -164,7 +165,7 @@ class _LoginState extends State<Login> {
                               final vaccineBloc =
                                   BlocProvider.of<VaccineBloc>(context);
                               vaccineBloc.add(LoadVaccine(1));
-                              Navigator.push(context,
+                              Navigator.pushReplacement(context,
                                   MaterialPageRoute(builder: (context) {
                                 return HomePage();
                               }));
