@@ -1,7 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:worldmedicalcenter/ui/Add.dart';
-import 'package:worldmedicalcenter/ui/HomePage.dart';
+import 'package:worldmedicalcenter/ui/add_document.dart';
+import 'package:worldmedicalcenter/ui/my_subscripitons.dart';
+import 'package:worldmedicalcenter/ui/terms_and_conditions.dart';
+import '../ui/Add.dart';
+import '../ui/HomePage.dart';
 import '../ui/splash.dart';
 
 
@@ -32,7 +35,8 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: Splash(),
+      // home: Splash(),
+      home: AddDocument(),
     );
   }
 }
