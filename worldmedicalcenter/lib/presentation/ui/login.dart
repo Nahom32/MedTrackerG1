@@ -1,17 +1,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:worldmedicalcenter/blocs/allergy/AllergyBloc.dart';
-import 'package:worldmedicalcenter/blocs/allergy/AllergyEvent.dart';
-import 'package:worldmedicalcenter/ui/HomePage.dart';
-import 'package:worldmedicalcenter/ui/reset_password.dart';
+import 'package:worldmedicalcenter/presentation/ui/reset_password.dart';
 
-import '../blocs/diagnoses/DiagnosesBloc.dart';
-import '../blocs/diagnoses/DiagnosesEvent.dart';
-import '../blocs/medicine/MedicineBloc.dart';
-import '../blocs/medicine/MedicineEvent.dart';
-import '../blocs/vaccine/VaccineBloc.dart';
-import '../blocs/vaccine/VaccineEvent.dart';
+import '../../application/blocs/allergy/AllergyBloc.dart';
+import '../../application/blocs/allergy/AllergyEvent.dart';
+import '../../application/blocs/diagnoses/DiagnosesBloc.dart';
+import '../../application/blocs/diagnoses/DiagnosesEvent.dart';
+import '../../application/blocs/medicine/MedicineBloc.dart';
+import '../../application/blocs/medicine/MedicineEvent.dart';
+import '../../application/blocs/vaccine/VaccineBloc.dart';
+import '../../application/blocs/vaccine/VaccineEvent.dart';
+import 'HomePage.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);

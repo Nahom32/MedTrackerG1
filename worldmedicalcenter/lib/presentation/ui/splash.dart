@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:worldmedicalcenter/ui/MyHomePage.dart';
-import '../main.dart';
+import 'package:worldmedicalcenter/presentation/ui/MyHomePage.dart';
 
 class Splash extends StatefulWidget {
   Splash({Key? key}) : super(key: key);
