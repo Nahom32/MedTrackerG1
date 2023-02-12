@@ -37,7 +37,6 @@ class _HomePageState extends State<HomePage> {
     "Vaccines",
     "Documents",
   ];
-
   var ischecked = <bool?>[];
   List<NormalModel> toBeRemoved = [];
   List buttonList = [
@@ -206,6 +205,39 @@ class _HomePageState extends State<HomePage> {
   }
 
   getExpandedContent(index, state) {
+    if (state.length == 0) {
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal: 5),
+        child: InkWell(
+          onTap: (() => handleButton(1, state)),
+          borderRadius: BorderRadius.circular(100),
+          child: Container(
+            margin: EdgeInsets.only(bottom: 8, top: 3),
+            width: 100,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(
+                    width: 0.5,
+                    color: Colors.black45,
+                    style: BorderStyle.solid)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                buttonList[1][1],
+                SizedBox(
+                  width: 6,
+                ),
+                Text(
+                  buttonList[1][0],
+                  style: TextStyle(fontSize: 14, color: Colors.black),
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+    }
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: Column(
