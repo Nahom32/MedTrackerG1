@@ -137,12 +137,42 @@ class _HomePageState extends State<HomePage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
                         ),
-                  )
-                  )
-          ]),
-                  );
-                    })
-                    );
+                      )),
+                      SizedBox(height: 20,),
+                  InkWell(
+                      onTap: (() {
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return TermsAndConditions();
+                        }));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "Terms And Conditions",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      )),
+                      SizedBox(height: 20,),
+                  InkWell(
+                      onTap: (() {
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "Sign Out",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      )),
+                ],
+              ),
+            );
+          }));
 
                 /////////////////////////////////////////////////////////////////////////////////
               },
