@@ -1,6 +1,10 @@
+
 import 'package:flutter/material.dart';
-import '../ui/HomePage.dart';
-import '../ui/reset_password.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldmedicalcenter/blocs/allergy/AllergyBloc.dart';
+import 'package:worldmedicalcenter/blocs/allergy/AllergyEvent.dart';
+import 'package:worldmedicalcenter/ui/HomePage.dart';
+import 'package:worldmedicalcenter/ui/reset_password.dart';
 
 import '../blocs/diagnoses/DiagnosesBloc.dart';
 import '../blocs/diagnoses/DiagnosesEvent.dart';
@@ -35,27 +39,40 @@ class _LoginState extends State<Login> {
           'How would you like to sign-in?',
           style: TextStyle(color: Colors.black54),
         ),
-          Container(
-            width:300,
-            height:40,
-            decoration: BoxDecoration(color: Colors.black12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children:[
-                Container(
-                  
-                    child:
-                    Image(image: AssetImage('assets/google-icon-removebg-preview.png'),
-                    width: 20,
-                    )               
-                ),
-                SizedBox(
-                  width: 5.0,
-                ),
-                Text('Sign-in with Google')
-              ],
-            ),
+        //    TextButton(
+        // onPressed: (){
+        //   Navigator.push(context, MaterialPageRoute(builder: (context){
+        //     return HomePage();
+        //   }));
+        // },
+        // child: Container(
+        // child:Text('Sign-in with Google', style: TextStyle(fontSize: 12, color: Colors.black),),
+        // padding: EdgeInsets.symmetric(vertical: 10, horizontal: 150),
+        // decoration: BoxDecoration(borderRadius:  BorderRadius.all(Radius.circular(5)),
+        // color:  Colors.white54,
+        // ),
+        // )
+        // ),
+
+        Container(
+          width: 300,
+          height: 40,
+          decoration: BoxDecoration(color: Colors.black12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                  child: Image(
+                image: AssetImage('assets/google-icon-removebg-preview.png'),
+                // fit: BoxFit.cover,
+                width: 20,
+              )),
+              SizedBox(
+                width: 5.0,
+              ),
+              Text('Sign-in with Google')
+            ],
           ),
         ),
 
@@ -161,7 +178,7 @@ class _LoginState extends State<Login> {
                     )
               ],
             ))
-    ],
-    );
+      ],
+    ));
   }
 }

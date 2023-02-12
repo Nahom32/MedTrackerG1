@@ -149,15 +149,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-<<<<<<< HEAD
-  open_file:
-    dependency: "direct main"
-    description:
-      name: open_file
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.2.1"
-=======
   nested:
     dependency: transitive
     description:
@@ -165,7 +156,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
->>>>>>> d3684e142f30c0a35b96dbd9e5e442e7a32c2a74
+  open_file:
+    dependency: "direct main"
+    description:
+      name: open_file
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.1"
   path:
     dependency: transitive
     description:
@@ -173,7 +170,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
-<<<<<<< HEAD
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -181,7 +177,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.3"
-=======
   provider:
     dependency: transitive
     description:
@@ -189,7 +184,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.5"
->>>>>>> d3684e142f30c0a35b96dbd9e5e442e7a32c2a74
   sky_engine:
     dependency: transitive
     description: flutter
