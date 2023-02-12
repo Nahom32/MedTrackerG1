@@ -13,10 +13,8 @@ class _IntroductionThreeState extends State<IntroductionThree> {
     return Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 80,
-            ),
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image(
@@ -26,19 +24,23 @@ class _IntroductionThreeState extends State<IntroductionThree> {
               ),
             ),
             SizedBox(
-              height: 150,
+              height: 120,
             ),
-            Text(
-              "Share Your Info",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'You can choose to share your profile with relatives, travel partner or others you trust, so that they can be able to provide you with first line of support.',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black54),
-              ),
+            Column(
+              children: [
+                Text(
+                  "Share Your Info",
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    'You can choose to share your profile with relatives, travel partner or others you trust, so that they can be able to provide you with first line of support.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black54),
+                  ),
+                ),
+              ],
             ),
           ],
         ));
