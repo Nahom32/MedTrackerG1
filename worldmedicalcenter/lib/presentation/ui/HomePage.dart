@@ -31,6 +31,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var showChecklist = false;
   var dropdownValue = "French";
+
+
   List<String> titleList = [
     "profile",
     "Allergies",
@@ -87,8 +89,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: (
               ) {
                 //adding navigation to the menu/////////////////////////////////////////////
-              
-                showModalBottomSheet(
+          showModalBottomSheet(
           context: context,
           elevation: 5,
           backgroundColor: Colors.blueGrey[900],
