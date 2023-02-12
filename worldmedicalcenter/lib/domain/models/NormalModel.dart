@@ -1,6 +1,6 @@
 class NormalModel {
   final int? userId;
-  final int? id;
+  final String? id;
   final String? name;
   NormalModel({
     this.userId,

@@ -209,7 +209,7 @@ class _HomePageState extends State<HomePage> {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: 5),
         child: InkWell(
-          onTap: (() => handleButton(1, state)),
+          onTap: (() => handleButton(1, state, 1)),
           borderRadius: BorderRadius.circular(100),
           child: Container(
             margin: EdgeInsets.only(bottom: 8, top: 3),
@@ -254,7 +254,7 @@ class _HomePageState extends State<HomePage> {
           Container(
             height: 70,
             padding: EdgeInsets.symmetric(vertical: 15),
-            child: getButtons(state),
+            child: getButtons(index, state),
           ),
           SizedBox(
             height: 6,
@@ -264,7 +264,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getButtons(state) {
+  getButtons(idx, state) {
     if (showChecklist == true) {
       return SizedBox.shrink();
     }
@@ -275,7 +275,7 @@ class _HomePageState extends State<HomePage> {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
             child: InkWell(
-              onTap: (() => handleButton(index, state)),
+              onTap: (() => handleButton(index, state, idx)),
               borderRadius: BorderRadius.circular(100),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
@@ -304,7 +304,7 @@ class _HomePageState extends State<HomePage> {
         }));
   }
 
-  handleButton(int index, state) {
+  handleButton(int index, state, idx) {
     if (index == 0) {
       showModalBottomSheet<void>(
         context: context,
@@ -319,7 +319,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'My ${titleList[index]}',
+                  'My ${titleList[idx]}',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 Container(
@@ -356,7 +356,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 //Translated version starts here
                 Text(
-                  "My ${titleList[index]}",
+                  "My ${titleList[idx]}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 SizedBox(

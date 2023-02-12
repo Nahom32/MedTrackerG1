@@ -13,12 +13,12 @@ class AllergyBloc extends Bloc<AllergyEvent, AllergyState> {
   }
 
   List<NormalModel> testData = [
-    NormalModel(userId: 1, id: 4, name: "allergy1"),
-    NormalModel(userId: 2, id: 5, name: "allergy2"),
-    NormalModel(userId: 3, id: 6, name: "allergy3"),
-    NormalModel(userId: 1, id: 3, name: "allergy4"),
-    NormalModel(userId: 1, id: 2, name: "allergy5"),
-    NormalModel(userId: 1, id: 1, name: "allergy6"),
+    NormalModel(userId: 1, id: "WMXC001", name: "allergy1"),
+    NormalModel(userId: 2, id: "WMXC003", name: "allergy2"),
+    NormalModel(userId: 3, id: "WMXC004", name: "allergy3"),
+    NormalModel(userId: 1, id: "WMXC010", name: "allergy4"),
+    NormalModel(userId: 1, id: "WMXC098", name: "allergy5"),
+    NormalModel(userId: 1, id: "WACY001", name: "allergy6"),
   ];
 
   FutureOr<void> _loadAllergies(LoadAllergy event, Emitter<AllergyState> emit) {
