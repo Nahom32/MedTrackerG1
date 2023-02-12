@@ -35,14 +35,7 @@ class _HomePageState extends State<HomePage> {
     "Vaccines",
     "Documents",
   ];
-  List<Icon> iconList = [
-    const Icon(Icons.no_accounts_rounded),
-    const Icon(Icons.difference_sharp),
-    const Icon(Icons.medication),
-    const Icon(Icons.sd_card),
-    const Icon(Icons.difference_sharp),
-    const Icon(Icons.folder),
-  ];
+
   var ischecked = <bool?>[];
   List<NormalModel> toBeRemoved = [];
   List buttonList = [
@@ -76,6 +69,7 @@ class _HomePageState extends State<HomePage> {
     ]
   ];
   List<String> languageList = ["English", "French", "Italian", "Spanish"];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -190,7 +184,7 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          iconList[index],
+          getIcon(index, state),
           const SizedBox(
             width: 12,
           ),
@@ -592,7 +586,7 @@ class _HomePageState extends State<HomePage> {
           }
         },
       );
-    } else {
+    } else if (index == 4) {
       return BlocBuilder<VaccineBloc, VaccineState>(
         builder: (context, state) {
           if (state is LoadedVaccine) {
@@ -602,6 +596,18 @@ class _HomePageState extends State<HomePage> {
           }
         },
       );
+    } else {
+      //@TODO: change by document implementation
+      return BlocBuilder<VaccineBloc, VaccineState>(
+        builder: (context, state) {
+          if (state is LoadedVaccine) {
+            return getCommonContent(index, state.vaccines);
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      );
+      // Delete upto Here
     }
   }
 
@@ -651,6 +657,43 @@ class _HomePageState extends State<HomePage> {
     } else {
       final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
       vaccineBloc.add(DeleteVaccine(toBeRemoved));
+    }
+  }
+
+  getIcon(index, state) {
+    var selctedColor = state.length > 1 ? Colors.blue : Colors.black;
+    switch (index) {
+      case 0:
+        return Icon(
+          Icons.no_accounts_rounded,
+        );
+      case 1:
+        return Icon(
+          Icons.difference_sharp,
+          color: selctedColor,
+        );
+      case 2:
+        return Icon(
+          Icons.medication,
+          color: selctedColor,
+        );
+      case 3:
+        return Icon(
+          Icons.sd_card,
+          color: selctedColor,
+        );
+      case 4:
+        return Icon(
+          Icons.difference_sharp,
+          color: selctedColor,
+        );
+      case 5:
+        return Icon(
+          Icons.folder,
+          color: selctedColor,
+        );
+      default:
+        return const Icon(Icons.abc);
     }
   }
 }
