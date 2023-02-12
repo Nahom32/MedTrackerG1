@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../blocs/allergy/AllergyBloc.dart';
+import '../blocs/allergy/AllergyEvent.dart';
 import '../ui/login.dart';
+import 'HomePage.dart';
 
 
 class Hello extends StatelessWidget {
@@ -21,11 +25,19 @@ class Hello extends StatelessWidget {
             ]
           ),),
           TextButton(
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context){
-              return Login();
+          // onPressed: (){
+          //   Navigator.push(context, MaterialPageRoute(builder: (context){
+          //     return Login();
+          //   }));
+          // },
+          onPressed: () {
+            final allergyBloc = BlocProvider.of<AllergyBloc>(context);
+            allergyBloc.add(LoadAllergy(1));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) {
+              return HomePage();
             }));
-          }, 
+          },
           child: Container(
           child:Text('LOGIN', style: TextStyle(fontSize: 12, color: Colors.white),),
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 130),

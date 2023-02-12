@@ -1,12 +1,20 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldmedicalcenter/blocs/allergy/AllergyBloc.dart';
 import 'package:worldmedicalcenter/ui/Add.dart';
 import 'package:worldmedicalcenter/ui/HomePage.dart';
 import '../ui/splash.dart';
 
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: ((context) => AllergyBloc()))
+      ], 
+    child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // routes: {"/add": (context) => Add()},
+      routes: {"/add": (context) => Add()},
       title: 'World Medical App',
       theme: ThemeData(
         primaryTextTheme: const TextTheme(

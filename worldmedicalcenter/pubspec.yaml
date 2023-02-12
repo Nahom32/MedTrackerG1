@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   smooth_page_indicator: ^1.0.0
   expandable: ^5.0.1
+  flutter_bloc: ^8.1.2
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,12 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldmedicalcenter/blocs/allergy/AllergyBloc.dart';
+import 'package:worldmedicalcenter/blocs/allergy/AllergyState.dart';
+
+import '../blocs/allergy/AllergyEvent.dart';
+import '../models/AllergyModel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,59 +17,57 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var showChecklist = false;
-  bool? ischecked = false;
   var dropdownValue = "English";
+  List<String> titleList = [
+    "profile",
+    "Allergies",
+    "Medicine",
+    "Diagnoses",
+    "Vaccines",
+    "Documents",
+  ];
+  List<Icon> iconList = [
+    const Icon(Icons.no_accounts_rounded),
+    const Icon(Icons.difference_sharp),
+    const Icon(Icons.medication),
+    const Icon(Icons.sd_card),
+    const Icon(Icons.difference_sharp),
+    const Icon(Icons.folder),
+  ];
+  var ischecked = <bool?>[];
 
+  List buttonList = [
+    [
+      "Translate",
+      Icon(
+        CupertinoIcons.globe,
+        size: 20,
+      )
+    ],
+    [
+      "Add",
+      Icon(
+        Icons.add,
+        size: 20,
+      )
+    ],
+    [
+      "Edit",
+      Icon(
+        Icons.edit,
+        size: 20,
+      )
+    ],
+    [
+      "Share",
+      Icon(
+        Icons.share,
+        size: 20,
+      )
+    ]
+  ];
   @override
   Widget build(BuildContext context) {
-    List<String> titleList = [
-      "profile",
-      "Allergies",
-      "Medicine",
-      "Diagnoses",
-      "Vaccines",
-      "Documents",
-    ];
-    List<Icon> iconList = [
-      const Icon(Icons.no_accounts_rounded),
-      const Icon(Icons.difference_sharp),
-      const Icon(Icons.medication),
-      const Icon(Icons.sd_card),
-      const Icon(Icons.difference_sharp),
-      const Icon(Icons.folder),
-    ];
-
-    List buttonList = [
-      [
-        "Translate",
-        Icon(
-          CupertinoIcons.globe,
-          size: 20,
-        )
-      ],
-      [
-        "Add",
-        Icon(
-          Icons.add,
-          size: 20,
-        )
-      ],
-      [
-        "Edit",
-        Icon(
-          Icons.edit,
-          size: 20,
-        )
-      ],
-      [
-        "Share",
-        Icon(
-          Icons.share,
-          size: 20,
-        )
-      ]
-    ];
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -89,23 +93,7 @@ class _HomePageState extends State<HomePage> {
               } else if (index == 6) {
                 return getExpirationCard();
               }
-              return ExpandableNotifier(
-                child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(0.0),
-                        child: ScrollOnExpand(
-                          child: ExpandablePanel(
-                            header:
-                                getExpandableHeader(iconList, titleList, index),
-                            collapsed: SizedBox.shrink(),
-                            expanded: getExpandedContent(buttonList),
-                          ),
-                        ),
-                      ),
-                    )),
-              );
+              return getMainField(index);
             },
           ),
         ),
@@ -185,7 +173,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getExpandableHeader(iconList, titleList, index) {
+  getExpandableHeader(index, state) {
     return Padding(
       padding: const EdgeInsets.only(left: 15, top: 15, bottom: 15, right: 15),
       child: Row(
@@ -203,10 +191,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 2,
               ),
-              Text(
-                "No allergies Listed",
-                style: const TextStyle(fontSize: 14, color: Colors.black54),
-              )
+              checkAmount(state),
             ],
           )
         ],
@@ -214,7 +199,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getExpandedContent(buttonList) {
+  getExpandedContent(state) {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: Column(
@@ -227,11 +212,11 @@ class _HomePageState extends State<HomePage> {
           Container(
               height: MediaQuery.of(context).size.height * 0.5,
               padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-              child: getDetailedList()),
+              child: getDetailedList(state)),
           Container(
             height: 70,
             padding: EdgeInsets.symmetric(vertical: 15),
-            child: getButtons(buttonList),
+            child: getButtons(state),
           ),
           SizedBox(
             height: 6,
@@ -241,7 +226,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getButtons(buttonList) {
+  getButtons(state) {
     if (showChecklist == true) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -279,7 +264,7 @@ class _HomePageState extends State<HomePage> {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
             child: InkWell(
-              onTap: (() => handleButton(index)),
+              onTap: (() => handleButton(index, state)),
               borderRadius: BorderRadius.circular(100),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
@@ -308,10 +293,10 @@ class _HomePageState extends State<HomePage> {
         }));
   }
 
-  handleButton(int index) {
+  handleButton(int index, List<AllergyModel> state) {
     if (index == 0) {
       List<String> languageList = ["English", "French", "Italian", "Spanish"];
-  
+
       showModalBottomSheet<void>(
         context: context,
         elevation: 5,
@@ -371,7 +356,7 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: Container(
                     child: ListView.builder(
-                        itemCount: 5,
+                        itemCount: state.length,
                         itemBuilder: ((context, index) {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,7 +373,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 padding: EdgeInsets.only(left: 5),
                                 child: Text(
-                                  'Hazelnut Tree pollen',
+                                  state[index].allergyName!,
                                 ),
                               ),
                               SizedBox(
@@ -404,7 +389,8 @@ class _HomePageState extends State<HomePage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Hazelnut Tree pollen",
+                                        state[index]
+                                            .allergyName!, //change to translated name
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20),
@@ -416,7 +402,10 @@ class _HomePageState extends State<HomePage> {
                                         padding:
                                             const EdgeInsets.only(left: 5.0),
                                         child: Row(
-                                          children: [Text("code: WMCX0001")],
+                                          children: [
+                                            Text(
+                                                "Code: ${state[index].allergyId}")
+                                          ],
                                         ),
                                       )
                                     ],
@@ -475,10 +464,10 @@ class _HomePageState extends State<HomePage> {
     } else {}
   }
 
-  getDetailedList() {
+  getDetailedList(List<AllergyModel> state) {
     if (showChecklist == false) {
       return ListView.builder(
-          itemCount: 15,
+          itemCount: state.length,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 6.0),
@@ -488,7 +477,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Saccharomyces ellipsoideus",
+                        state[index].allergyName!,
                         style: TextStyle(
                             fontWeight: FontWeight.w400, fontSize: 16),
                       ),
@@ -496,7 +485,7 @@ class _HomePageState extends State<HomePage> {
                         height: 6,
                       ),
                       Text(
-                        "WMCX0002",
+                        state[index].allergyId.toString(),
                         style: TextStyle(
                             color: Colors.black45,
                             // fontWeight:
@@ -510,9 +499,11 @@ class _HomePageState extends State<HomePage> {
             );
           });
     }
+    List<AllergyModel> toBeRemoved = [];
     return ListView.builder(
-        itemCount: 15,
+        itemCount: state.length,
         itemBuilder: (context, index) {
+          ischecked.add(false);
           return Padding(
               padding: const EdgeInsets.symmetric(vertical: 6.0),
               child: CheckboxListTile(
@@ -520,7 +511,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Saccharomyces ellipsoideus",
+                        state[index].allergyName!,
                         style: TextStyle(
                             fontWeight: FontWeight.w400, fontSize: 16),
                       ),
@@ -528,7 +519,7 @@ class _HomePageState extends State<HomePage> {
                         height: 6,
                       ),
                       Text(
-                        "WMCX0002",
+                        state[index].allergyId.toString(),
                         style: TextStyle(
                             color: Colors.black45,
                             // fontWeight:
@@ -538,12 +529,62 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
-                  value: ischecked,
+                  value: ischecked[index],
                   onChanged: ((value) {
                     setState(() {
-                      ischecked = value;
+                      ischecked[index] = value;
+                      if (ischecked[index] == false) {
+                        toBeRemoved.remove(state[index]);
+                      } else {
+                        toBeRemoved.add(state[index]);
+                      }
                     });
                   })));
         });
+  }
+
+  getMainField(int index) {
+    return BlocBuilder<AllergyBloc, AllergyState>(
+      builder: (context, state) {
+        if (state is LoadedAllergy) {
+          return getCommonContent(index, state.allergies);
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
+    );
+  }
+
+  getCommonContent(index, state) {
+    return ExpandableNotifier(
+      child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: ScrollOnExpand(
+                child: ExpandablePanel(
+                  header: getExpandableHeader(index, state),
+                  collapsed: const SizedBox.shrink(),
+                  expanded: getExpandedContent(state),
+                ),
+              ),
+            ),
+          )),
+    );
+  }
+
+  checkAmount(List<AllergyModel> state) {
+    if (state.length == 0) {
+      return Text(
+        "No allergies Listed",
+        style: const TextStyle(fontSize: 14, color: Colors.black54),
+      );
+    } else {
+      return Text(
+        '${state.length} Allergies Listed',
+        style: const TextStyle(fontSize: 14, color: Colors.black54),
+      );
+    }
   }
 }
