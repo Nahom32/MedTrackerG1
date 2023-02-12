@@ -9,7 +9,16 @@ import '../ui/splash.dart';
 
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: ((context) => AllergyBloc())),
+        BlocProvider(create: ((context) => MedicineBloc())),
+        BlocProvider(create: ((context) => DiagnosesBloc())),
+        BlocProvider(create: ((context) => VaccineBloc())),
+      ], 
+    child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // routes: {"/add": (context) => Add()},
+      routes: {"/add": (context) => Add()},
       title: 'World Medical App',
       theme: ThemeData(
         primaryTextTheme: const TextTheme(

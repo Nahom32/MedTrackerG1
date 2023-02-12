@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import '../ui/HomePage.dart';
 import '../ui/reset_password.dart';
 
+import '../blocs/diagnoses/DiagnosesBloc.dart';
+import '../blocs/diagnoses/DiagnosesEvent.dart';
+import '../blocs/medicine/MedicineBloc.dart';
+import '../blocs/medicine/MedicineEvent.dart';
+import '../blocs/vaccine/VaccineBloc.dart';
+import '../blocs/vaccine/VaccineEvent.dart';
+
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
 
@@ -17,14 +24,16 @@ class _LoginState extends State<Login> {
     return Scaffold(
         body: Column(
       children: [
-        SizedBox(height: 50,),
+        SizedBox(
+          height: 50,
+        ),
         Text(
           'Login to world Medical Card',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         Text(
           'How would you like to sign-in?',
-          style: TextStyle( color: Colors.black54),
+          style: TextStyle(color: Colors.black54),
         ),
           Container(
             width:300,
@@ -48,7 +57,7 @@ class _LoginState extends State<Login> {
               ],
             ),
           ),
-
+        ),
 
         Row(children: [
           Expanded(
@@ -71,69 +80,88 @@ class _LoginState extends State<Login> {
         ]),
         Form(
           key: _formKey,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 12
-              ),
-              TextField(
+          child: Column(children: [
+            SizedBox(height: 12),
+            TextField(
               decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Email',
-  ),
-),
-SizedBox(height: 12,),
-TextField(
-  decoration: InputDecoration(
-    border: OutlineInputBorder(),
-    hintText: 'Password',
-    suffixIcon: IconButton(
-                    icon: Icon(
-                        _isObscure ? Icons.visibility : Icons.visibility_off),
+                border: OutlineInputBorder(),
+                hintText: 'Email',
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Password',
+                  suffixIcon: IconButton(
+                      icon: Icon(
+                          _isObscure ? Icons.visibility : Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          _isObscure = !_isObscure;
+                        });
+                      })),
+              obscureText: _isObscure,
+            ),
+          ]),
+        ),
+        SizedBox(
+          height: 130,
+        ),
+        Positioned(
+            bottom: 12,
+            child: Column(
+              children: [
+                GestureDetector(
+                    child: Text(
+                      'Forgot Password?',
+                      style: TextStyle(decoration: TextDecoration.underline),
+                    ),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return PasswordReset();
+                      }));
+                    }),
+                TextButton(
                     onPressed: () {
-                      setState(() {
-                        _isObscure = !_isObscure;
-                      });
-                    })
-  ),
-  obscureText: _isObscure,
-
-),
-
-
-
-        ]),),
-        SizedBox(height: 130,),
-        Positioned(bottom: 12,child: Column(children: [
-          GestureDetector(
-            child: Text('Forgot Password?', style: TextStyle(decoration: TextDecoration.underline),),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return PasswordReset();
-              }));
-            }),
-           TextButton(
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context){
-              return HomePage();
-            }));
-          }, 
-          child: Container(
-          child:Text('LOGIN', style: TextStyle(fontSize: 12, color: Colors.white),),
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 130),
-          decoration: BoxDecoration(borderRadius:  BorderRadius.all(Radius.circular(30)),
-          color:  Colors.blue,
-          ),
-          // shape: RoundedRectangleBorder(
-          //   borderRadius: BorderRadius.all(Radius.circular(30))
-          // ),
-          )
-          // ,
-          )
-
-        ],))
-        
-      ],
-    ));
+                      final allergyBloc = BlocProvider.of<AllergyBloc>(context);
+                      allergyBloc.add(LoadAllergy(1));
+                      final medicineBloc =
+                          BlocProvider.of<MedicineBloc>(context);
+                      medicineBloc.add(LoadMedicine(1));
+                      final diagnosesBloc =
+                          BlocProvider.of<DiagnosesBloc>(context);
+                      diagnosesBloc.add(LoadDiagnoses(1));
+                      final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
+                      vaccineBloc.add(LoadVaccine(1));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return HomePage();
+                      }));
+                    },
+                    child: Container(
+                      child: Text(
+                        'LOGIN',
+                        style: TextStyle(fontSize: 12, color: Colors.white),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 130),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        color: Colors.blue,
+                      ),
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.all(Radius.circular(30))
+                      // ),
+                    )
+                    // ,
+                    )
+              ],
+            ))
+    ],
+    );
   }
 }

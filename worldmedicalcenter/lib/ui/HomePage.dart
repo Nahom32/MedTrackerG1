@@ -1,6 +1,21 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldmedicalcenter/blocs/allergy/AllergyBloc.dart';
+import 'package:worldmedicalcenter/blocs/allergy/AllergyState.dart';
+import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesBloc.dart';
+import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesState.dart';
+import 'package:worldmedicalcenter/blocs/medicine/MedicineBloc.dart';
+import 'package:worldmedicalcenter/blocs/medicine/MedicineEvent.dart';
+import 'package:worldmedicalcenter/blocs/medicine/MedicineState.dart';
+import 'package:worldmedicalcenter/blocs/vaccine/VaccineBloc.dart';
+import 'package:worldmedicalcenter/blocs/vaccine/VaccineEvent.dart';
+import 'package:worldmedicalcenter/blocs/vaccine/VaccineState.dart';
+
+import '../blocs/allergy/AllergyEvent.dart';
+import '../blocs/diagnoses/DiagnosesEvent.dart';
+import '../models/NormalModel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,59 +26,58 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var showChecklist = false;
-  bool? ischecked = false;
-  var dropdownValue = "English";
-
+  var dropdownValue = "French";
+  List<String> titleList = [
+    "profile",
+    "Allergies",
+    "Medicine",
+    "Diagnoses",
+    "Vaccines",
+    "Documents",
+  ];
+  List<Icon> iconList = [
+    const Icon(Icons.no_accounts_rounded),
+    const Icon(Icons.difference_sharp),
+    const Icon(Icons.medication),
+    const Icon(Icons.sd_card),
+    const Icon(Icons.difference_sharp),
+    const Icon(Icons.folder),
+  ];
+  var ischecked = <bool?>[];
+  List<NormalModel> toBeRemoved = [];
+  List buttonList = [
+    [
+      "Translate",
+      Icon(
+        CupertinoIcons.globe,
+        size: 20,
+      )
+    ],
+    [
+      "Add",
+      Icon(
+        Icons.add,
+        size: 20,
+      )
+    ],
+    [
+      "Edit",
+      Icon(
+        Icons.edit,
+        size: 20,
+      )
+    ],
+    [
+      "Share",
+      Icon(
+        Icons.share,
+        size: 20,
+      )
+    ]
+  ];
+  List<String> languageList = ["English", "French", "Italian", "Spanish"];
   @override
   Widget build(BuildContext context) {
-    List<String> titleList = [
-      "profile",
-      "Allergies",
-      "Medicine",
-      "Diagnoses",
-      "Vaccines",
-      "Documents",
-    ];
-    List<Icon> iconList = [
-      const Icon(Icons.no_accounts_rounded),
-      const Icon(Icons.difference_sharp),
-      const Icon(Icons.medication),
-      const Icon(Icons.sd_card),
-      const Icon(Icons.difference_sharp),
-      const Icon(Icons.folder),
-    ];
-
-    List buttonList = [
-      [
-        "Translate",
-        Icon(
-          CupertinoIcons.globe,
-          size: 20,
-        )
-      ],
-      [
-        "Add",
-        Icon(
-          Icons.add,
-          size: 20,
-        )
-      ],
-      [
-        "Edit",
-        Icon(
-          Icons.edit,
-          size: 20,
-        )
-      ],
-      [
-        "Share",
-        Icon(
-          Icons.share,
-          size: 20,
-        )
-      ]
-    ];
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -89,23 +103,7 @@ class _HomePageState extends State<HomePage> {
               } else if (index == 6) {
                 return getExpirationCard();
               }
-              return ExpandableNotifier(
-                child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(0.0),
-                        child: ScrollOnExpand(
-                          child: ExpandablePanel(
-                            header:
-                                getExpandableHeader(iconList, titleList, index),
-                            collapsed: SizedBox.shrink(),
-                            expanded: getExpandedContent(buttonList),
-                          ),
-                        ),
-                      ),
-                    )),
-              );
+              return getMainField(index);
             },
           ),
         ),
@@ -185,7 +183,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getExpandableHeader(iconList, titleList, index) {
+  getExpandableHeader(index, state) {
     return Padding(
       padding: const EdgeInsets.only(left: 15, top: 15, bottom: 15, right: 15),
       child: Row(
@@ -203,10 +201,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 2,
               ),
-              Text(
-                "No allergies Listed",
-                style: const TextStyle(fontSize: 14, color: Colors.black54),
-              )
+              checkAmount(state),
             ],
           )
         ],
@@ -214,7 +209,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getExpandedContent(buttonList) {
+  getExpandedContent(index, state) {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: Column(
@@ -227,11 +222,11 @@ class _HomePageState extends State<HomePage> {
           Container(
               height: MediaQuery.of(context).size.height * 0.5,
               padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-              child: getDetailedList()),
+              child: getDetailedList(index, state)),
           Container(
             height: 70,
             padding: EdgeInsets.symmetric(vertical: 15),
-            child: getButtons(buttonList),
+            child: getButtons(state),
           ),
           SizedBox(
             height: 6,
@@ -241,36 +236,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getButtons(buttonList) {
+  getButtons(state) {
     if (showChecklist == true) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          InkWell(
-              onTap: (() {
-                setState(() {
-                  showChecklist = false;
-                });
-              }),
-              child: Text(
-                "Cancel",
-                style: TextStyle(color: Colors.blue),
-              )),
-          SizedBox(
-            width: 10,
-          ),
-          InkWell(
-              onTap: (() {
-                setState(() {
-                  showChecklist = false;
-                });
-              }),
-              child: Text(
-                "Remove",
-                style: TextStyle(color: Colors.blue),
-              )),
-        ],
-      );
+      return SizedBox.shrink();
     }
     return ListView.builder(
         itemCount: 4,
@@ -279,7 +247,7 @@ class _HomePageState extends State<HomePage> {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
             child: InkWell(
-              onTap: (() => handleButton(index)),
+              onTap: (() => handleButton(index, state)),
               borderRadius: BorderRadius.circular(100),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
@@ -308,10 +276,8 @@ class _HomePageState extends State<HomePage> {
         }));
   }
 
-  handleButton(int index) {
+  handleButton(int index, state) {
     if (index == 0) {
-      List<String> languageList = ["English", "French", "Italian", "Spanish"];
-  
       showModalBottomSheet<void>(
         context: context,
         elevation: 5,
@@ -325,7 +291,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'My Allergies',
+                  'My ${titleList[index]}',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 Container(
@@ -362,7 +328,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 //Translated version starts here
                 Text(
-                  'My Allergies',
+                  "My ${titleList[index]}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 SizedBox(
@@ -371,7 +337,7 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: Container(
                     child: ListView.builder(
-                        itemCount: 5,
+                        itemCount: state.length,
                         itemBuilder: ((context, index) {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,7 +354,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 padding: EdgeInsets.only(left: 5),
                                 child: Text(
-                                  'Hazelnut Tree pollen',
+                                  state[index].name!,
                                 ),
                               ),
                               SizedBox(
@@ -404,7 +370,8 @@ class _HomePageState extends State<HomePage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Hazelnut Tree pollen",
+                                        state[index]
+                                            .name!, //change to translated name
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20),
@@ -416,7 +383,9 @@ class _HomePageState extends State<HomePage> {
                                         padding:
                                             const EdgeInsets.only(left: 5.0),
                                         child: Row(
-                                          children: [Text("code: WMCX0001")],
+                                          children: [
+                                            Text("Code: ${state[index].id}")
+                                          ],
                                         ),
                                       )
                                     ],
@@ -475,10 +444,10 @@ class _HomePageState extends State<HomePage> {
     } else {}
   }
 
-  getDetailedList() {
+  getDetailedList(idx, state) {
     if (showChecklist == false) {
       return ListView.builder(
-          itemCount: 15,
+          itemCount: state.length,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 6.0),
@@ -488,7 +457,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Saccharomyces ellipsoideus",
+                        state[index].name!,
                         style: TextStyle(
                             fontWeight: FontWeight.w400, fontSize: 16),
                       ),
@@ -496,7 +465,7 @@ class _HomePageState extends State<HomePage> {
                         height: 6,
                       ),
                       Text(
-                        "WMCX0002",
+                        state[index].id.toString(),
                         style: TextStyle(
                             color: Colors.black45,
                             // fontWeight:
@@ -510,40 +479,178 @@ class _HomePageState extends State<HomePage> {
             );
           });
     }
-    return ListView.builder(
-        itemCount: 15,
-        itemBuilder: (context, index) {
-          return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6.0),
-              child: CheckboxListTile(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Saccharomyces ellipsoideus",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400, fontSize: 16),
-                      ),
-                      SizedBox(
-                        height: 6,
-                      ),
-                      Text(
-                        "WMCX0002",
-                        style: TextStyle(
-                            color: Colors.black45,
-                            // fontWeight:
-                            //     FontWeight.w200,
-                            fontSize: 12),
-                      )
-                    ],
-                  ),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  value: ischecked,
-                  onChanged: ((value) {
-                    setState(() {
-                      ischecked = value;
-                    });
-                  })));
-        });
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+              itemCount: state.length,
+              itemBuilder: (context, index) {
+                if (ischecked.length < state.length) {
+                  ischecked.add(false);
+                }
+                return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6.0),
+                    child: CheckboxListTile(
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              state[index].name!,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400, fontSize: 16),
+                            ),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              state[index].id.toString(),
+                              style: TextStyle(
+                                  color: Colors.black45,
+                                  // fontWeight:
+                                  //     FontWeight.w200,
+                                  fontSize: 12),
+                            )
+                          ],
+                        ),
+                        controlAffinity: ListTileControlAffinity.leading,
+                        value: ischecked[index],
+                        onChanged: ((value) {
+                          setState(() {
+                            if (value == false) {
+                              toBeRemoved.remove(state[index]);
+                            } else {
+                              toBeRemoved.add(state[index]);
+                            }
+                            ischecked[index] = value;
+                          });
+                        })));
+              }),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            InkWell(
+                onTap: (() {
+                  setState(() {
+                    showChecklist = false;
+                  });
+                }),
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(color: Colors.blue),
+                )),
+            SizedBox(
+              width: 10,
+            ),
+            InkWell(
+                onTap: (() {
+                  setState(() {
+                    handleDelete(idx);
+                    toBeRemoved = [];
+                    ischecked = [];
+                    showChecklist = false;
+                  });
+                }),
+                child: Text(
+                  "Remove",
+                  style: TextStyle(color: Colors.blue),
+                )),
+          ],
+        )
+      ],
+    );
+  }
+
+  getMainField(int index) {
+    if (index == 1) {
+      return BlocBuilder<AllergyBloc, AllergyState>(
+        builder: (context, state) {
+          if (state is LoadedAllergy) {
+            return getCommonContent(index, state.allergies);
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      );
+    } else if (index == 2) {
+      return BlocBuilder<MedicineBloc, MedicineState>(
+        builder: (context, state) {
+          if (state is LoadedMedicine) {
+            return getCommonContent(index, state.medicines);
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      );
+    } else if (index == 3) {
+      return BlocBuilder<DiagnosesBloc, DiagnosesState>(
+        builder: (context, state) {
+          if (state is LoadedDiagnoses) {
+            return getCommonContent(index, state.diagnoses);
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      );
+    } else {
+      return BlocBuilder<VaccineBloc, VaccineState>(
+        builder: (context, state) {
+          if (state is LoadedVaccine) {
+            return getCommonContent(index, state.vaccines);
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      );
+    }
+  }
+
+  getCommonContent(index, state) {
+    return ExpandableNotifier(
+      child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: ScrollOnExpand(
+                child: ExpandablePanel(
+                  header: getExpandableHeader(index, state),
+                  collapsed: const SizedBox.shrink(),
+                  expanded: getExpandedContent(index, state),
+                ),
+              ),
+            ),
+          )),
+    );
+  }
+
+  checkAmount(state) {
+    if (state.length == 0) {
+      return Text(
+        "No allergies Listed",
+        style: const TextStyle(fontSize: 14, color: Colors.black54),
+      );
+    } else {
+      return Text(
+        '${state.length} items: ${state[0].name}...',
+        style: const TextStyle(fontSize: 14, color: Colors.black54),
+      );
+    }
+  }
+
+  void handleDelete(idx) {
+    if (idx == 1) {
+      final allergyBloc = BlocProvider.of<AllergyBloc>(context);
+      allergyBloc.add(DeleteAllergy(toBeRemoved));
+    } else if (idx == 2) {
+      final medicineBloc = BlocProvider.of<MedicineBloc>(context);
+      medicineBloc.add(DeleteMedicine(toBeRemoved));
+    } else if (idx == 3) {
+      final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
+      diagnosesBloc.add(DeleteDiagnoses(toBeRemoved));
+    } else {
+      final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
+      vaccineBloc.add(DeleteVaccine(toBeRemoved));
+    }
   }
 }

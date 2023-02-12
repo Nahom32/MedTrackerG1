@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesBloc.dart';
+import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesEvent.dart';
+import 'package:worldmedicalcenter/blocs/medicine/MedicineBloc.dart';
+import 'package:worldmedicalcenter/blocs/vaccine/VaccineBloc.dart';
+import 'package:worldmedicalcenter/blocs/vaccine/VaccineEvent.dart';
+import '../blocs/allergy/AllergyBloc.dart';
+import '../blocs/allergy/AllergyEvent.dart';
+import '../blocs/medicine/MedicineEvent.dart';
 import '../ui/login.dart';
+import 'HomePage.dart';
 
 
 class Hello extends StatelessWidget {
@@ -25,7 +35,21 @@ class Hello extends StatelessWidget {
             Navigator.push(context, MaterialPageRoute(builder: (context){
               return Login();
             }));
-          }, 
+          },
+          // onPressed: () {
+          //   final allergyBloc = BlocProvider.of<AllergyBloc>(context);
+          //   allergyBloc.add(LoadAllergy(1));
+          //   final medicineBloc = BlocProvider.of<MedicineBloc>(context);
+          //   medicineBloc.add(LoadMedicine(1));
+          //   final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
+          //   diagnosesBloc.add(LoadDiagnoses(1));
+          //   final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
+          //   vaccineBloc.add(LoadVaccine(1));
+          //   Navigator.push(context,
+          //       MaterialPageRoute(builder: (context) {
+          //     return HomePage();
+          //   }));
+          // },
           child: Container(
           child:Text('LOGIN', style: TextStyle(fontSize: 12, color: Colors.white),),
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 130),
