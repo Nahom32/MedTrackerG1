@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldmedicalcenter/blocs/allergy/AllergyEvent.dart';
 import 'package:worldmedicalcenter/blocs/allergy/AllergyState.dart';
-import 'package:worldmedicalcenter/models/AllergyModel.dart';
+import 'package:worldmedicalcenter/models/NormalModel.dart';
 
 class AllergyBloc extends Bloc<AllergyEvent, AllergyState> {
   AllergyBloc() : super(Idle()) {
@@ -11,13 +11,13 @@ class AllergyBloc extends Bloc<AllergyEvent, AllergyState> {
     on<DeleteAllergy>(_deleteAllergies);
   }
 
-  List<AllergyModel> testData = [
-    AllergyModel(userId: 1, allergyId: 4, allergyName: "allergy1"),
-    AllergyModel(userId: 2, allergyId: 5, allergyName: "allergy2"),
-    AllergyModel(userId: 3, allergyId: 6, allergyName: "allergy3"),
-    AllergyModel(userId: 1, allergyId: 3, allergyName: "allergy4"),
-    AllergyModel(userId: 1, allergyId: 2, allergyName: "allergy5"),
-    AllergyModel(userId: 1, allergyId: 1, allergyName: "allergy6"),
+  List<NormalModel> testData = [
+    NormalModel(userId: 1, id: 4, name: "allergy1"),
+    NormalModel(userId: 2, id: 5, name: "allergy2"),
+    NormalModel(userId: 3, id: 6, name: "allergy3"),
+    NormalModel(userId: 1, id: 3, name: "allergy4"),
+    NormalModel(userId: 1, id: 2, name: "allergy5"),
+    NormalModel(userId: 1, id: 1, name: "allergy6"),
   ];
 
   FutureOr<void> _loadAllergies(LoadAllergy event, Emitter<AllergyState> emit) {
@@ -29,7 +29,7 @@ class AllergyBloc extends Bloc<AllergyEvent, AllergyState> {
   FutureOr<void> _deleteAllergies(
       DeleteAllergy event, Emitter<AllergyState> emit) {
     emit(LoadingAllergy());
-    for (AllergyModel item in event.allergies) {
+    for (NormalModel item in event.allergies) {
       testData.remove(item);
     }
     emit(LoadedAllergy(allergies: testData));

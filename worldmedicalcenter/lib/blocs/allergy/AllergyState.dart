@@ -1,4 +1,4 @@
-import 'package:worldmedicalcenter/models/AllergyModel.dart';
+import 'package:worldmedicalcenter/models/NormalModel.dart';
 
 abstract class AllergyState {}
 
@@ -7,7 +7,7 @@ class Idle extends AllergyState {}
 class LoadingAllergy extends AllergyState {}
 
 class LoadedAllergy extends AllergyState {
-  late List<AllergyModel> allergies;
+  late List<NormalModel> allergies;
   LoadedAllergy({
     required this.allergies,
   });

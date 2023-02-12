@@ -1,9 +1,9 @@
-import 'package:worldmedicalcenter/models/AllergyModel.dart';
+import 'package:worldmedicalcenter/models/NormalModel.dart';
 
 abstract class AllergyEvent {}
 
 class AddAllergy extends AllergyEvent {
-  final AllergyModel newAllergy;
+  final NormalModel newAllergy;
 
   AddAllergy(this.newAllergy);
 }
@@ -15,7 +15,7 @@ class LoadAllergy extends AllergyEvent {
 }
 
 class DeleteAllergy extends AllergyEvent {
-  final List<AllergyModel> allergies;
+  final List<NormalModel> allergies;
 
   DeleteAllergy(this.allergies);
 }

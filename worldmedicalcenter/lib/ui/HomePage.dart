@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldmedicalcenter/blocs/allergy/AllergyBloc.dart';
 import 'package:worldmedicalcenter/blocs/allergy/AllergyState.dart';
+import 'package:worldmedicalcenter/blocs/medicine/MedicineBloc.dart';
+import 'package:worldmedicalcenter/blocs/medicine/MedicineEvent.dart';
+import 'package:worldmedicalcenter/blocs/medicine/MedicineState.dart';
 
 import '../blocs/allergy/AllergyEvent.dart';
-import '../models/AllergyModel.dart';
+import '../models/NormalModel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -35,8 +38,7 @@ class _HomePageState extends State<HomePage> {
     const Icon(Icons.folder),
   ];
   var ischecked = <bool?>[];
-  List<AllergyModel> toBeRemoved = [];
-
+  List<NormalModel> toBeRemoved = [];
   List buttonList = [
     [
       "Translate",
@@ -67,6 +69,7 @@ class _HomePageState extends State<HomePage> {
       )
     ]
   ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -200,7 +203,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getExpandedContent(state) {
+  getExpandedContent(index, state) {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: Column(
@@ -213,7 +216,7 @@ class _HomePageState extends State<HomePage> {
           Container(
               height: MediaQuery.of(context).size.height * 0.5,
               padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-              child: getDetailedList(state)),
+              child: getDetailedList(index, state)),
           Container(
             height: 70,
             padding: EdgeInsets.symmetric(vertical: 15),
@@ -267,7 +270,7 @@ class _HomePageState extends State<HomePage> {
         }));
   }
 
-  handleButton(int index, List<AllergyModel> state) {
+  handleButton(int index, state) {
     if (index == 0) {
       List<String> languageList = ["English", "French", "Italian", "Spanish"];
 
@@ -284,7 +287,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'My Allergies',
+                  'My ${titleList[index]}',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 Container(
@@ -303,6 +306,7 @@ class _HomePageState extends State<HomePage> {
                       value: dropdownValue,
                       items: languageList
                           .map<DropdownMenuItem<String>>((String value) {
+                        print(value);
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(
@@ -321,7 +325,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 //Translated version starts here
                 Text(
-                  'My Allergies',
+                  "My ${titleList[index]}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 SizedBox(
@@ -347,7 +351,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 padding: EdgeInsets.only(left: 5),
                                 child: Text(
-                                  state[index].allergyName!,
+                                  state[index].name!,
                                 ),
                               ),
                               SizedBox(
@@ -364,7 +368,7 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       Text(
                                         state[index]
-                                            .allergyName!, //change to translated name
+                                            .name!, //change to translated name
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20),
@@ -377,8 +381,7 @@ class _HomePageState extends State<HomePage> {
                                             const EdgeInsets.only(left: 5.0),
                                         child: Row(
                                           children: [
-                                            Text(
-                                                "Code: ${state[index].allergyId}")
+                                            Text("Code: ${state[index].id}")
                                           ],
                                         ),
                                       )
@@ -438,7 +441,7 @@ class _HomePageState extends State<HomePage> {
     } else {}
   }
 
-  getDetailedList(List<AllergyModel> state) {
+  getDetailedList(idx, state) {
     if (showChecklist == false) {
       return ListView.builder(
           itemCount: state.length,
@@ -451,7 +454,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        state[index].allergyName!,
+                        state[index].name!,
                         style: TextStyle(
                             fontWeight: FontWeight.w400, fontSize: 16),
                       ),
@@ -459,7 +462,7 @@ class _HomePageState extends State<HomePage> {
                         height: 6,
                       ),
                       Text(
-                        state[index].allergyId.toString(),
+                        state[index].id.toString(),
                         style: TextStyle(
                             color: Colors.black45,
                             // fontWeight:
@@ -489,7 +492,7 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              state[index].allergyName!,
+                              state[index].name!,
                               style: TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 16),
                             ),
@@ -497,7 +500,7 @@ class _HomePageState extends State<HomePage> {
                               height: 6,
                             ),
                             Text(
-                              state[index].allergyId.toString(),
+                              state[index].id.toString(),
                               style: TextStyle(
                                   color: Colors.black45,
                                   // fontWeight:
@@ -539,8 +542,7 @@ class _HomePageState extends State<HomePage> {
             InkWell(
                 onTap: (() {
                   setState(() {
-                    final allergyBloc = BlocProvider.of<AllergyBloc>(context);
-                    allergyBloc.add(DeleteAllergy(toBeRemoved));
+                    handleDelete(idx);
                     toBeRemoved = [];
                     ischecked = [];
                     showChecklist = false;
@@ -557,6 +559,17 @@ class _HomePageState extends State<HomePage> {
   }
 
   getMainField(int index) {
+    if (index == 2) {
+      return BlocBuilder<MedicineBloc, MedicineState>(
+        builder: (context, state) {
+          if (state is LoadedMedicine) {
+            return getCommonContent(index, state.medicines);
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      );
+    }
     return BlocBuilder<AllergyBloc, AllergyState>(
       builder: (context, state) {
         if (state is LoadedAllergy) {
@@ -579,7 +592,7 @@ class _HomePageState extends State<HomePage> {
                 child: ExpandablePanel(
                   header: getExpandableHeader(index, state),
                   collapsed: const SizedBox.shrink(),
-                  expanded: getExpandedContent(state),
+                  expanded: getExpandedContent(index, state),
                 ),
               ),
             ),
@@ -587,7 +600,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  checkAmount(List<AllergyModel> state) {
+  checkAmount(state) {
     if (state.length == 0) {
       return Text(
         "No allergies Listed",
@@ -598,6 +611,19 @@ class _HomePageState extends State<HomePage> {
         '${state.length} Allergies Listed',
         style: const TextStyle(fontSize: 14, color: Colors.black54),
       );
+    }
+  }
+
+  void handleDelete(idx) {
+    if (idx == 1) {
+      final allergyBloc = BlocProvider.of<AllergyBloc>(context);
+      allergyBloc.add(DeleteAllergy(toBeRemoved));
+    } else if (idx == 2) {
+      final medicineBloc = BlocProvider.of<MedicineBloc>(context);
+      medicineBloc.add(DeleteMedicine(toBeRemoved));
+    } else {
+      final allergyBloc = BlocProvider.of<AllergyBloc>(context);
+      allergyBloc.add(DeleteAllergy(toBeRemoved));
     }
   }
 }
