@@ -1,6 +1,3 @@
-
-import 'package:worldmedicalcenter/models/NormalModel.dart';
-
 import '../../models/NormalModel.dart';
 
 abstract class MedicineState {}

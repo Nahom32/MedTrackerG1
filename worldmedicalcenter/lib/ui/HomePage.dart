@@ -9,6 +9,9 @@ import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesState.dart';
 import 'package:worldmedicalcenter/blocs/medicine/MedicineBloc.dart';
 import 'package:worldmedicalcenter/blocs/medicine/MedicineEvent.dart';
 import 'package:worldmedicalcenter/blocs/medicine/MedicineState.dart';
+import 'package:worldmedicalcenter/blocs/vaccine/VaccineBloc.dart';
+import 'package:worldmedicalcenter/blocs/vaccine/VaccineEvent.dart';
+import 'package:worldmedicalcenter/blocs/vaccine/VaccineState.dart';
 
 import '../blocs/allergy/AllergyEvent.dart';
 import '../blocs/diagnoses/DiagnosesEvent.dart';
@@ -559,7 +562,17 @@ class _HomePageState extends State<HomePage> {
   }
 
   getMainField(int index) {
-    if (index == 2) {
+    if (index == 1) {
+      return BlocBuilder<AllergyBloc, AllergyState>(
+        builder: (context, state) {
+          if (state is LoadedAllergy) {
+            return getCommonContent(index, state.allergies);
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      );
+    } else if (index == 2) {
       return BlocBuilder<MedicineBloc, MedicineState>(
         builder: (context, state) {
           if (state is LoadedMedicine) {
@@ -570,25 +583,26 @@ class _HomePageState extends State<HomePage> {
         },
       );
     } else if (index == 3) {
-        return BlocBuilder<DiagnosesBloc, DiagnosesState>(
-          builder: (context, state) {
-            if (state is LoadedDiagnoses) {
-              return getCommonContent(index, state.diagnoses);
-            } else {
-              return CircularProgressIndicator();
-            }
-          },
-        );
+      return BlocBuilder<DiagnosesBloc, DiagnosesState>(
+        builder: (context, state) {
+          if (state is LoadedDiagnoses) {
+            return getCommonContent(index, state.diagnoses);
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      );
+    } else {
+      return BlocBuilder<VaccineBloc, VaccineState>(
+        builder: (context, state) {
+          if (state is LoadedVaccine) {
+            return getCommonContent(index, state.vaccines);
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      );
     }
-    return BlocBuilder<AllergyBloc, AllergyState>(
-      builder: (context, state) {
-        if (state is LoadedAllergy) {
-          return getCommonContent(index, state.allergies);
-        } else {
-          return CircularProgressIndicator();
-        }
-      },
-    );
   }
 
   getCommonContent(index, state) {
@@ -618,7 +632,7 @@ class _HomePageState extends State<HomePage> {
       );
     } else {
       return Text(
-        '${state.length} Allergies Listed',
+        '${state.length} items: ${state[0].name}...',
         style: const TextStyle(fontSize: 14, color: Colors.black54),
       );
     }
@@ -631,13 +645,12 @@ class _HomePageState extends State<HomePage> {
     } else if (idx == 2) {
       final medicineBloc = BlocProvider.of<MedicineBloc>(context);
       medicineBloc.add(DeleteMedicine(toBeRemoved));
-    } else if (idx == 3){
+    } else if (idx == 3) {
       final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
       diagnosesBloc.add(DeleteDiagnoses(toBeRemoved));
-    }
-    else {
-      final allergyBloc = BlocProvider.of<AllergyBloc>(context);
-      allergyBloc.add(DeleteAllergy(toBeRemoved));
+    } else {
+      final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
+      vaccineBloc.add(DeleteVaccine(toBeRemoved));
     }
   }
 }
