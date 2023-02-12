@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:worldmedicalcenter/ui/hello.dart';
-import 'package:worldmedicalcenter/ui/intro_1.dart';
-import 'package:worldmedicalcenter/ui/intro_2.dart';
-import 'package:worldmedicalcenter/ui/intro_3.dart';
+import 'package:worldmedicalcenter/presentation/ui/hello.dart';
+
+import 'intro_1.dart';
+import 'intro_2.dart';
+import 'intro_3.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key}) : super(key: key);

@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesBloc.dart';
-import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesEvent.dart';
-import 'package:worldmedicalcenter/blocs/medicine/MedicineBloc.dart';
-import 'package:worldmedicalcenter/blocs/vaccine/VaccineBloc.dart';
-import 'package:worldmedicalcenter/blocs/vaccine/VaccineEvent.dart';
-import '../blocs/allergy/AllergyBloc.dart';
-import '../blocs/allergy/AllergyEvent.dart';
-import '../blocs/medicine/MedicineEvent.dart';
 import '../ui/login.dart';
 import 'HomePage.dart';
 

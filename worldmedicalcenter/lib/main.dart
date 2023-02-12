@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:worldmedicalcenter/blocs/allergy/AllergyBloc.dart';
-import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesBloc.dart';
-import 'package:worldmedicalcenter/blocs/medicine/MedicineBloc.dart';
-import 'package:worldmedicalcenter/blocs/vaccine/VaccineBloc.dart';
-import 'package:worldmedicalcenter/ui/Add.dart';
-import 'package:worldmedicalcenter/ui/HomePage.dart';
-import '../ui/splash.dart';
+import 'package:worldmedicalcenter/application/blocs/medicine/MedicineBloc.dart';
+import 'package:worldmedicalcenter/application/blocs/vaccine/VaccineBloc.dart';
+import 'package:worldmedicalcenter/presentation/ui/Add.dart';
+import 'package:worldmedicalcenter/presentation/ui/splash.dart';
+import 'application/blocs/allergy/AllergyBloc.dart';
+import 'application/blocs/diagnoses/DiagnosesBloc.dart';
 
 
 void main() {
@@ -18,7 +17,7 @@ void main() {
         BlocProvider(create: ((context) => DiagnosesBloc())),
         BlocProvider(create: ((context) => VaccineBloc())),
       ], 
-    child: MyApp()),
+    child: const MyApp()),
   );
 }
 

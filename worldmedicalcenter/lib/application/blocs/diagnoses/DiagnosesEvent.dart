@@ -1,4 +1,6 @@
-import 'package:worldmedicalcenter/models/NormalModel.dart';
+
+
+import '../../../domain/models/NormalModel.dart';
 
 abstract class DiagnosesEvent {}
 

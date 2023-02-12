@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:worldmedicalcenter/blocs/allergy/AllergyEvent.dart';
-import 'package:worldmedicalcenter/blocs/allergy/AllergyState.dart';
-import 'package:worldmedicalcenter/models/NormalModel.dart';
+
+import '../../../domain/models/NormalModel.dart';
+import 'AllergyEvent.dart';
+import 'AllergyState.dart';
 
 class AllergyBloc extends Bloc<AllergyEvent, AllergyState> {
   AllergyBloc() : super(Idle()) {
