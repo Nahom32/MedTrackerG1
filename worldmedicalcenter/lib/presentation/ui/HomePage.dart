@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldmedicalcenter/presentation/ui/add_document.dart';
 import 'package:worldmedicalcenter/presentation/ui/my_subscripitons.dart';
 import 'package:worldmedicalcenter/presentation/ui/terms_and_conditions.dart';
 
@@ -86,9 +87,9 @@ class _HomePageState extends State<HomePage> {
           title: appbarHeader(),
           actions: [
             IconButton(
-              onPressed: (
-              ) {
+              onPressed: () {
                 //adding navigation to the menu/////////////////////////////////////////////
+<<<<<<< HEAD
           showModalBottomSheet(
           context: context,
           elevation: 5,
@@ -115,47 +116,79 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
+=======
+
+                showModalBottomSheet(
+                    context: context,
+                    elevation: 5,
+                    backgroundColor: Colors.blueGrey[900],
+                    isScrollControlled: true,
+                    builder: ((context) {
+                      return Container(
+                        height: 150,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InkWell(
+                                onTap: (() {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return Subscriptions();
+                                  }));
+                                }),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "My Subscriptions",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            InkWell(
+                                onTap: (() {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return TermsAndConditions();
+                                  }));
+                                }),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "Terms And Conditions",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            InkWell(
+                                onTap: (() {}),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "Sign Out",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                )),
+                          ],
+>>>>>>> d0746647f188c24c198ba21d63ab37cc9d0f1830
                         ),
-                      )),
-                      SizedBox(height: 20,),
-                  InkWell(
-                      onTap: (() {
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return TermsAndConditions();
-                        }));
-                      }),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          "Terms And Conditions",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                        ),
-                      )),
-                      SizedBox(height: 20,),
-                  InkWell(
-                      onTap: (() {
-                      }),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          "Sign Out",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                        ),
-                      )),
-                ],
-              ),
-            );
-          }));
+                      );
+                    }));
 
                 /////////////////////////////////////////////////////////////////////////////////
-
-        
               },
               icon: const Icon(Icons.more_vert),
               color: Colors.black,
@@ -707,14 +740,107 @@ class _HomePageState extends State<HomePage> {
       );
     } else {
       //@TODO: change by document implementation
-      return BlocBuilder<VaccineBloc, VaccineState>(
-        builder: (context, state) {
-          if (state is LoadedVaccine) {
-            return getCommonContent(index, state.vaccines);
-          } else {
-            return CircularProgressIndicator();
-          }
-        },
+      return ExpandableNotifier(
+        child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: ScrollOnExpand(
+                  child: ExpandablePanel(
+                      header: getExpandableHeader(index, [
+                        NormalModel(
+                            userId: 1, name: "Living will", id: "DCE34x")
+                      ]),
+                      collapsed: const SizedBox.shrink(),
+                      expanded: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.5,
+                            child: ListView.builder(
+                                itemCount: 8,
+                                itemBuilder: ((context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25.0, vertical: 12),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Icon(Icons.file_copy),
+                                            SizedBox(
+                                              width: 14,
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "TEST",
+                                                ),
+                                                SizedBox(
+                                                  height: 2,
+                                                ),
+                                                Text(
+                                                  "V305",
+                                                  style: TextStyle(
+                                                      color: Colors.black54,
+                                                      fontSize: 12),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                        Icon(Icons.more_vert)
+                                      ],
+                                    ),
+                                  );
+                                })),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 35, vertical: 5),
+                            child: InkWell(
+                              onTap: (() => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) => AddDocument())))),
+                              borderRadius: BorderRadius.circular(100),
+                              child: Container(
+                                margin: EdgeInsets.only(bottom: 8, top: 3),
+                                width: 100,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 4),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    border: Border.all(
+                                        width: 0.5,
+                                        color: Colors.black45,
+                                        style: BorderStyle.solid)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    buttonList[1][1],
+                                    SizedBox(
+                                      width: 6,
+                                    ),
+                                    Text(
+                                      buttonList[1][0],
+                                      style: TextStyle(
+                                          fontSize: 14, color: Colors.black),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      )),
+                ),
+              ),
+            )),
       );
       // Delete upto Here
     }
