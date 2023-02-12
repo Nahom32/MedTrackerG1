@@ -89,7 +89,6 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               onPressed: () {
                 //adding navigation to the menu/////////////////////////////////////////////
-<<<<<<< HEAD
           showModalBottomSheet(
           context: context,
           elevation: 5,
@@ -116,77 +115,13 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
-=======
-
-                showModalBottomSheet(
-                    context: context,
-                    elevation: 5,
-                    backgroundColor: Colors.blueGrey[900],
-                    isScrollControlled: true,
-                    builder: ((context) {
-                      return Container(
-                        height: 150,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            InkWell(
-                                onTap: (() {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return Subscriptions();
-                                  }));
-                                }),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                    "My Subscriptions",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                )),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            InkWell(
-                                onTap: (() {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return TermsAndConditions();
-                                  }));
-                                }),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                    "Terms And Conditions",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                )),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            InkWell(
-                                onTap: (() {}),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                    "Sign Out",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                )),
-                          ],
->>>>>>> d0746647f188c24c198ba21d63ab37cc9d0f1830
                         ),
-                      );
-                    }));
+                  )
+                  )
+          ]),
+                  );
+                    })
+                    );
 
                 /////////////////////////////////////////////////////////////////////////////////
               },
