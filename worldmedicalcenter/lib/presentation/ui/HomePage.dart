@@ -2,6 +2,8 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldmedicalcenter/presentation/ui/my_subscripitons.dart';
+import 'package:worldmedicalcenter/presentation/ui/terms_and_conditions.dart';
 
 import '../../application/blocs/allergy/AllergyBloc.dart';
 
@@ -81,7 +83,78 @@ class _HomePageState extends State<HomePage> {
           title: appbarHeader(),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: (
+              ) {
+                //adding navigation to the menu/////////////////////////////////////////////
+              
+                showModalBottomSheet(
+          context: context,
+          elevation: 5,
+          backgroundColor: Colors.blueGrey[900],
+          isScrollControlled: true,
+          builder: ((context) {
+            return Container(
+              height: 150,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                      onTap: (() {
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return Subscriptions();
+                        }));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "My Subscriptions",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      )),
+                      SizedBox(height: 20,),
+                  InkWell(
+                      onTap: (() {
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return TermsAndConditions();
+                        }));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "Terms And Conditions",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      )),
+                      SizedBox(height: 20,),
+                  InkWell(
+                      onTap: (() {
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "Sign Out",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      )),
+                ],
+              ),
+            );
+          }));
+
+                /////////////////////////////////////////////////////////////////////////////////
+
+        
+              },
               icon: const Icon(Icons.more_vert),
               color: Colors.black,
               iconSize: 24,
