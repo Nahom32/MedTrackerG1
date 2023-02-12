@@ -23,13 +23,7 @@ class AllergyBloc extends Bloc<AllergyEvent, AllergyState> {
   FutureOr<void> _loadAllergies(LoadAllergy event, Emitter<AllergyState> emit) {
     emit(LoadingAllergy());
     Future.delayed(Duration(seconds: 5));
-    List<AllergyModel> allergy = [];
-    for (AllergyModel test in testData) {
-      if (test.userId == event.id) {
-        allergy.add(test);
-      }
-    }
-    emit(LoadedAllergy(allergies: allergy));
+    emit(LoadedAllergy(allergies: testData));
   }
 
   FutureOr<void> _deleteAllergies(

@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var showChecklist = false;
-  var dropdownValue = "English";
+  var dropdownValue = "French";
   List<String> titleList = [
     "profile",
     "Allergies",
@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
     const Icon(Icons.folder),
   ];
   var ischecked = <bool?>[];
+  List<AllergyModel> toBeRemoved = [];
 
   List buttonList = [
     [
@@ -228,34 +229,7 @@ class _HomePageState extends State<HomePage> {
 
   getButtons(state) {
     if (showChecklist == true) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          InkWell(
-              onTap: (() {
-                setState(() {
-                  showChecklist = false;
-                });
-              }),
-              child: Text(
-                "Cancel",
-                style: TextStyle(color: Colors.blue),
-              )),
-          SizedBox(
-            width: 10,
-          ),
-          InkWell(
-              onTap: (() {
-                setState(() {
-                  showChecklist = false;
-                });
-              }),
-              child: Text(
-                "Remove",
-                style: TextStyle(color: Colors.blue),
-              )),
-        ],
-      );
+      return SizedBox.shrink();
     }
     return ListView.builder(
         itemCount: 4,
@@ -499,48 +473,87 @@ class _HomePageState extends State<HomePage> {
             );
           });
     }
-    List<AllergyModel> toBeRemoved = [];
-    return ListView.builder(
-        itemCount: state.length,
-        itemBuilder: (context, index) {
-          ischecked.add(false);
-          return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6.0),
-              child: CheckboxListTile(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        state[index].allergyName!,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400, fontSize: 16),
-                      ),
-                      SizedBox(
-                        height: 6,
-                      ),
-                      Text(
-                        state[index].allergyId.toString(),
-                        style: TextStyle(
-                            color: Colors.black45,
-                            // fontWeight:
-                            //     FontWeight.w200,
-                            fontSize: 12),
-                      )
-                    ],
-                  ),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  value: ischecked[index],
-                  onChanged: ((value) {
-                    setState(() {
-                      ischecked[index] = value;
-                      if (ischecked[index] == false) {
-                        toBeRemoved.remove(state[index]);
-                      } else {
-                        toBeRemoved.add(state[index]);
-                      }
-                    });
-                  })));
-        });
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+              itemCount: state.length,
+              itemBuilder: (context, index) {
+                if (ischecked.length < state.length) {
+                  ischecked.add(false);
+                }
+                return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6.0),
+                    child: CheckboxListTile(
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              state[index].allergyName!,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400, fontSize: 16),
+                            ),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              state[index].allergyId.toString(),
+                              style: TextStyle(
+                                  color: Colors.black45,
+                                  // fontWeight:
+                                  //     FontWeight.w200,
+                                  fontSize: 12),
+                            )
+                          ],
+                        ),
+                        controlAffinity: ListTileControlAffinity.leading,
+                        value: ischecked[index],
+                        onChanged: ((value) {
+                          setState(() {
+                            if (value == false) {
+                              toBeRemoved.remove(state[index]);
+                            } else {
+                              toBeRemoved.add(state[index]);
+                            }
+                            ischecked[index] = value;
+                          });
+                        })));
+              }),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            InkWell(
+                onTap: (() {
+                  setState(() {
+                    showChecklist = false;
+                  });
+                }),
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(color: Colors.blue),
+                )),
+            SizedBox(
+              width: 10,
+            ),
+            InkWell(
+                onTap: (() {
+                  setState(() {
+                    final allergyBloc = BlocProvider.of<AllergyBloc>(context);
+                    allergyBloc.add(DeleteAllergy(toBeRemoved));
+                    toBeRemoved = [];
+                    ischecked = [];
+                    showChecklist = false;
+                  });
+                }),
+                child: Text(
+                  "Remove",
+                  style: TextStyle(color: Colors.blue),
+                )),
+          ],
+        )
+      ],
+    );
   }
 
   getMainField(int index) {
