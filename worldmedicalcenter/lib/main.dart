@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldmedicalcenter/blocs/allergy/AllergyBloc.dart';
+import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesBloc.dart';
 import 'package:worldmedicalcenter/blocs/medicine/MedicineBloc.dart';
 import 'package:worldmedicalcenter/ui/Add.dart';
 import 'package:worldmedicalcenter/ui/HomePage.dart';
@@ -13,7 +14,8 @@ void main() {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: ((context) => AllergyBloc())),
-        BlocProvider(create: ((context) => MedicineBloc()))
+        BlocProvider(create: ((context) => MedicineBloc())),
+        BlocProvider(create: ((context) => DiagnosesBloc())),
       ], 
     child: MyApp()),
   );

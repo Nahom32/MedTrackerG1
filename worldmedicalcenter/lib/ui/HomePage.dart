@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldmedicalcenter/blocs/allergy/AllergyBloc.dart';
 import 'package:worldmedicalcenter/blocs/allergy/AllergyState.dart';
+import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesBloc.dart';
+import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesState.dart';
 import 'package:worldmedicalcenter/blocs/medicine/MedicineBloc.dart';
 import 'package:worldmedicalcenter/blocs/medicine/MedicineEvent.dart';
 import 'package:worldmedicalcenter/blocs/medicine/MedicineState.dart';
 
 import '../blocs/allergy/AllergyEvent.dart';
+import '../blocs/diagnoses/DiagnosesEvent.dart';
 import '../models/NormalModel.dart';
 
 class HomePage extends StatefulWidget {
@@ -69,7 +72,7 @@ class _HomePageState extends State<HomePage> {
       )
     ]
   ];
-
+  List<String> languageList = ["English", "French", "Italian", "Spanish"];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -272,8 +275,6 @@ class _HomePageState extends State<HomePage> {
 
   handleButton(int index, state) {
     if (index == 0) {
-      List<String> languageList = ["English", "French", "Italian", "Spanish"];
-
       showModalBottomSheet<void>(
         context: context,
         elevation: 5,
@@ -306,7 +307,6 @@ class _HomePageState extends State<HomePage> {
                       value: dropdownValue,
                       items: languageList
                           .map<DropdownMenuItem<String>>((String value) {
-                        print(value);
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(
@@ -569,6 +569,16 @@ class _HomePageState extends State<HomePage> {
           }
         },
       );
+    } else if (index == 3) {
+        return BlocBuilder<DiagnosesBloc, DiagnosesState>(
+          builder: (context, state) {
+            if (state is LoadedDiagnoses) {
+              return getCommonContent(index, state.diagnoses);
+            } else {
+              return CircularProgressIndicator();
+            }
+          },
+        );
     }
     return BlocBuilder<AllergyBloc, AllergyState>(
       builder: (context, state) {
@@ -621,7 +631,11 @@ class _HomePageState extends State<HomePage> {
     } else if (idx == 2) {
       final medicineBloc = BlocProvider.of<MedicineBloc>(context);
       medicineBloc.add(DeleteMedicine(toBeRemoved));
-    } else {
+    } else if (idx == 3){
+      final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
+      diagnosesBloc.add(DeleteDiagnoses(toBeRemoved));
+    }
+    else {
       final allergyBloc = BlocProvider.of<AllergyBloc>(context);
       allergyBloc.add(DeleteAllergy(toBeRemoved));
     }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesBloc.dart';
+import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesEvent.dart';
 import 'package:worldmedicalcenter/blocs/medicine/MedicineBloc.dart';
 import '../blocs/allergy/AllergyBloc.dart';
 import '../blocs/allergy/AllergyEvent.dart';
@@ -37,6 +39,8 @@ class Hello extends StatelessWidget {
             allergyBloc.add(LoadAllergy(1));
             final medicineBloc = BlocProvider.of<MedicineBloc>(context);
             medicineBloc.add(LoadMedicine(1));
+            final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
+            diagnosesBloc.add(LoadDiagnoses(1));
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) {
               return HomePage();

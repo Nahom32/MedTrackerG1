@@ -18,6 +18,9 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
     NormalModel(userId: 1, id: 30, name: "Medicine40"),
     NormalModel(userId: 1, id: 20, name: "Medicine50"),
     NormalModel(userId: 1, id: 10, name: "Medicine60"),
+    NormalModel(userId: 1, id: 30, name: "Medicine40"),
+    NormalModel(userId: 1, id: 20, name: "Medicine50"),
+    NormalModel(userId: 1, id: 10, name: "Medicine60"),
   ];
 
   _loadMedicines(LoadMedicine event, Emitter<MedicineState> emit) {
