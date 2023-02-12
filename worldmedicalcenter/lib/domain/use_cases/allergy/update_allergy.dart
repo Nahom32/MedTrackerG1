@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:worldmedicalcenter/domain/repository/interfaces/allergy_repository.dart';
 
-import '../../core/error/failures.dart';
-import '../models/user.dart';
+import '../../../core/error/failures.dart';
+import '../../models/user.dart';
 
 abstract class UpdateAllergy {
   Future<Either<Failure, Unit>> execute(String id,
