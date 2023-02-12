@@ -2,6 +2,8 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldmedicalcenter/presentation/ui/my_subscripitons.dart';
+import 'package:worldmedicalcenter/presentation/ui/terms_and_conditions.dart';
 
 import '../../application/blocs/allergy/AllergyBloc.dart';
 
@@ -37,14 +39,6 @@ class _HomePageState extends State<HomePage> {
     "Vaccines",
     "Documents",
   ];
-  List<Icon> iconList = [
-    const Icon(Icons.no_accounts_rounded),
-    const Icon(Icons.difference_sharp),
-    const Icon(Icons.medication),
-    const Icon(Icons.sd_card),
-    const Icon(Icons.difference_sharp),
-    const Icon(Icons.folder),
-  ];
   var ischecked = <bool?>[];
   List<NormalModel> toBeRemoved = [];
   List buttonList = [
@@ -78,6 +72,7 @@ class _HomePageState extends State<HomePage> {
     ]
   ];
   List<String> languageList = ["English", "French", "Italian", "Spanish"];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -85,10 +80,82 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: Colors.blueGrey[50],
           elevation: 0,
+          automaticallyImplyLeading: false,
           title: appbarHeader(),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: (
+              ) {
+                //adding navigation to the menu/////////////////////////////////////////////
+              
+                showModalBottomSheet(
+          context: context,
+          elevation: 5,
+          backgroundColor: Colors.blueGrey[900],
+          isScrollControlled: true,
+          builder: ((context) {
+            return Container(
+              height: 150,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                      onTap: (() {
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return Subscriptions();
+                        }));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "My Subscriptions",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      )),
+                      SizedBox(height: 20,),
+                  InkWell(
+                      onTap: (() {
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return TermsAndConditions();
+                        }));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "Terms And Conditions",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      )),
+                      SizedBox(height: 20,),
+                  InkWell(
+                      onTap: (() {
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "Sign Out",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      )),
+                ],
+              ),
+            );
+          }));
+
+                /////////////////////////////////////////////////////////////////////////////////
+
+        
+              },
               icon: const Icon(Icons.more_vert),
               color: Colors.black,
               iconSize: 24,
@@ -192,7 +259,7 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          iconList[index],
+          getIcon(index, state),
           const SizedBox(
             width: 12,
           ),
@@ -212,6 +279,39 @@ class _HomePageState extends State<HomePage> {
   }
 
   getExpandedContent(index, state) {
+    if (state.length == 0) {
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal: 5),
+        child: InkWell(
+          onTap: (() => handleButton(1, state, 1)),
+          borderRadius: BorderRadius.circular(100),
+          child: Container(
+            margin: EdgeInsets.only(bottom: 8, top: 3),
+            width: 100,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(
+                    width: 0.5,
+                    color: Colors.black45,
+                    style: BorderStyle.solid)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                buttonList[1][1],
+                SizedBox(
+                  width: 6,
+                ),
+                Text(
+                  buttonList[1][0],
+                  style: TextStyle(fontSize: 14, color: Colors.black),
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+    }
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: Column(
@@ -228,7 +328,7 @@ class _HomePageState extends State<HomePage> {
           Container(
             height: 70,
             padding: EdgeInsets.symmetric(vertical: 15),
-            child: getButtons(state),
+            child: getButtons(index, state),
           ),
           SizedBox(
             height: 6,
@@ -238,7 +338,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getButtons(state) {
+  getButtons(idx, state) {
     if (showChecklist == true) {
       return SizedBox.shrink();
     }
@@ -249,7 +349,7 @@ class _HomePageState extends State<HomePage> {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
             child: InkWell(
-              onTap: (() => handleButton(index, state)),
+              onTap: (() => handleButton(index, state, idx)),
               borderRadius: BorderRadius.circular(100),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
@@ -278,7 +378,7 @@ class _HomePageState extends State<HomePage> {
         }));
   }
 
-  handleButton(int index, state) {
+  handleButton(int index, state, idx) {
     if (index == 0) {
       showModalBottomSheet<void>(
         context: context,
@@ -293,7 +393,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'My ${titleList[index]}',
+                  'My ${titleList[idx]}',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 Container(
@@ -330,7 +430,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 //Translated version starts here
                 Text(
-                  "My ${titleList[index]}",
+                  "My ${titleList[idx]}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 SizedBox(
@@ -594,7 +694,7 @@ class _HomePageState extends State<HomePage> {
           }
         },
       );
-    } else {
+    } else if (index == 4) {
       return BlocBuilder<VaccineBloc, VaccineState>(
         builder: (context, state) {
           if (state is LoadedVaccine) {
@@ -604,6 +704,18 @@ class _HomePageState extends State<HomePage> {
           }
         },
       );
+    } else {
+      //@TODO: change by document implementation
+      return BlocBuilder<VaccineBloc, VaccineState>(
+        builder: (context, state) {
+          if (state is LoadedVaccine) {
+            return getCommonContent(index, state.vaccines);
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      );
+      // Delete upto Here
     }
   }
 
@@ -653,6 +765,43 @@ class _HomePageState extends State<HomePage> {
     } else {
       final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
       vaccineBloc.add(DeleteVaccine(toBeRemoved));
+    }
+  }
+
+  getIcon(index, state) {
+    var selctedColor = state.length > 1 ? Colors.blue : Colors.black;
+    switch (index) {
+      case 0:
+        return Icon(
+          Icons.no_accounts_rounded,
+        );
+      case 1:
+        return Icon(
+          Icons.difference_sharp,
+          color: selctedColor,
+        );
+      case 2:
+        return Icon(
+          Icons.medication,
+          color: selctedColor,
+        );
+      case 3:
+        return Icon(
+          Icons.sd_card,
+          color: selctedColor,
+        );
+      case 4:
+        return Icon(
+          Icons.difference_sharp,
+          color: selctedColor,
+        );
+      case 5:
+        return Icon(
+          Icons.folder,
+          color: selctedColor,
+        );
+      default:
+        return const Icon(Icons.abc);
     }
   }
 }

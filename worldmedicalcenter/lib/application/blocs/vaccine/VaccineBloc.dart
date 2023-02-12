@@ -10,11 +10,11 @@ class VaccineBloc extends Bloc<VaccineEvent, VaccineState> {
   }
 
   List<NormalModel> testData = [
-    NormalModel(userId: 1, id: 40, name: "Vaccine15"),
-    NormalModel(userId: 2, id: 50, name: "Vaccine26"),
-    NormalModel(userId: 3, id: 60, name: "Vaccine34"),
-    NormalModel(userId: 1, id: 30, name: "Vaccine48"),
-    NormalModel(userId: 1, id: 20, name: "Vaccine56"),
+    NormalModel(userId: 1, id: "WMXC0040", name: "Vaccine15"),
+    NormalModel(userId: 2, id: "WMXC0050", name: "Vaccine26"),
+    NormalModel(userId: 3, id: "WMXC0060", name: "Vaccine34"),
+    NormalModel(userId: 1, id: "WMXC0030", name: "Vaccine48"),
+    NormalModel(userId: 1, id: "WMXC0020", name: "Vaccine56"),
   ];
 
   _loadVaccines(LoadVaccine event, Emitter<VaccineState> emit) {
