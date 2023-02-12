@@ -709,6 +709,15 @@ class _HomePageState extends State<HomePage> {
       );
     } else {
       //@TODO: change by document implementation
+      List state = [
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+      ];
       return ExpandableNotifier(
         child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -717,10 +726,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(0.0),
                 child: ScrollOnExpand(
                   child: ExpandablePanel(
-                      header: getExpandableHeader(index, [
-                        NormalModel(
-                            userId: 1, name: "Living will", id: "DCE34x")
-                      ]),
+                      header: getExpandableHeader(index, state),
                       collapsed: const SizedBox.shrink(),
                       expanded: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -728,7 +734,7 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             height: MediaQuery.of(context).size.height * 0.5,
                             child: ListView.builder(
-                                itemCount: 8,
+                                itemCount: state.length,
                                 itemBuilder: ((context, index) {
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -746,15 +752,16 @@ class _HomePageState extends State<HomePage> {
                                             Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "TEST",
+                                                  state[index].name,
                                                 ),
                                                 SizedBox(
                                                   height: 2,
                                                 ),
                                                 Text(
-                                                  "V305",
+                                                  state[index].id,
                                                   style: TextStyle(
                                                       color: Colors.black54,
                                                       fontSize: 12),
@@ -770,7 +777,8 @@ class _HomePageState extends State<HomePage> {
                                 })),
                           ),
                           Container(
-                            margin: EdgeInsets.symmetric(horizontal: 35, vertical: 5),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 35, vertical: 5),
                             child: InkWell(
                               onTap: (() => Navigator.push(
                                   context,
@@ -865,7 +873,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   getIcon(index, state) {
-    var selctedColor = state.length > 1 ? Colors.blue : Colors.black;
+    var selctedColor = state.length >= 1 ? Colors.blue : Colors.black;
     switch (index) {
       case 0:
         return Icon(
