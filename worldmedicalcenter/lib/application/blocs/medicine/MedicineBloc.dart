@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:worldmedicalcenter/models/NormalModel.dart';
 
-import '../../models/NormalModel.dart';
+import '../../../domain/models/NormalModel.dart';
 import 'MedicineEvent.dart';
 import 'MedicineState.dart';
 

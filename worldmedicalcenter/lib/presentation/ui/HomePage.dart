@@ -2,20 +2,22 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:worldmedicalcenter/blocs/allergy/AllergyBloc.dart';
-import 'package:worldmedicalcenter/blocs/allergy/AllergyState.dart';
-import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesBloc.dart';
-import 'package:worldmedicalcenter/blocs/diagnoses/DiagnosesState.dart';
-import 'package:worldmedicalcenter/blocs/medicine/MedicineBloc.dart';
-import 'package:worldmedicalcenter/blocs/medicine/MedicineEvent.dart';
-import 'package:worldmedicalcenter/blocs/medicine/MedicineState.dart';
-import 'package:worldmedicalcenter/blocs/vaccine/VaccineBloc.dart';
-import 'package:worldmedicalcenter/blocs/vaccine/VaccineEvent.dart';
-import 'package:worldmedicalcenter/blocs/vaccine/VaccineState.dart';
 
-import '../blocs/allergy/AllergyEvent.dart';
-import '../blocs/diagnoses/DiagnosesEvent.dart';
-import '../models/NormalModel.dart';
+import '../../application/blocs/allergy/AllergyBloc.dart';
+
+import '../../application/blocs/allergy/AllergyBloc.dart';
+import '../../application/blocs/allergy/AllergyEvent.dart';
+import '../../application/blocs/allergy/AllergyState.dart';
+import '../../application/blocs/diagnoses/DiagnosesBloc.dart';
+import '../../application/blocs/diagnoses/DiagnosesEvent.dart';
+import '../../application/blocs/diagnoses/DiagnosesState.dart';
+import '../../application/blocs/medicine/MedicineBloc.dart';
+import '../../application/blocs/medicine/MedicineEvent.dart';
+import '../../application/blocs/medicine/MedicineState.dart';
+import '../../application/blocs/vaccine/VaccineBloc.dart';
+import '../../application/blocs/vaccine/VaccineEvent.dart';
+import '../../application/blocs/vaccine/VaccineState.dart';
+import '../../domain/models/NormalModel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

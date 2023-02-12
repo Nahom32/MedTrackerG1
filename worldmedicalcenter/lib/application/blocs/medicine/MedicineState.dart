@@ -1,4 +1,4 @@
-import '../../models/NormalModel.dart';
+import '../../../domain/models/NormalModel.dart';
 
 abstract class MedicineState {}
 
