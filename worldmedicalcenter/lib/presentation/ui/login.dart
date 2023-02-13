@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldmedicalcenter/main.dart';
 import 'package:worldmedicalcenter/presentation/ui/reset_password.dart';
 
 import '../../application/blocs/allergy/AllergyBloc.dart';
@@ -36,172 +37,179 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            elevation: 0,
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.blueGrey[50],
-          ),
-          body: Container(
-            color: Colors.blueGrey[50],
-            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Login to world Medical Card',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'How would you like to sign-in?',
-                  style: TextStyle(color: Colors.black54, fontSize: 13),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 40, horizontal: 12),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5)),
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          "assets/aZqAl.png",
-                          width: 30,
-                          height: 30,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text("Sign-in with Google"),
-                      ],
-                    ),
-                  ),
-                ),
-                Row(children: [
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 10.0, right: 15.0),
-                      height: 1,
-                      decoration: BoxDecoration(color: Colors.black),
-                    ),
-                  ),
-                  Text("OR"),
-                  Expanded(
-                    child: Container(
-                      width: 100,
-                      margin: const EdgeInsets.only(left: 15.0, right: 10.0),
-                      height: 1,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.blueGrey[50],
+        ),
+        body: Container(
+          color: Colors.blueGrey[50],
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Login to world Medical Card',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'How would you like to sign-in?',
+                style: TextStyle(color: Colors.black54, fontSize: 13),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 40, horizontal: 12),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(5)),
+                padding: EdgeInsets.symmetric(vertical: 8),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/aZqAl.png",
+                        width: 30,
+                        height: 30,
                       ),
-                    ),
-                  ),
-                ]),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  child: Column(children: [
-                    SizedBox(height: 12),
-                    TextField(
-                      controller: emailCtrl,
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        label: Text("Email"),
+                      SizedBox(
+                        width: 5,
                       ),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    TextField(
-                      controller: passwordCtrl,
-                      textInputAction: TextInputAction.done,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          label: Text('Password'),
-                          suffixIcon: IconButton(
-                              icon: Icon(_isObscure
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                              onPressed: () {
-                                setState(() {
-                                  _isObscure = !_isObscure;
-                                });
-                              })),
-                      obscureText: _isObscure,
-                    ),
-                  ]),
+                      Text("Sign-in with Google"),
+                    ],
+                  ),
                 ),
+              ),
+              Row(children: [
                 Expanded(
                   child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                            child: Text(
-                              'Forgot Password?',
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline),
-                            ),
-                            onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return PasswordReset();
-                              }));
-                            }),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        TextButton(
-                            onPressed: signIn,
-                            child: Container(
-                              child: Text(
-                                'LOGIN',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.white),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 130),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(30)),
-                                color: Colors.blue,
-                              ),
-                              // shape: RoundedRectangleBorder(
-                              //   borderRadius: BorderRadius.all(Radius.circular(30))
-                              // ),
-                            )
-                            // ,
-                            ),
-                        SizedBox(
-                          height: 20,
-                        )
-                      ],
+                    margin: const EdgeInsets.only(left: 10.0, right: 15.0),
+                    height: 1,
+                    decoration: BoxDecoration(color: Colors.black),
+                  ),
+                ),
+                Text("OR"),
+                Expanded(
+                  child: Container(
+                    width: 100,
+                    margin: const EdgeInsets.only(left: 15.0, right: 10.0),
+                    height: 1,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
                     ),
                   ),
-                )
-              ],
-            ),
-          )),
-    );
+                ),
+              ]),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.2,
+                child: Column(children: [
+                  SizedBox(height: 12),
+                  TextField(
+                    controller: emailCtrl,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      label: Text("Email"),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  TextField(
+                    controller: passwordCtrl,
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        label: Text('Password'),
+                        suffixIcon: IconButton(
+                            icon: Icon(_isObscure
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            })),
+                    obscureText: _isObscure,
+                  ),
+                ]),
+              ),
+              Expanded(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                          child: Text(
+                            'Forgot Password?',
+                            style: TextStyle(
+                                decoration: TextDecoration.underline),
+                          ),
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return PasswordReset();
+                            }));
+                          }),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      TextButton(
+                          onPressed: signIn,
+                          child: Container(
+                            child: Text(
+                              'LOGIN',
+                              style: TextStyle(
+                                  fontSize: 12, color: Colors.white),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 130),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
+                              color: Colors.blue,
+                            ),
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: BorderRadius.all(Radius.circular(30))
+                            // ),
+                          )
+                          // ,
+                          ),
+                      SizedBox(
+                        height: 20,
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ));
   }
 
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailCtrl.text.trim(), password: passwordCtrl.text.trim());
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: ((context) => Center(child: CircularProgressIndicator())));
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailCtrl.text.trim(), password: passwordCtrl.text.trim());
+    } on FirebaseAuthException catch (e) {
+      // TODO
+    }
 
     final allergyBloc = BlocProvider.of<AllergyBloc>(context);
     allergyBloc.add(LoadAllergy(1));
@@ -211,6 +219,8 @@ class _LoginState extends State<Login> {
     diagnosesBloc.add(LoadDiagnoses(1));
     final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
     vaccineBloc.add(LoadVaccine(1));
+
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: ((context) => HomePage())));
   }
