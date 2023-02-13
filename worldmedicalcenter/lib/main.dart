@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldmedicalcenter/application/blocs/medicine/MedicineBloc.dart';
 import 'package:worldmedicalcenter/application/blocs/vaccine/VaccineBloc.dart';
+import 'package:worldmedicalcenter/main_page.dart';
 import 'package:worldmedicalcenter/presentation/ui/Add.dart';
 import 'package:worldmedicalcenter/presentation/ui/splash.dart';
 import 'application/blocs/allergy/AllergyBloc.dart';
@@ -22,13 +23,16 @@ Future main() async {
   );
 }
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {"/add": (context) => const Add()},
+      navigatorKey: navigatorKey,
+      routes: {"/add": (context) => Add()},
       title: 'World Medical App',
       theme: ThemeData(
         primaryTextTheme: const TextTheme(
@@ -45,7 +49,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: Splash(),
+      home: MainPage(),
     );
   }
 }
