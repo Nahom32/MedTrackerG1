@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {"/add": (context) => Add()},
+      routes: {"/add": (context) => const Add()},
       title: 'World Medical App',
       theme: ThemeData(
         primaryTextTheme: const TextTheme(
