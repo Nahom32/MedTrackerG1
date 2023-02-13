@@ -1,4 +1,5 @@
 import 'package:expandable/expandable.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +35,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var showChecklist = false;
   var dropdownValue = "French";
-
+  PlatformFile? pickedFile;
 
   List<String> titleList = [
     "profile",
@@ -111,69 +112,74 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               onPressed: () {
                 //adding navigation to the menu/////////////////////////////////////////////
-          showModalBottomSheet(
-          context: context,
-          elevation: 5,
-          backgroundColor: Colors.blueGrey[900],
-          isScrollControlled: true,
-          builder: ((context) {
-            return Container(
-              height: 150,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InkWell(
-                      onTap: (() {
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return Subscriptions();
-                        }));
-                      }),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          "My Subscriptions",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
+                showModalBottomSheet(
+                    context: context,
+                    elevation: 5,
+                    backgroundColor: Colors.blueGrey[900],
+                    isScrollControlled: true,
+                    builder: ((context) {
+                      return Container(
+                        height: 150,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InkWell(
+                                onTap: (() {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return Subscriptions();
+                                  }));
+                                }),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "My Subscriptions",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            InkWell(
+                                onTap: (() {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return TermsAndConditions();
+                                  }));
+                                }),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "Terms And Conditions",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            InkWell(
+                                onTap: (() {}),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "Sign Out",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                )),
+                          ],
                         ),
-                      )),
-                      SizedBox(height: 20,),
-                  InkWell(
-                      onTap: (() {
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return TermsAndConditions();
-                        }));
-                      }),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          "Terms And Conditions",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                        ),
-                      )),
-                      SizedBox(height: 20,),
-                  InkWell(
-                      onTap: (() {
-                      }),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          "Sign Out",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                        ),
-                      )),
-                ],
-              ),
-            );
-          }));
+                      );
+                    }));
 
                 /////////////////////////////////////////////////////////////////////////////////
               },
@@ -1002,7 +1008,8 @@ class _HomePageState extends State<HomePage> {
                                             Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   state[index].name,
@@ -1030,10 +1037,14 @@ class _HomePageState extends State<HomePage> {
                             margin: EdgeInsets.symmetric(
                                 horizontal: 35, vertical: 5),
                             child: InkWell(
-                              onTap: (() => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) => AddDocument())))),
+                              onTap: (() async {
+                                final result =
+                                    await FilePicker.platform.pickFiles();
+                                if (result == null) return;
+                                setState(() {
+                                  pickedFile = result.files.first;
+                                });
+                              }),
                               borderRadius: BorderRadius.circular(100),
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 8, top: 3),
