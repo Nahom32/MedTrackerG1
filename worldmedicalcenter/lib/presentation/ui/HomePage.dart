@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
               onPressed: () {
-                //adding navigation to the menu/////////////////////////////////////////////
+
           showModalBottomSheet(
           context: context,
           elevation: 5,
@@ -174,7 +174,7 @@ class _HomePageState extends State<HomePage> {
             );
           }));
 
-                /////////////////////////////////////////////////////////////////////////////////
+                
               },
               icon: const Icon(Icons.more_vert),
               color: Colors.black,
