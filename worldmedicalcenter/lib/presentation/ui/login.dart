@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldmedicalcenter/main.dart';
+import 'package:worldmedicalcenter/presentation/ui/Error.dart';
 import 'package:worldmedicalcenter/presentation/ui/reset_password.dart';
 
 import '../../application/blocs/allergy/AllergyBloc.dart';
@@ -153,8 +154,8 @@ class _LoginState extends State<Login> {
                       GestureDetector(
                           child: Text(
                             'Forgot Password?',
-                            style: TextStyle(
-                                decoration: TextDecoration.underline),
+                            style:
+                                TextStyle(decoration: TextDecoration.underline),
                           ),
                           onTap: () {
                             Navigator.push(context,
@@ -170,8 +171,8 @@ class _LoginState extends State<Login> {
                           child: Container(
                             child: Text(
                               'LOGIN',
-                              style: TextStyle(
-                                  fontSize: 12, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.white),
                             ),
                             padding: EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 130),
@@ -208,7 +209,13 @@ class _LoginState extends State<Login> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailCtrl.text.trim(), password: passwordCtrl.text.trim());
     } on FirebaseAuthException catch (e) {
-      // TODO
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailCtrl.text.trim(), password: passwordCtrl.text.trim());
+      } on Exception catch (e) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: ((context) => ErrorPage())));
+      }
     }
 
     final allergyBloc = BlocProvider.of<AllergyBloc>(context);
