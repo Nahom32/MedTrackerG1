@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../application/blocs/personnalInfo/personalInfoBloc.dart';
+import '../../application/blocs/personnalInfo/personalInfoState.dart';
 
 class EditPersonalInfo extends StatefulWidget {
   const EditPersonalInfo({super.key});
@@ -52,17 +55,27 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniCenterDocked,
           floatingActionButton: Container(
-            width: MediaQuery.of(context).size.width,
-            color: Colors.white,
-            child: Padding(
-              // alignment: Alignment.bottomCenter,
-              padding: EdgeInsets.symmetric(vertical: 6.0),
-              child: FloatingActionButton.extended(
-                onPressed: () {},
-                label: Text("Save"),
-              ),
-            ),
-          ),
+              width: MediaQuery.of(context).size.width,
+              color: Colors.white,
+              child: BlocConsumer<PersonalInfoBloc, PersonalInfoState>(
+                builder: (context, state) {
+                  String adaptiveText = "Save";
+                  return Padding(
+                    // alignment: Alignment.bottomCenter,
+                    padding: EdgeInsets.symmetric(vertical: 6.0),
+                    child: FloatingActionButton.extended(
+                      onPressed: () {},
+                      label: Text("Save"),
+                    ),
+                  );
+                },
+                listenWhen: (p, c) {
+                  return c is Saved;
+                },
+                listener: (BuildContext ctx, Object? state) {
+                  Navigator.of(context).pop(" ");
+                },
+              )),
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Color.fromARGB(255, 250, 250, 250),

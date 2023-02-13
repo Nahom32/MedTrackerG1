@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
   var showChecklist = false;
   var dropdownValue = "French";
 
-
   List<String> titleList = [
     "profile",
     "Allergies",
@@ -111,69 +110,74 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               onPressed: () {
                 //adding navigation to the menu/////////////////////////////////////////////
-          showModalBottomSheet(
-          context: context,
-          elevation: 5,
-          backgroundColor: Colors.blueGrey[900],
-          isScrollControlled: true,
-          builder: ((context) {
-            return Container(
-              height: 150,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InkWell(
-                      onTap: (() {
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return Subscriptions();
-                        }));
-                      }),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          "My Subscriptions",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
+                showModalBottomSheet(
+                    context: context,
+                    elevation: 5,
+                    backgroundColor: Colors.blueGrey[900],
+                    isScrollControlled: true,
+                    builder: ((context) {
+                      return Container(
+                        height: 150,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InkWell(
+                                onTap: (() {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return Subscriptions();
+                                  }));
+                                }),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "My Subscriptions",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            InkWell(
+                                onTap: (() {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return TermsAndConditions();
+                                  }));
+                                }),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "Terms And Conditions",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            InkWell(
+                                onTap: (() {}),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "Sign Out",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                )),
+                          ],
                         ),
-                      )),
-                      SizedBox(height: 20,),
-                  InkWell(
-                      onTap: (() {
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return TermsAndConditions();
-                        }));
-                      }),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          "Terms And Conditions",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                        ),
-                      )),
-                      SizedBox(height: 20,),
-                  InkWell(
-                      onTap: (() {
-                      }),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          "Sign Out",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                        ),
-                      )),
-                ],
-              ),
-            );
-          }));
+                      );
+                    }));
 
                 /////////////////////////////////////////////////////////////////////////////////
               },
@@ -289,12 +293,16 @@ class _HomePageState extends State<HomePage> {
                       width: 100,
                       height: 40,
                       child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
+                        onTap: () async {
+                          var newInfo = await Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => const EditPersonalInfo(),
                             ),
                           );
+
+                          setState(() {
+                            testInfo = newInfo;
+                          });
                         },
                         borderRadius: BorderRadius.circular(100),
                         child: Container(
@@ -1020,7 +1028,8 @@ class _HomePageState extends State<HomePage> {
                                 })),
                           ),
                           Container(
-                            margin: EdgeInsets.symmetric(horizontal: 35, vertical: 5),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 35, vertical: 5),
                             child: InkWell(
                               onTap: (() => Navigator.push(
                                   context,

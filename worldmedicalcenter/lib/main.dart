@@ -6,6 +6,7 @@ import 'package:worldmedicalcenter/presentation/ui/Add.dart';
 import 'package:worldmedicalcenter/presentation/ui/splash.dart';
 import 'application/blocs/allergy/AllergyBloc.dart';
 import 'application/blocs/diagnoses/DiagnosesBloc.dart';
+import 'application/blocs/personnalInfo/personalInfoBloc.dart';
 
 void main() {
   runApp(
@@ -14,6 +15,7 @@ void main() {
       BlocProvider(create: ((context) => MedicineBloc())),
       BlocProvider(create: ((context) => DiagnosesBloc())),
       BlocProvider(create: ((context) => VaccineBloc())),
+      BlocProvider(create: ((context) => PersonalInfoBloc()))
     ], child: const MyApp()),
   );
 }
