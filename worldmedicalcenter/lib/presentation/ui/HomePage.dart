@@ -1,4 +1,5 @@
 import 'package:expandable/expandable.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,9 @@ import '../../application/blocs/medicine/MedicineState.dart';
 import '../../application/blocs/vaccine/VaccineBloc.dart';
 import '../../application/blocs/vaccine/VaccineEvent.dart';
 import '../../application/blocs/vaccine/VaccineState.dart';
+import '../ui/editPersonalInfo.dart';
 import '../../domain/models/NormalModel.dart';
+import '../../domain/models/PersonalInfo.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -32,6 +35,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var showChecklist = false;
   var dropdownValue = "French";
+  PlatformFile? pickedFile;
+
   List<String> titleList = [
     "profile",
     "Allergies",
@@ -40,6 +45,26 @@ class _HomePageState extends State<HomePage> {
     "Vaccines",
     "Documents",
   ];
+  PersonalInfo testInfo = new PersonalInfo(
+      id: 01,
+      firstName: "Paulos",
+      lastName: "Dessie",
+      DOB: "04 Nov 2099",
+      organDonor: "Yes",
+      gender: "Male",
+      SSN: "1111111",
+      nationality: "Norwegian",
+      Tlf_nr: "426782454",
+      postNtr: "Alvovlien",
+      land: "Norway",
+      streetAddress: "579, Godvik",
+      TOI: "String",
+      policyNumber: "String",
+      alarmTelephone: "String",
+      emergenyName: "bora bora",
+      phoneNum: "943759027",
+      relationship: "whatttttt",
+      other: "adhfj dsagfjhkg jhsdgajhgf jkasdgfjkasdgfhjdgsf kjgajsdfgk");
   var ischecked = <bool?>[];
   List<NormalModel> toBeRemoved = [];
   List buttonList = [
@@ -87,7 +112,6 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               onPressed: () {
                 //adding navigation to the menu/////////////////////////////////////////////
-
                 showModalBottomSheet(
                     context: context,
                     elevation: 5,
@@ -157,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     }));
 
-                /////////////////////////////////////////////////////////////////////////////////
+                
               },
               icon: const Icon(Icons.more_vert),
               color: Colors.black,
@@ -207,24 +231,256 @@ class _HomePageState extends State<HomePage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        elevation: 3,
+        elevation: 1,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0),
-          child: ListTile(
-            title: Text("Paulos Dessie"),
-            subtitle: Text("Member since 2022"),
-            leading: CircleAvatar(
-              radius: 35,
-              backgroundColor: Colors.grey[200],
-              child: Icon(
-                Icons.person,
-                size: 40,
-                color: Colors.grey[800],
+          child: ExpandablePanel(
+            header: ListTile(
+              title: Text("Paulos Dessie"),
+              subtitle: Text("Member since 2022"),
+              leading: CircleAvatar(
+                radius: 35,
+                backgroundColor: Colors.grey[200],
+                child: Icon(
+                  Icons.person,
+                  size: 40,
+                  color: Colors.grey[800],
+                ),
+              ),
+            ),
+            collapsed: Container(),
+            expanded: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  getPersonnalinfo(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 2,
+                      child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 236, 236, 236))),
+                    ),
+                  ),
+                  getInsuranceInfo(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 2,
+                      child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 236, 236, 236))),
+                    ),
+                  ),
+                  getEmregencyContact(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 2,
+                      child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 236, 236, 236))),
+                    ),
+                  ),
+                  getOtherInfo(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 100,
+                      height: 40,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const EditPersonalInfo(),
+                            ),
+                          );
+                        },
+                        borderRadius: BorderRadius.circular(100),
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 4),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                border: Border.all(
+                                    width: 0.5,
+                                    color: Colors.black45,
+                                    style: BorderStyle.solid)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                buttonList[2][1],
+                                SizedBox(
+                                  width: 6,
+                                ),
+                                Text(
+                                  buttonList[2][0],
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black),
+                                )
+                              ],
+                            )),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget getPersonnalinfo() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [basicText("Birth Date"), Text(testInfo.DOB)],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [basicText("Gender"), Text(testInfo.gender)],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [basicText("Orgad donor"), Text(testInfo.organDonor)],
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  basicText("Social Security Number"),
+                  Text(testInfo.SSN)
+                ]),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  basicText("Nationality"),
+                  Text(testInfo.nationality)
+                ]),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [basicText("Telephone"), Text(testInfo.Tlf_nr)]),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  basicText("Postal Address"),
+                  Text(testInfo.postNtr),
+                  Text(testInfo.streetAddress),
+                  Text(testInfo.land)
+                ]),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget getInsuranceInfo() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [basicText("Travel Insurance"), Text(testInfo.TOI)],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  basicText("Policy Number"),
+                  Text(testInfo.policyNumber)
+                ],
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  basicText("Alarm Telephone"),
+                  Text(testInfo.alarmTelephone)
+                ]),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget getEmregencyContact() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          basicText("Emergency Contacts"),
+          Text(testInfo.emergenyName + testInfo.relationship),
+          Text(testInfo.phoneNum)
+        ],
+      ),
+    );
+  }
+
+  Widget getOtherInfo() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [basicText("Other information"), Text(testInfo.other)],
+      ),
+    );
+  }
+
+  Widget basicText(text) {
+    return Text(
+      text,
+      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
     );
   }
 
@@ -709,6 +965,15 @@ class _HomePageState extends State<HomePage> {
       );
     } else {
       //@TODO: change by document implementation
+      List state = [
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+      ];
       return ExpandableNotifier(
         child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -717,10 +982,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(0.0),
                 child: ScrollOnExpand(
                   child: ExpandablePanel(
-                      header: getExpandableHeader(index, [
-                        NormalModel(
-                            userId: 1, name: "Living will", id: "DCE34x")
-                      ]),
+                      header: getExpandableHeader(index, state),
                       collapsed: const SizedBox.shrink(),
                       expanded: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -728,7 +990,7 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             height: MediaQuery.of(context).size.height * 0.5,
                             child: ListView.builder(
-                                itemCount: 8,
+                                itemCount: state.length,
                                 itemBuilder: ((context, index) {
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -746,15 +1008,17 @@ class _HomePageState extends State<HomePage> {
                                             Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "TEST",
+                                                  state[index].name,
                                                 ),
                                                 SizedBox(
                                                   height: 2,
                                                 ),
                                                 Text(
-                                                  "V305",
+                                                  state[index].id,
                                                   style: TextStyle(
                                                       color: Colors.black54,
                                                       fontSize: 12),
@@ -770,12 +1034,17 @@ class _HomePageState extends State<HomePage> {
                                 })),
                           ),
                           Container(
-                            margin: EdgeInsets.symmetric(horizontal: 35, vertical: 5),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 35, vertical: 5),
                             child: InkWell(
-                              onTap: (() => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) => AddDocument())))),
+                              onTap: (() async {
+                                final result =
+                                    await FilePicker.platform.pickFiles();
+                                if (result == null) return;
+                                setState(() {
+                                  pickedFile = result.files.first;
+                                });
+                              }),
                               borderRadius: BorderRadius.circular(100),
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 8, top: 3),
@@ -865,7 +1134,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   getIcon(index, state) {
-    var selctedColor = state.length > 1 ? Colors.blue : Colors.black;
+    var selctedColor = state.length >= 1 ? Colors.blue : Colors.black;
     switch (index) {
       case 0:
         return Icon(

@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldmedicalcenter/application/blocs/medicine/MedicineBloc.dart';
@@ -7,7 +8,10 @@ import 'package:worldmedicalcenter/presentation/ui/splash.dart';
 import 'application/blocs/allergy/AllergyBloc.dart';
 import 'application/blocs/diagnoses/DiagnosesBloc.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(
     MultiBlocProvider(providers: [
       BlocProvider(create: ((context) => AllergyBloc())),
