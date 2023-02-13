@@ -20,7 +20,9 @@ import '../../application/blocs/medicine/MedicineState.dart';
 import '../../application/blocs/vaccine/VaccineBloc.dart';
 import '../../application/blocs/vaccine/VaccineEvent.dart';
 import '../../application/blocs/vaccine/VaccineState.dart';
+import '../ui/editPersonalInfo.dart';
 import '../../domain/models/NormalModel.dart';
+import '../../domain/models/PersonalInfo.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -32,6 +34,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var showChecklist = false;
   var dropdownValue = "French";
+
+
   List<String> titleList = [
     "profile",
     "Allergies",
@@ -40,6 +44,26 @@ class _HomePageState extends State<HomePage> {
     "Vaccines",
     "Documents",
   ];
+  PersonalInfo testInfo = new PersonalInfo(
+      id: 01,
+      firstName: "Paulos",
+      lastName: "Dessie",
+      DOB: "04 Nov 2099",
+      organDonor: "Yes",
+      gender: "Male",
+      SSN: "1111111",
+      nationality: "Norwegian",
+      Tlf_nr: "426782454",
+      postNtr: "Alvovlien",
+      land: "Norway",
+      streetAddress: "579, Godvik",
+      TOI: "String",
+      policyNumber: "String",
+      alarmTelephone: "String",
+      emergenyName: "bora bora",
+      phoneNum: "943759027",
+      relationship: "whatttttt",
+      other: "adhfj dsagfjhkg jhsdgajhgf jkasdgfjkasdgfhjdgsf kjgajsdfgk");
   var ischecked = <bool?>[];
   List<NormalModel> toBeRemoved = [];
   List buttonList = [
@@ -87,75 +111,69 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               onPressed: () {
                 //adding navigation to the menu/////////////////////////////////////////////
-
-                showModalBottomSheet(
-                    context: context,
-                    elevation: 5,
-                    backgroundColor: Colors.blueGrey[900],
-                    isScrollControlled: true,
-                    builder: ((context) {
-                      return Container(
-                        height: 150,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            InkWell(
-                                onTap: (() {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return Subscriptions();
-                                  }));
-                                }),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                    "My Subscriptions",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                )),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            InkWell(
-                                onTap: (() {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return TermsAndConditions();
-                                  }));
-                                }),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                    "Terms And Conditions",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                )),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            InkWell(
-                                onTap: (() {}),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                    "Sign Out",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                )),
-                          ],
+          showModalBottomSheet(
+          context: context,
+          elevation: 5,
+          backgroundColor: Colors.blueGrey[900],
+          isScrollControlled: true,
+          builder: ((context) {
+            return Container(
+              height: 150,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                      onTap: (() {
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return Subscriptions();
+                        }));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "My Subscriptions",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
                         ),
-                      );
-                    }));
+                      )),
+                      SizedBox(height: 20,),
+                  InkWell(
+                      onTap: (() {
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return TermsAndConditions();
+                        }));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "Terms And Conditions",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      )),
+                      SizedBox(height: 20,),
+                  InkWell(
+                      onTap: (() {
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "Sign Out",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      )),
+                ],
+              ),
+            );
+          }));
 
                 /////////////////////////////////////////////////////////////////////////////////
               },
@@ -207,24 +225,256 @@ class _HomePageState extends State<HomePage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        elevation: 3,
+        elevation: 1,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0),
-          child: ListTile(
-            title: Text("Paulos Dessie"),
-            subtitle: Text("Member since 2022"),
-            leading: CircleAvatar(
-              radius: 35,
-              backgroundColor: Colors.grey[200],
-              child: Icon(
-                Icons.person,
-                size: 40,
-                color: Colors.grey[800],
+          child: ExpandablePanel(
+            header: ListTile(
+              title: Text("Paulos Dessie"),
+              subtitle: Text("Member since 2022"),
+              leading: CircleAvatar(
+                radius: 35,
+                backgroundColor: Colors.grey[200],
+                child: Icon(
+                  Icons.person,
+                  size: 40,
+                  color: Colors.grey[800],
+                ),
+              ),
+            ),
+            collapsed: Container(),
+            expanded: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  getPersonnalinfo(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 2,
+                      child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 236, 236, 236))),
+                    ),
+                  ),
+                  getInsuranceInfo(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 2,
+                      child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 236, 236, 236))),
+                    ),
+                  ),
+                  getEmregencyContact(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 2,
+                      child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 236, 236, 236))),
+                    ),
+                  ),
+                  getOtherInfo(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 100,
+                      height: 40,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const EditPersonalInfo(),
+                            ),
+                          );
+                        },
+                        borderRadius: BorderRadius.circular(100),
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 4),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                border: Border.all(
+                                    width: 0.5,
+                                    color: Colors.black45,
+                                    style: BorderStyle.solid)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                buttonList[2][1],
+                                SizedBox(
+                                  width: 6,
+                                ),
+                                Text(
+                                  buttonList[2][0],
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black),
+                                )
+                              ],
+                            )),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget getPersonnalinfo() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [basicText("Birth Date"), Text(testInfo.DOB)],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [basicText("Gender"), Text(testInfo.gender)],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [basicText("Orgad donor"), Text(testInfo.organDonor)],
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  basicText("Social Security Number"),
+                  Text(testInfo.SSN)
+                ]),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  basicText("Nationality"),
+                  Text(testInfo.nationality)
+                ]),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [basicText("Telephone"), Text(testInfo.Tlf_nr)]),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  basicText("Postal Address"),
+                  Text(testInfo.postNtr),
+                  Text(testInfo.streetAddress),
+                  Text(testInfo.land)
+                ]),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget getInsuranceInfo() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [basicText("Travel Insurance"), Text(testInfo.TOI)],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  basicText("Policy Number"),
+                  Text(testInfo.policyNumber)
+                ],
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  basicText("Alarm Telephone"),
+                  Text(testInfo.alarmTelephone)
+                ]),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget getEmregencyContact() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          basicText("Emergency Contacts"),
+          Text(testInfo.emergenyName + testInfo.relationship),
+          Text(testInfo.phoneNum)
+        ],
+      ),
+    );
+  }
+
+  Widget getOtherInfo() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [basicText("Other information"), Text(testInfo.other)],
+      ),
+    );
+  }
+
+  Widget basicText(text) {
+    return Text(
+      text,
+      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
     );
   }
 
