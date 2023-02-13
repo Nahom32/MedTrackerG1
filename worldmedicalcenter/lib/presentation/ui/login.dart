@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldmedicalcenter/presentation/ui/reset_password.dart';
@@ -20,15 +21,27 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final _formKey = GlobalKey<FormState>();
+  final emailCtrl = TextEditingController();
+  final passwordCtrl = TextEditingController();
+
+  @override
+  void dispose() {
+    emailCtrl.dispose();
+    passwordCtrl.dispose();
+
+    super.dispose();
+  }
+
   bool _isObscure = true;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             elevation: 0,
+            automaticallyImplyLeading: false,
             backgroundColor: Colors.blueGrey[50],
           ),
           body: Container(
@@ -96,38 +109,39 @@ class _LoginState extends State<Login> {
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.2,
-                  child: Form(
-                    key: _formKey,
-                    child: Column(children: [
-                      SizedBox(height: 12),
-                      TextField(
-                        decoration: InputDecoration(
+                  child: Column(children: [
+                    SizedBox(height: 12),
+                    TextField(
+                      controller: emailCtrl,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        label: Text("Email"),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    TextField(
+                      controller: passwordCtrl,
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          label: Text("Email"),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            label: Text('Password'),
-                            suffixIcon: IconButton(
-                                icon: Icon(_isObscure
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                onPressed: () {
-                                  setState(() {
-                                    _isObscure = !_isObscure;
-                                  });
-                                })),
-                        obscureText: _isObscure,
-                      ),
-                    ]),
-                  ),
+                          label: Text('Password'),
+                          suffixIcon: IconButton(
+                              icon: Icon(_isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              })),
+                      obscureText: _isObscure,
+                    ),
+                  ]),
                 ),
                 Expanded(
                   child: Container(
@@ -152,24 +166,7 @@ class _LoginState extends State<Login> {
                           height: 10,
                         ),
                         TextButton(
-                            onPressed: () {
-                              final allergyBloc =
-                                  BlocProvider.of<AllergyBloc>(context);
-                              allergyBloc.add(LoadAllergy(1));
-                              final medicineBloc =
-                                  BlocProvider.of<MedicineBloc>(context);
-                              medicineBloc.add(LoadMedicine(1));
-                              final diagnosesBloc =
-                                  BlocProvider.of<DiagnosesBloc>(context);
-                              diagnosesBloc.add(LoadDiagnoses(1));
-                              final vaccineBloc =
-                                  BlocProvider.of<VaccineBloc>(context);
-                              vaccineBloc.add(LoadVaccine(1));
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return HomePage();
-                              }));
-                            },
+                            onPressed: signIn,
                             child: Container(
                               child: Text(
                                 'LOGIN',
@@ -200,5 +197,21 @@ class _LoginState extends State<Login> {
             ),
           )),
     );
+  }
+
+  Future signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailCtrl.text.trim(), password: passwordCtrl.text.trim());
+
+    final allergyBloc = BlocProvider.of<AllergyBloc>(context);
+    allergyBloc.add(LoadAllergy(1));
+    final medicineBloc = BlocProvider.of<MedicineBloc>(context);
+    medicineBloc.add(LoadMedicine(1));
+    final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
+    diagnosesBloc.add(LoadDiagnoses(1));
+    final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
+    vaccineBloc.add(LoadVaccine(1));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: ((context) => HomePage())));
   }
 }

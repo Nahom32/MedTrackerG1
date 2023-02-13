@@ -1,9 +1,12 @@
 import 'package:expandable/expandable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldmedicalcenter/presentation/ui/add_document.dart';
+import 'package:worldmedicalcenter/presentation/ui/login.dart';
 import 'package:worldmedicalcenter/presentation/ui/my_subscripitons.dart';
+import 'package:worldmedicalcenter/presentation/ui/splash.dart';
 import 'package:worldmedicalcenter/presentation/ui/terms_and_conditions.dart';
 
 import '../../application/blocs/allergy/AllergyBloc.dart';
@@ -141,7 +144,13 @@ class _HomePageState extends State<HomePage> {
                               height: 20,
                             ),
                             InkWell(
-                                onTap: (() {}),
+                                onTap: () {
+                                  FirebaseAuth.instance.signOut();
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) => Splash())));
+                                },
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
@@ -770,7 +779,8 @@ class _HomePageState extends State<HomePage> {
                                 })),
                           ),
                           Container(
-                            margin: EdgeInsets.symmetric(horizontal: 35, vertical: 5),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 35, vertical: 5),
                             child: InkWell(
                               onTap: (() => Navigator.push(
                                   context,
