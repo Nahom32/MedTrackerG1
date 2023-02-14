@@ -242,6 +242,34 @@ class _LoginState extends State<Login> {
   }
 
   Future googleSignin() async {
-    GoogleSignIn().signIn();
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: ((context) => Center(child: CircularProgressIndicator())));
+
+    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    UserCredential user =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    final allergyBloc = BlocProvider.of<AllergyBloc>(context);
+    allergyBloc.add(LoadAllergy("1"));
+    final medicineBloc = BlocProvider.of<MedicineBloc>(context);
+    medicineBloc.add(LoadMedicine("1"));
+    final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
+    diagnosesBloc.add(LoadDiagnoses("1"));
+    final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
+    vaccineBloc.add(LoadVaccine("1"));
+
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: ((context) => HomePage())));
   }
 }

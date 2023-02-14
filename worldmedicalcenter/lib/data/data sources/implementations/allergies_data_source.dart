@@ -1,4 +1,5 @@
 // ignore_for_file: constant_identifier_names
+import 'package:dartz/dartz_unsafe.dart';
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
 import 'package:worldmedicalcenter/domain/models/allergy.dart';
@@ -19,15 +20,15 @@ class AllergiesDataSources implements AllergiesData {
   }
 
   @override
-  Future<Allergy> find(
-    String? name,
+  Future<List<Allergy>> find(
+    String id,
   ) async {
-    var response = await Dio().get("$API_BASE/allergies/search/$name");
-    Allergy allergy = Allergy(
-        id: response.data['id'],
-        name: response.data['name'],
-        code: response.data['code']);
-    return allergy;
+    var response = await Dio().get("$API_BASE/allergies/search/$id");
+    List<Allergy> list = [];
+    response.data.forEach((d) {
+      Allergy(id: d['id'], name: d['name'], code: d['code']);
+    });
+    return list;
   }
 
   @override

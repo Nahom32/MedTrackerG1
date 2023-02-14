@@ -972,7 +972,7 @@ class _HomePageState extends State<HomePage> {
           if (state is LoadedVaccine) {
             return getCommonContent(index, state.vaccines);
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         },
       );
@@ -1014,8 +1014,8 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         Row(
                                           children: [
-                                            Icon(Icons.file_copy),
-                                            SizedBox(
+                                            const Icon(Icons.file_copy),
+                                            const SizedBox(
                                               width: 14,
                                             ),
                                             Column(
@@ -1027,12 +1027,12 @@ class _HomePageState extends State<HomePage> {
                                                 Text(
                                                   state[index].name,
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 2,
                                                 ),
                                                 Text(
                                                   state[index].id,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.black54,
                                                       fontSize: 12),
                                                 )
