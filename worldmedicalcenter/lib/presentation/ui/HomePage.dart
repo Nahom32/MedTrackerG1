@@ -1,9 +1,12 @@
 import 'package:expandable/expandable.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldmedicalcenter/presentation/ui/add_document.dart';
 import 'package:worldmedicalcenter/presentation/ui/my_subscripitons.dart';
+import 'package:worldmedicalcenter/presentation/ui/splash.dart';
 import 'package:worldmedicalcenter/presentation/ui/terms_and_conditions.dart';
 
 import '../../application/blocs/allergy/AllergyBloc.dart';
@@ -34,6 +37,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var showChecklist = false;
   var dropdownValue = "French";
+  PlatformFile? pickedFile;
 
   List<String> titleList = [
     "profile",
@@ -99,107 +103,111 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blueGrey[50],
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          title: appbarHeader(),
-          actions: [
-            IconButton(
-              onPressed: () {
-                //adding navigation to the menu/////////////////////////////////////////////
-                showModalBottomSheet(
-                    context: context,
-                    elevation: 5,
-                    backgroundColor: Colors.blueGrey[900],
-                    isScrollControlled: true,
-                    builder: ((context) {
-                      return Container(
-                        height: 150,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            InkWell(
-                                onTap: (() {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return Subscriptions();
-                                  }));
-                                }),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                    "My Subscriptions",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                )),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            InkWell(
-                                onTap: (() {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return TermsAndConditions();
-                                  }));
-                                }),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                    "Terms And Conditions",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                )),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            InkWell(
-                                onTap: (() {}),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                    "Sign Out",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                )),
-                          ],
-                        ),
-                      );
-                    }));
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey[50],
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: appbarHeader(),
+        actions: [
+          IconButton(
+            onPressed: () {
+              //adding navigation to the menu/////////////////////////////////////////////
+              showModalBottomSheet(
+                  context: context,
+                  elevation: 5,
+                  backgroundColor: Colors.blueGrey[900],
+                  isScrollControlled: true,
+                  builder: ((context) {
+                    return Container(
+                      height: 150,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                              onTap: (() {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Subscriptions();
+                                }));
+                              }),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(
+                                  "My Subscriptions",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                              )),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          InkWell(
+                              onTap: (() {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return TermsAndConditions();
+                                }));
+                              }),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(
+                                  "Terms And Conditions",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                              )),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          InkWell(
+                              onTap: () {
+                              FirebaseAuth.instance.signOut();
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) => Splash())));
+                            },
+                            child: Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(
+                                  "Sign Out",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                              )),
+                        ],
+                      ),
+                    );
+                  }));
 
-                /////////////////////////////////////////////////////////////////////////////////
-              },
-              icon: const Icon(Icons.more_vert),
-              color: Colors.black,
-              iconSize: 24,
-            )
-          ],
-        ),
-        body: Container(
-          color: Colors.blueGrey[50],
-          child: ListView.builder(
-            itemCount: 7,
-            itemBuilder: (BuildContext context, int index) {
-              if (index == 0) {
-                return getProfile();
-              } else if (index == 6) {
-                return getExpirationCard();
-              }
-              return getMainField(index);
+              
             },
-          ),
+            icon: const Icon(Icons.more_vert),
+            color: Colors.black,
+            iconSize: 24,
+          )
+        ],
+      ),
+      body: Container(
+        color: Colors.blueGrey[50],
+        child: ListView.builder(
+          itemCount: 7,
+          itemBuilder: (BuildContext context, int index) {
+            if (index == 0) {
+              return getProfile();
+            } else if (index == 6) {
+              return getExpirationCard();
+            }
+            return getMainField(index);
+          },
         ),
       ),
     );
@@ -967,6 +975,15 @@ class _HomePageState extends State<HomePage> {
       );
     } else {
       //@TODO: change by document implementation
+      List state = [
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+      ];
       return ExpandableNotifier(
         child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -975,10 +992,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(0.0),
                 child: ScrollOnExpand(
                   child: ExpandablePanel(
-                      header: getExpandableHeader(index, [
-                        NormalModel(
-                            userId: 1, name: "Living will", id: "DCE34x")
-                      ]),
+                      header: getExpandableHeader(index, state),
                       collapsed: const SizedBox.shrink(),
                       expanded: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -986,7 +1000,7 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             height: MediaQuery.of(context).size.height * 0.5,
                             child: ListView.builder(
-                                itemCount: 8,
+                                itemCount: state.length,
                                 itemBuilder: ((context, index) {
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -1004,15 +1018,17 @@ class _HomePageState extends State<HomePage> {
                                             Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "TEST",
+                                                  state[index].name,
                                                 ),
                                                 SizedBox(
                                                   height: 2,
                                                 ),
                                                 Text(
-                                                  "V305",
+                                                  state[index].id,
                                                   style: TextStyle(
                                                       color: Colors.black54,
                                                       fontSize: 12),
@@ -1031,10 +1047,14 @@ class _HomePageState extends State<HomePage> {
                             margin: EdgeInsets.symmetric(
                                 horizontal: 35, vertical: 5),
                             child: InkWell(
-                              onTap: (() => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) => AddDocument())))),
+                              onTap: (() async {
+                                final result =
+                                    await FilePicker.platform.pickFiles();
+                                if (result == null) return;
+                                setState(() {
+                                  pickedFile = result.files.first;
+                                });
+                              }),
                               borderRadius: BorderRadius.circular(100),
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 8, top: 3),
@@ -1124,7 +1144,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   getIcon(index, state) {
-    var selctedColor = state.length > 1 ? Colors.blue : Colors.black;
+    var selctedColor = state.length >= 1 ? Colors.blue : Colors.black;
     switch (index) {
       case 0:
         return Icon(

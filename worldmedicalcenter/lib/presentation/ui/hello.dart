@@ -25,7 +25,7 @@ class Hello extends StatelessWidget {
             ),),
             TextButton(
             onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context){
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
                 return Login();
               }));
             },

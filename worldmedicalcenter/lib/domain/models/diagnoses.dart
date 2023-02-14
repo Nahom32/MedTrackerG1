@@ -1,15 +1,14 @@
 import 'package:equatable/equatable.dart';
-import 'package:worldmedicalcenter/domain/models/user.dart';
 
-class Allergy extends Equatable {
+class Diagnoses extends Equatable {
   final String id;
   final String name;
   final String code;
 
-  const Allergy({
+  const Diagnoses({
     required this.id,
     required this.name,
-    required this.code,
+    required this.code
   });
 
   @override
