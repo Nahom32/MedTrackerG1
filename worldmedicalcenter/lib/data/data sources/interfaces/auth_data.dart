@@ -1,8 +1,9 @@
 
 
+import 'package:worldmedicalcenter/domain/models/PersonalInfo.dart';
+
 import '../../../domain/models/auth.dart';
-import '../../../domain/models/user.dart';
 
 abstract class AuthData {
-  Future<User> create(Auth auth);
+  Future<PersonalInfo> create(Auth auth);
 }

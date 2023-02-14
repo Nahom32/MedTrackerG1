@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:worldmedicalcenter/domain/models/user.dart';
 
 class Allergy extends Equatable {
   final int id;

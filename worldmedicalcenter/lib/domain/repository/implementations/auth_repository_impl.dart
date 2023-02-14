@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:worldmedicalcenter/domain/models/user.dart';
+import 'package:worldmedicalcenter/domain/models/PersonalInfo.dart';
 
 import '../../../core/error/failures.dart';
 import '../../../data/data sources/implementations/auth_data_source.dart';
@@ -11,7 +11,7 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.authDataSource);
 
   @override
-  Future<Either<Failure, User>> createAuth(Auth auth) async {
+  Future<Either<Failure, PersonalInfo>> createAuth(Auth auth) async {
     try {
       final result = await authDataSource.create(
           Auth(emailAddress: auth.emailAddress, password: auth.password));

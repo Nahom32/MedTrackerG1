@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:worldmedicalcenter/domain/models/user.dart';
 
 class Documents extends Equatable {
   final String id;
