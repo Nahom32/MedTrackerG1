@@ -1,5 +1,5 @@
 class NormalModel {
-  final int? userId;
+  final String? userId;
   final String? id;
   final String? name;
   NormalModel({

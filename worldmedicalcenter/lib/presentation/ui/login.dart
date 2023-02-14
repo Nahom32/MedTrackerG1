@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:worldmedicalcenter/main.dart';
+import 'package:worldmedicalcenter/presentation/ui/Error.dart';
 import 'package:worldmedicalcenter/presentation/ui/reset_password.dart';
 
 import '../../application/blocs/allergy/AllergyBloc.dart';
@@ -20,35 +24,48 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final _formKey = GlobalKey<FormState>();
+  final emailCtrl = TextEditingController();
+  final passwordCtrl = TextEditingController();
+
+  @override
+  void dispose() {
+    emailCtrl.dispose();
+    passwordCtrl.dispose();
+
+    super.dispose();
+  }
+
   bool _isObscure = true;
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
         resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.blueGrey[50],
-          ),
-          body: Container(
-            color: Colors.blueGrey[50],
-            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Login to world Medical Card',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'How would you like to sign-in?',
-                  style: TextStyle(color: Colors.black54, fontSize: 13),
-                ),
-                Container(
+        appBar: AppBar(
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.blueGrey[50],
+        ),
+        body: Container(
+          color: Colors.blueGrey[50],
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Login to world Medical Card',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'How would you like to sign-in?',
+                style: TextStyle(color: Colors.black54, fontSize: 13),
+              ),
+              InkWell(
+                onTap: googleSignin,
+                child: Container(
                   margin: EdgeInsets.symmetric(vertical: 40, horizontal: 12),
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -71,134 +88,189 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-                Row(children: [
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 10.0, right: 15.0),
-                      height: 1,
-                      decoration: BoxDecoration(color: Colors.black),
-                    ),
-                  ),
-                  Text("OR"),
-                  Expanded(
-                    child: Container(
-                      width: 100,
-                      margin: const EdgeInsets.only(left: 15.0, right: 10.0),
-                      height: 1,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ]),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  child: Form(
-                    key: _formKey,
-                    child: Column(children: [
-                      SizedBox(height: 12),
-                      TextField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          label: Text("Email"),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            label: Text('Password'),
-                            suffixIcon: IconButton(
-                                icon: Icon(_isObscure
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                onPressed: () {
-                                  setState(() {
-                                    _isObscure = !_isObscure;
-                                  });
-                                })),
-                        obscureText: _isObscure,
-                      ),
-                    ]),
-                  ),
-                ),
+              ),
+              Row(children: [
                 Expanded(
                   child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                            child: Text(
-                              'Forgot Password?',
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline),
-                            ),
-                            onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return PasswordReset();
-                              }));
-                            }),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              final allergyBloc =
-                                  BlocProvider.of<AllergyBloc>(context);
-                              allergyBloc.add(LoadAllergy(1));
-                              final medicineBloc =
-                                  BlocProvider.of<MedicineBloc>(context);
-                              medicineBloc.add(LoadMedicine(1));
-                              final diagnosesBloc =
-                                  BlocProvider.of<DiagnosesBloc>(context);
-                              diagnosesBloc.add(LoadDiagnoses(1));
-                              final vaccineBloc =
-                                  BlocProvider.of<VaccineBloc>(context);
-                              vaccineBloc.add(LoadVaccine(1));
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return HomePage();
-                              }));
-                            },
-                            child: Container(
-                              child: Text(
-                                'LOGIN',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.white),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 130),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(30)),
-                                color: Colors.blue,
-                              ),
-                              // shape: RoundedRectangleBorder(
-                              //   borderRadius: BorderRadius.all(Radius.circular(30))
-                              // ),
-                            )
-                            // ,
-                            ),
-                        SizedBox(
-                          height: 20,
-                        )
-                      ],
+                    margin: const EdgeInsets.only(left: 10.0, right: 15.0),
+                    height: 1,
+                    decoration: BoxDecoration(color: Colors.black),
+                  ),
+                ),
+                Text("OR"),
+                Expanded(
+                  child: Container(
+                    width: 100,
+                    margin: const EdgeInsets.only(left: 15.0, right: 10.0),
+                    height: 1,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
                     ),
                   ),
-                )
-              ],
-            ),
-          )),
+                ),
+              ]),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.2,
+                child: Column(children: [
+                  SizedBox(height: 12),
+                  TextField(
+                    controller: emailCtrl,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      label: Text("Email"),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  TextField(
+                    controller: passwordCtrl,
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        label: Text('Password'),
+                        suffixIcon: IconButton(
+                            icon: Icon(_isObscure
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            })),
+                    obscureText: _isObscure,
+                  ),
+                ]),
+              ),
+              Expanded(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                          child: Text(
+                            'Forgot Password?',
+                            style:
+                                TextStyle(decoration: TextDecoration.underline),
+                          ),
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return PasswordReset();
+                            }));
+                          }),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      TextButton(
+                          onPressed: signIn,
+                          child: Container(
+                            child: Text(
+                              'LOGIN',
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.white),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 130),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
+                              color: Colors.blue,
+                            ),
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: BorderRadius.all(Radius.circular(30))
+                            // ),
+                          )
+                          // ,
+                          ),
+                      SizedBox(
+                        height: 20,
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ));
+  }
+
+  Future signIn() async {
+    bool flag = true;
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: ((context) => Center(child: CircularProgressIndicator())));
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailCtrl.text.trim(), password: passwordCtrl.text.trim());
+    } on FirebaseAuthException catch (e) {
+      flag = false;
+    }
+
+    if (!flag) {
+      const snackBar = SnackBar(
+        content: Text("Incorrect email or password",
+            style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.red,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: ((context) => Login())));
+    } else {
+      final allergyBloc = BlocProvider.of<AllergyBloc>(context);
+      allergyBloc.add(LoadAllergy("1"));
+      final medicineBloc = BlocProvider.of<MedicineBloc>(context);
+      medicineBloc.add(LoadMedicine("1"));
+      final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
+      diagnosesBloc.add(LoadDiagnoses("1"));
+      final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
+      vaccineBloc.add(LoadVaccine("1"));
+
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: ((context) => HomePage())));
+    }
+  }
+
+  Future googleSignin() async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: ((context) => Center(child: CircularProgressIndicator())));
+
+    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
     );
+
+    UserCredential user =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    final allergyBloc = BlocProvider.of<AllergyBloc>(context);
+    allergyBloc.add(LoadAllergy("1"));
+    final medicineBloc = BlocProvider.of<MedicineBloc>(context);
+    medicineBloc.add(LoadMedicine("1"));
+    final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
+    diagnosesBloc.add(LoadDiagnoses("1"));
+    final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
+    vaccineBloc.add(LoadVaccine("1"));
+
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: ((context) => HomePage())));
   }
 }

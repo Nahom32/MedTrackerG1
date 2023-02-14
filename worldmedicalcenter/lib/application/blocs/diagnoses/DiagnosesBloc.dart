@@ -13,18 +13,18 @@ class DiagnosesBloc extends Bloc<DiagnosesEvent, DiagnosesState> {
   }
 
   List<NormalModel> testData = [
-    NormalModel(userId: 1, id: "DMXC004", name: "Diagnoses100"),
-    NormalModel(userId: 1, id: "DMXC005", name: "Diagnoses200"),
-    NormalModel(userId: 1, id: "DMXC006", name: "Diagnoses300"),
-    NormalModel(userId: 1, id: "DMXC003", name: "Diagnoses400"),
-    NormalModel(userId: 1, id: "DMXC002", name: "Diagnoses500"),
-    NormalModel(userId: 1, id: "DMXC001", name: "Diagnoses600"),
-    NormalModel(userId: 1, id: "DMXC003", name: "Diagnoses400"),
-    NormalModel(userId: 1, id: "DMXC002", name: "Diagnoses500"),
-    NormalModel(userId: 1, id: "DMXC001", name: "Diagnoses600"),
-    NormalModel(userId: 1, id: "DMXC003", name: "Diagnoses400"),
-    NormalModel(userId: 1, id: "DMXC002", name: "Diagnoses500"),
-    NormalModel(userId: 1, id: "DMXC001", name: "Diagnoses600"),
+    NormalModel(userId: "1", id: "DMXC004", name: "Diagnoses100"),
+    NormalModel(userId: "1", id: "DMXC005", name: "Diagnoses200"),
+    NormalModel(userId: "1", id: "DMXC006", name: "Diagnoses300"),
+    NormalModel(userId: "1", id: "DMXC003", name: "Diagnoses400"),
+    NormalModel(userId: "1", id: "DMXC002", name: "Diagnoses500"),
+    NormalModel(userId: "1", id: "DMXC001", name: "Diagnoses600"),
+    NormalModel(userId: "1", id: "DMXC003", name: "Diagnoses400"),
+    NormalModel(userId: "1", id: "DMXC002", name: "Diagnoses500"),
+    NormalModel(userId: "1", id: "DMXC001", name: "Diagnoses600"),
+    NormalModel(userId: "1", id: "DMXC003", name: "Diagnoses400"),
+    NormalModel(userId: "1", id: "DMXC002", name: "Diagnoses500"),
+    NormalModel(userId: "1", id: "DMXC001", name: "Diagnoses600"),
   ];
 
   FutureOr<void> _loadDiagnoses(LoadDiagnoses event, Emitter<DiagnosesState> emit) {

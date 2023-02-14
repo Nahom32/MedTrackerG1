@@ -22,11 +22,10 @@ class AllergyRepositoryImpl implements AllergyRepository {
   }
 
   @override
-  Future<Either<Failure,Allergy>> getAllergy(String name) async {
+  Future<Either<Failure,List<Allergy>>> getAllergy(String id) async {
     try {
-      final result = await allergyDataSources.find(name);
-      return Right(
-          Allergy(id: result.id, name: result.code, code: result.name));
+      final result = await allergyDataSources.find(id);
+      return Right(result.map((e) => Allergy(id: e.id, name: e.name, code: e.code)).toList());
     } catch (e) {
       return Left(ServerFailure());
     }

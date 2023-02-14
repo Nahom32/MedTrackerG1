@@ -25,7 +25,7 @@ class Hello extends StatelessWidget {
             ),),
             TextButton(
             onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context){
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
                 return Login();
               }));
             },
@@ -44,7 +44,9 @@ class Hello extends StatelessWidget {
             //   }));
             // },
             child: Container(
-            child:Text('LOGIN', style: TextStyle(fontSize: 12, color: Colors.white),),
+            child:Text(
+              key: Key("Login"),
+              'LOGIN', style: TextStyle(fontSize: 12, color: Colors.white),),
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 130),
             decoration: BoxDecoration(borderRadius:  BorderRadius.all(Radius.circular(30)),
             color:  Colors.blue,

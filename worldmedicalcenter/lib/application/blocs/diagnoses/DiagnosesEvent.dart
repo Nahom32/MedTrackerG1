@@ -11,7 +11,7 @@ class AddDiagnoses extends DiagnosesEvent {
 }
 
 class LoadDiagnoses extends DiagnosesEvent {
-  final int id;
+  final String id;
 
   LoadDiagnoses(this.id);
 }

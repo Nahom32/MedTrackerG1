@@ -5,7 +5,7 @@ import '../../../core/error/failures.dart';
 
 
 abstract class AllergyRepository {
-  Future<Either<Failure, Allergy>> getAllergy(String name);
+  Future<Either<Failure, List<Allergy>>> getAllergy(String id);
   Future<Either<Failure, Unit>> createAllergy(Allergy allergy);
   Future<Either<Failure, Unit>> deleteAllergy(String id);
 }

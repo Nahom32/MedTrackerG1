@@ -23,16 +23,14 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: Center(
-        child: Image(
-          image: AssetImage(
-            'assets/world-medical-card-removebg-preview.png',
-          ),
-          height: 80,
+    return Scaffold(
+        body: Center(
+      child: Image(
+        image: AssetImage(
+          'assets/world-medical-card-removebg-preview.png',
         ),
-      )),
-    );
+        height: 80,
+      ),
+    ));
   }
 }

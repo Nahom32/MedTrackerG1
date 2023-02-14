@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldmedicalcenter/application/blocs/medicine/MedicineBloc.dart';
 import 'package:worldmedicalcenter/application/blocs/vaccine/VaccineBloc.dart';
+import 'package:worldmedicalcenter/main_page.dart';
 import 'package:worldmedicalcenter/presentation/ui/Add.dart';
 import 'package:worldmedicalcenter/presentation/ui/splash.dart';
 import 'application/blocs/allergy/AllergyBloc.dart';
 import 'application/blocs/diagnoses/DiagnosesBloc.dart';
+import 'application/blocs/personnalInfo/personalInfoBloc.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,9 +20,12 @@ Future main() async {
       BlocProvider(create: ((context) => MedicineBloc())),
       BlocProvider(create: ((context) => DiagnosesBloc())),
       BlocProvider(create: ((context) => VaccineBloc())),
+      BlocProvider(create: ((context) => PersonalInfoBloc()))
     ], child: const MyApp()),
   );
 }
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -28,7 +33,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {"/add": (context) => const Add()},
+      navigatorKey: navigatorKey,
+      routes: {"/add": (context) => Add()},
       title: 'World Medical App',
       theme: ThemeData(
         primaryTextTheme: const TextTheme(
@@ -45,7 +51,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: Splash(),
+      home: MainPage(),
     );
   }
 }

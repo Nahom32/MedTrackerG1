@@ -1,10 +1,14 @@
 import 'package:expandable/expandable.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:worldmedicalcenter/presentation/ui/add_document.dart';
 import 'package:worldmedicalcenter/presentation/ui/my_subscripitons.dart';
+import 'package:worldmedicalcenter/presentation/ui/splash.dart';
 import 'package:worldmedicalcenter/presentation/ui/terms_and_conditions.dart';
 
 import '../../application/blocs/allergy/AllergyBloc.dart';
@@ -101,107 +105,110 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blueGrey[50],
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          title: appbarHeader(),
-          actions: [
-            IconButton(
-              onPressed: () {
-                //adding navigation to the menu/////////////////////////////////////////////
-                showModalBottomSheet(
-                    context: context,
-                    elevation: 5,
-                    backgroundColor: Colors.blueGrey[900],
-                    isScrollControlled: true,
-                    builder: ((context) {
-                      return Container(
-                        height: 150,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            InkWell(
-                                onTap: (() {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return Subscriptions();
-                                  }));
-                                }),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                    "My Subscriptions",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                )),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            InkWell(
-                                onTap: (() {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return TermsAndConditions();
-                                  }));
-                                }),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                    "Terms And Conditions",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                )),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            InkWell(
-                                onTap: (() {}),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                    "Sign Out",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                )),
-                          ],
-                        ),
-                      );
-                    }));
-
-                
-              },
-              icon: const Icon(Icons.more_vert),
-              color: Colors.black,
-              iconSize: 24,
-            )
-          ],
-        ),
-        body: Container(
-          color: Colors.blueGrey[50],
-          child: ListView.builder(
-            itemCount: 7,
-            itemBuilder: (BuildContext context, int index) {
-              if (index == 0) {
-                return getProfile();
-              } else if (index == 6) {
-                return getExpirationCard();
-              }
-              return getMainField(index);
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey[50],
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: appbarHeader(),
+        actions: [
+          IconButton(
+            onPressed: () {
+              //adding navigation to the menu/////////////////////////////////////////////
+              showModalBottomSheet(
+                  context: context,
+                  elevation: 5,
+                  backgroundColor: Colors.blueGrey[900],
+                  isScrollControlled: true,
+                  builder: ((context) {
+                    return Container(
+                      height: 150,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                              onTap: (() {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return Subscriptions();
+                                }));
+                              }),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(
+                                  "My Subscriptions",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                              )),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          InkWell(
+                              onTap: (() {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return TermsAndConditions();
+                                }));
+                              }),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(
+                                  "Terms And Conditions",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                              )),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          InkWell(
+                              onTap: () async{
+                              await GoogleSignIn().signOut();
+                              FirebaseAuth.instance.signOut();
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) => Splash())));
+                            },
+                            child: Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(
+                                  "Sign Out",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                              )),
+                        ],
+                      ),
+                    );
+                  }));
             },
-          ),
+            icon: const Icon(Icons.more_vert),
+            color: Colors.black,
+            iconSize: 24,
+          )
+        ],
+      ),
+      body: Container(
+        color: Colors.blueGrey[50],
+        child: ListView.builder(
+          itemCount: 7,
+          itemBuilder: (BuildContext context, int index) {
+            if (index == 0) {
+              return getProfile();
+            } else if (index == 6) {
+              return getExpirationCard();
+            }
+            return getMainField(index);
+          },
         ),
       ),
     );
@@ -235,8 +242,9 @@ class _HomePageState extends State<HomePage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0),
           child: ExpandablePanel(
+            key: Key("PersonalInfo"),
             header: ListTile(
-              title: Text("Paulos Dessie"),
+              title: Text(testInfo.firstName! + testInfo.lastName!),
               subtitle: Text("Member since 2022"),
               leading: CircleAvatar(
                 radius: 35,
@@ -295,12 +303,17 @@ class _HomePageState extends State<HomePage> {
                       width: 100,
                       height: 40,
                       child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
+                        key: Key("EditPersonal"),
+                        onTap: () async {
+                          var newInfo = await Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const EditPersonalInfo(),
+                              builder: (context) => EditPersonalInfo(testInfo),
                             ),
                           );
+
+                          setState(() {
+                            testInfo = newInfo;
+                          });
                         },
                         borderRadius: BorderRadius.circular(100),
                         child: Container(
@@ -959,20 +972,20 @@ class _HomePageState extends State<HomePage> {
           if (state is LoadedVaccine) {
             return getCommonContent(index, state.vaccines);
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         },
       );
     } else {
       //@TODO: change by document implementation
       List state = [
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
       ];
       return ExpandableNotifier(
         child: Padding(
@@ -1001,8 +1014,8 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         Row(
                                           children: [
-                                            Icon(Icons.file_copy),
-                                            SizedBox(
+                                            const Icon(Icons.file_copy),
+                                            const SizedBox(
                                               width: 14,
                                             ),
                                             Column(
@@ -1014,12 +1027,12 @@ class _HomePageState extends State<HomePage> {
                                                 Text(
                                                   state[index].name,
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 2,
                                                 ),
                                                 Text(
                                                   state[index].id,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.black54,
                                                       fontSize: 12),
                                                 )

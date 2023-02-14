@@ -10,7 +10,7 @@ class AddMedicine extends MedicineEvent {
 }
 
 class LoadMedicine extends MedicineEvent {
-  final int id;
+  final String id;
 
   LoadMedicine(this.id);
 }

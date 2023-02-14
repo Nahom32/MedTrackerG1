@@ -45,13 +45,20 @@ dependencies:
   dartz: ^0.10.1
   dio: ^4.0.6
   test: ^1.21.4
-  cloud_firestore: ^4.3.2
   firebase_core: ^2.5.0
+<<<<<<< HEAD
   integration_test: ^0.8.1
 
 
+=======
+  cloud_firestore: ^4.3.2
+  firebase_auth: ^4.2.6
+  google_sign_in: ^5.4.4
+>>>>>>> a88ebbb3c8c470287555936e05dc76aae263e751
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
  integration_test:
