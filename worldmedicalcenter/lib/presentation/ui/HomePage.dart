@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:worldmedicalcenter/presentation/ui/add_document.dart';
 import 'package:worldmedicalcenter/presentation/ui/my_subscripitons.dart';
 import 'package:worldmedicalcenter/presentation/ui/splash.dart';
@@ -167,14 +168,15 @@ class _HomePageState extends State<HomePage> {
                             height: 20,
                           ),
                           InkWell(
-                              onTap: () {
-                              FirebaseAuth.instance.signOut();
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) => Splash())));
-                            },
-                            child: Padding(
+                              onTap: () async {
+                                await GoogleSignIn().signOut();
+                                FirebaseAuth.instance.signOut();
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) => Splash())));
+                              },
+                              child: Padding(
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: Text(
                                   "Sign Out",
@@ -188,8 +190,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   }));
-
-              
             },
             icon: const Icon(Icons.more_vert),
             color: Colors.black,
