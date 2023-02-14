@@ -4,15 +4,19 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../application/blocs/personnalInfo/personalInfoBloc.dart';
 import '../../application/blocs/personnalInfo/personalInfoState.dart';
+import '../../domain/models/PersonalInfo.dart';
 
 class EditPersonalInfo extends StatefulWidget {
-  const EditPersonalInfo({super.key});
+  final PersonalInfo prevInfo;
+  const EditPersonalInfo(this.prevInfo);
 
   @override
-  State<EditPersonalInfo> createState() => _EditPersonalInfoState();
+  State<EditPersonalInfo> createState() => _EditPersonalInfoState(prevInfo);
 }
 
 class _EditPersonalInfoState extends State<EditPersonalInfo> {
+  final PersonalInfo prevInfo;
+  _EditPersonalInfoState(this.prevInfo);
   @override
   // Form Controllers
   final firstNameController = TextEditingController();
@@ -64,7 +68,37 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                     // alignment: Alignment.bottomCenter,
                     padding: EdgeInsets.symmetric(vertical: 6.0),
                     child: FloatingActionButton.extended(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (firstNameController.text.isNotEmpty != Null &&
+                            firstNameController.text != Null) {
+                          prevInfo.firstName = firstNameController.text;
+                        }
+
+                        if (lastNameController.text.isNotEmpty) {
+                          prevInfo.lastName = lastNameController.text;
+                        }
+
+                        if (DOBController.text.isNotEmpty) {
+                          prevInfo.DOB = DOBController.text;
+                        }
+
+                        if (genderstate != prevInfo.gender) {
+                          prevInfo.gender = genderstate;
+                        }
+
+                        if (SSNController.text.isNotEmpty &&
+                            SSNController.text != prevInfo.SSN) {
+                          prevInfo.SSN = SSNController.text;
+                        }
+
+                        if (nationalityController.value != Null &&
+                            nationalityController.text !=
+                                prevInfo.nationality) {
+                          prevInfo.nationality = nationalityController.text;
+                        }
+
+                        Navigator.of(context).pop(prevInfo);
+                      },
                       label: Text("Save"),
                     ),
                   );
@@ -127,8 +161,9 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                           padding: EdgeInsets.symmetric(vertical: 7),
                           child: TextField(
                             decoration: InputDecoration(
-                                labelText: "Last Name",
-                                border: OutlineInputBorder()),
+                              labelText: "Last Name",
+                              border: OutlineInputBorder(),
+                            ),
                             controller: lastNameController,
                             keyboardType: TextInputType.name,
                           ),
