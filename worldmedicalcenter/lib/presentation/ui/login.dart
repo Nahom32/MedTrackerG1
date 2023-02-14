@@ -214,17 +214,18 @@ class _LoginState extends State<Login> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailCtrl.text.trim(), password: passwordCtrl.text.trim());
     } on FirebaseAuthException catch (e) {
-      try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: emailCtrl.text.trim(), password: passwordCtrl.text.trim());
-      } on Exception catch (e) {
-        flag = false;
-      }
+      flag = false;
     }
 
     if (!flag) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: ((context) => ErrorPage())));
+      const snackBar = SnackBar(
+        content: Text("Incorrect email or password",
+            style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.red,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: ((context) => Login())));
     } else {
       final allergyBloc = BlocProvider.of<AllergyBloc>(context);
       allergyBloc.add(LoadAllergy("1"));
