@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../application/blocs/personnalInfo/personalInfoBloc.dart';
+import '../../application/blocs/personnalInfo/personalInfoState.dart';
+import '../../domain/models/PersonalInfo.dart';
 
 class EditPersonalInfo extends StatefulWidget {
-  const EditPersonalInfo({super.key});
+  final PersonalInfo prevInfo;
+  const EditPersonalInfo(this.prevInfo);
 
   @override
-  State<EditPersonalInfo> createState() => _EditPersonalInfoState();
+  State<EditPersonalInfo> createState() => _EditPersonalInfoState(prevInfo);
 }
 
 class _EditPersonalInfoState extends State<EditPersonalInfo> {
+  final PersonalInfo prevInfo;
+  _EditPersonalInfoState(this.prevInfo);
   @override
   // Form Controllers
   final firstNameController = TextEditingController();
@@ -52,17 +59,57 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniCenterDocked,
           floatingActionButton: Container(
-            width: MediaQuery.of(context).size.width,
-            color: Colors.white,
-            child: Padding(
-              // alignment: Alignment.bottomCenter,
-              padding: EdgeInsets.symmetric(vertical: 6.0),
-              child: FloatingActionButton.extended(
-                onPressed: () {},
-                label: Text("Save"),
-              ),
-            ),
-          ),
+              width: MediaQuery.of(context).size.width,
+              color: Colors.white,
+              child: BlocConsumer<PersonalInfoBloc, PersonalInfoState>(
+                builder: (context, state) {
+                  String adaptiveText = "Save";
+                  return Padding(
+                    // alignment: Alignment.bottomCenter,
+                    padding: EdgeInsets.symmetric(vertical: 6.0),
+                    child: FloatingActionButton.extended(
+                      onPressed: () {
+                        if (firstNameController.text.isNotEmpty != Null &&
+                            firstNameController.text != Null) {
+                          prevInfo.firstName = firstNameController.text;
+                        }
+
+                        if (lastNameController.text.isNotEmpty) {
+                          prevInfo.lastName = lastNameController.text;
+                        }
+
+                        if (DOBController.text.isNotEmpty) {
+                          prevInfo.DOB = DOBController.text;
+                        }
+
+                        if (genderstate != prevInfo.gender) {
+                          prevInfo.gender = genderstate;
+                        }
+
+                        if (SSNController.text.isNotEmpty &&
+                            SSNController.text != prevInfo.SSN) {
+                          prevInfo.SSN = SSNController.text;
+                        }
+
+                        if (nationalityController.value != Null &&
+                            nationalityController.text !=
+                                prevInfo.nationality) {
+                          prevInfo.nationality = nationalityController.text;
+                        }
+
+                        Navigator.of(context).pop(prevInfo);
+                      },
+                      label: Text("Save"),
+                    ),
+                  );
+                },
+                listenWhen: (p, c) {
+                  return c is Saved;
+                },
+                listener: (BuildContext ctx, Object? state) {
+                  Navigator.of(context).pop(" ");
+                },
+              )),
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Color.fromARGB(255, 250, 250, 250),
@@ -114,8 +161,9 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                           padding: EdgeInsets.symmetric(vertical: 7),
                           child: TextField(
                             decoration: InputDecoration(
-                                labelText: "Last Name",
-                                border: OutlineInputBorder()),
+                              labelText: "Last Name",
+                              border: OutlineInputBorder(),
+                            ),
                             controller: lastNameController,
                             keyboardType: TextInputType.name,
                           ),

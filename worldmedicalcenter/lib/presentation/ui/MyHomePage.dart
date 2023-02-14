@@ -50,8 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               child: Image(
-                image:
-                    AssetImage('assets/world-medical-card-removebg-preview.png'),
+                image: AssetImage(
+                    'assets/world-medical-card-removebg-preview.png'),
                 height: 40,
               ),
               alignment: Alignment(0, -0.9),
@@ -72,11 +72,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             'NEXT',
                             style: TextStyle(fontSize: 12, color: Colors.white),
                           ),
-    
-                          padding:
-                              EdgeInsets.symmetric(vertical: 20, horizontal: 130),
+
+                          padding: EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 130),
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(30)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
                               color: Colors.blue),
                           // color: Colors.blue,
                         )
@@ -85,6 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         // ),
                         )
                     : GestureDetector(
+                        key: const Key("skip"),
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
@@ -92,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }));
                         },
                         child: Text(
+                          // key: ValueKey("skip"),
                           'Skip Tour',
                           style: TextStyle(fontSize: 12),
                         ),

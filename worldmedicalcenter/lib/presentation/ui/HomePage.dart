@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -241,8 +242,9 @@ class _HomePageState extends State<HomePage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0),
           child: ExpandablePanel(
+            key: Key("PersonalInfo"),
             header: ListTile(
-              title: Text("Paulos Dessie"),
+              title: Text(testInfo.firstName! + testInfo.lastName!),
               subtitle: Text("Member since 2022"),
               leading: CircleAvatar(
                 radius: 35,
@@ -301,12 +303,17 @@ class _HomePageState extends State<HomePage> {
                       width: 100,
                       height: 40,
                       child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
+                        key: Key("EditPersonal"),
+                        onTap: () async {
+                          var newInfo = await Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const EditPersonalInfo(),
+                              builder: (context) => EditPersonalInfo(testInfo),
                             ),
                           );
+
+                          setState(() {
+                            testInfo = newInfo;
+                          });
                         },
                         borderRadius: BorderRadius.circular(100),
                         child: Container(
