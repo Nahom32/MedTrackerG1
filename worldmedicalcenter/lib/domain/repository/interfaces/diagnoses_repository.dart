@@ -5,7 +5,10 @@ import '../../models/diagnoses.dart';
  
 
 abstract class DiagnosesRepository {
-  Future<Either<Failure,Diagnoses>> getDiagnoses(String name);
-  Future<Either<Failure, Unit>> createDiagnoses(Diagnoses diagnoses);
-  Future<Either<Failure, Unit>> deleteDiagnoses(String id);
+  Future<Either<Failure,List<Diagnoses>>> getDiagnoses();
+  Future<Either<Failure, Unit>> addDiagnoses(int id);
+  Future<Either<Failure, Unit>> deleteDiagnoses(List list);
+  Future<Either<Failure,List<Diagnoses>>> searchDiagnoses(String name);
 }
+ 
+ 

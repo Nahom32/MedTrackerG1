@@ -2,8 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:worldmedicalcenter/domain/models/diagnoses.dart';
 
 abstract class DiagnosesData {
-  Future<Diagnoses> find(
-   String name);
-  Future<Unit> create(Diagnoses data);
-  Future<Unit> delete(String id);
+  Future<List<Diagnoses>> find();
+  Future<Unit> add(int id);
+  Future<Unit> delete(List list);
+  Future<List<Diagnoses>> search(String name);
 }
+ 

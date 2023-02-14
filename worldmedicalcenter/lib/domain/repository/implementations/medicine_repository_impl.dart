@@ -10,10 +10,9 @@ class MedicineRepositoryImpl implements MedicineRepository {
   MedicineRepositoryImpl(this.medicineDataSources);
 
   @override
-  Future<Either<Failure, Unit>> createMedicine(Medicine medicine) async {
+  Future<Either<Failure, Unit>> addMedicine(int id) async {
     try {
-      final result = await medicineDataSources.create(
-          Medicine(id: medicine.id, name: medicine.name, code: medicine.code));
+      final result = await medicineDataSources.add(id);
       return Right(result);
     } catch (e) {
       return Left(ServerFailure());
@@ -21,22 +20,31 @@ class MedicineRepositoryImpl implements MedicineRepository {
   }
 
   @override
-  Future<Either<Failure, Medicine>> getMedicine(String name) async {
+  Future<Either<Failure, List<Medicine>>> getMedicine( ) async {
     try {
-      final result = await medicineDataSources.find(name);
-      return Right(
-          Medicine(id: result.id, name: result.code, code: result.name));
+      final result = await medicineDataSources.find();
+      return Right(result.map((e) => Medicine(id: e.id, name: e.name, code: e.code)).toList());
     } catch (e) {
       return Left(ServerFailure());
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteMedicine(String id) async {
+  Future<Either<Failure, Unit>> deleteMedicine(List list) async {
     try {
-      final result = await medicineDataSources.delete(id);
+      final result = await medicineDataSources.delete(list);
       return Right(result);
     } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override 
+  Future<Either<Failure,List<Medicine>>> searchMedicine(String name) async {
+    try {
+      final result = await medicineDataSources.search(name);
+      return Right(result.map((e) => Medicine(id: e.id, name: e.name, code: e.code)).toList());
+    }catch(e) {
       return Left(ServerFailure());
     }
   }

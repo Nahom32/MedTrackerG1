@@ -4,7 +4,7 @@ import 'package:worldmedicalcenter/domain/repository/interfaces/diagnoses_reposi
 
 
 abstract class DeleteDiagnoses {
-  Future<Either<Failure, Unit>> execute(String id);
+  Future<Either<Failure, Unit>> execute(List list);
 }
 
 class DeleteDiagnosesImpl implements DeleteDiagnoses {
@@ -12,8 +12,8 @@ class DeleteDiagnosesImpl implements DeleteDiagnoses {
   DeleteDiagnosesImpl(this.diagnosesRepository);
 
   @override
-  Future<Either<Failure, Unit>> execute(String id) async {
-    final result = await  diagnosesRepository.deleteDiagnoses(id);
+  Future<Either<Failure, Unit>> execute(List list) async {
+    final result = await  diagnosesRepository.deleteDiagnoses(list);
     return result;
   }
 }

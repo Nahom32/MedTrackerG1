@@ -5,7 +5,7 @@ import 'package:worldmedicalcenter/domain/models/vaccine.dart';
 import '../../repository/interfaces/vaccine_repository.dart';
 
 abstract class CreateVaccine {
-  Future<Either<Failure, Unit>> execute(Vaccine vaccine);
+  Future<Either<Failure, Unit>> execute(int id);
 }
 
 class CreateVaccineImpl implements CreateVaccine {
@@ -14,8 +14,8 @@ class CreateVaccineImpl implements CreateVaccine {
 
   @override 
 
-  Future<Either<Failure,Unit>> execute(Vaccine vaccine ) async {
-    final result = await vaccineRepository.createVaccine(vaccine);
+  Future<Either<Failure,Unit>> execute(int id ) async {
+    final result = await vaccineRepository.addVaccine(id);
     return result;
   }
 }

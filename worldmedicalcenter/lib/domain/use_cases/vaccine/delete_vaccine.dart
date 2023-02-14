@@ -5,7 +5,7 @@ import 'package:worldmedicalcenter/domain/repository/interfaces/allergy_reposito
 import '../../repository/interfaces/vaccine_repository.dart';
 
 abstract class DeleteVaccine {
-  Future<Either<Failure, Unit>> execute(String id);
+  Future<Either<Failure, Unit>> execute(List list);
 }
 
 class DeleteVaccineImpl implements DeleteVaccine {
@@ -13,8 +13,8 @@ class DeleteVaccineImpl implements DeleteVaccine {
   DeleteVaccineImpl(this.vaccineRepository);
 
   @override
-  Future<Either<Failure, Unit>> execute(String id) async {
-    final result = await vaccineRepository.deleteVaccine(id);
+  Future<Either<Failure, Unit>> execute(List list) async {
+    final result = await vaccineRepository.deleteVaccine(list);
     return result;
   }
 }

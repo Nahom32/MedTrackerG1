@@ -12,12 +12,9 @@ class DiagnosesRepositoryImpl implements DiagnosesRepository {
   DiagnosesRepositoryImpl(this.diagnosesDataSources);
 
   @override
-  Future<Either<Failure, Unit>> createDiagnoses(Diagnoses diagnoses) async {
+  Future<Either<Failure, Unit>> addDiagnoses(int id) async {
     try {
-      final result = await diagnosesDataSources.create(Diagnoses(
-          id: diagnoses.id,
-          name : diagnoses.name,
-          code: diagnoses.code));
+      final result = await diagnosesDataSources.add(id);
       return Right(result);
     } catch (e) {
       return Left(ServerFailure());
@@ -25,24 +22,33 @@ class DiagnosesRepositoryImpl implements DiagnosesRepository {
   }
 
   @override
-  Future<Either<Failure, Diagnoses>> getDiagnoses(String name) async {
+  Future<Either<Failure, List<Diagnoses>>> getDiagnoses() async {
     try {
-      final result = await diagnosesDataSources.find(name);
-      return Right(Diagnoses(id:result.id,name : result.name,code : result.code));
+      final result = await diagnosesDataSources.find();
+      return Right(result.map((e) => Diagnoses(id: e.id, name: e.name, code: e.code)).toList());
     } catch (e) {
       return Left(ServerFailure());
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteDiagnoses(String id) async {
+  Future<Either<Failure, Unit>> deleteDiagnoses(List list) async {
     try {
-      final result = await diagnosesDataSources.delete(id);
+      final result = await diagnosesDataSources.delete(list);
       return Right(result);
     } catch (e) {
       return Left(ServerFailure());
     }
   }
-
+  
+    @override 
+  Future<Either<Failure,List<Diagnoses>>> searchDiagnoses(String name) async {
+    try {
+      final result = await diagnosesDataSources.search(name);
+      return Right(result.map((e) => Diagnoses(id: e.id, name: e.name, code: e.code)).toList());
+    }catch(e) {
+      return Left(ServerFailure());
+    }
+  }
 
 }

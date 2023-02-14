@@ -5,7 +5,9 @@ import '../../../core/error/failures.dart';
 
 
 abstract class VaccineRepository {
-  Future<Either<Failure, Vaccine>> getVaccine(String name);
-  Future<Either<Failure, Unit>> createVaccine(Vaccine vaccine);
-  Future<Either<Failure, Unit>> deleteVaccine(String id);
+  Future<Either<Failure, List<Vaccine>>> getVaccine();
+  Future<Either<Failure, Unit>> addVaccine(int id);
+  Future<Either<Failure, Unit>> deleteVaccine(List list);
+   Future<Either<Failure,List<Vaccine>>> searchVaccine(String name);
 }
+

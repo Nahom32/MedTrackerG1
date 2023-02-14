@@ -10,11 +10,10 @@ class AllergyRepositoryImpl implements AllergyRepository {
   AllergyRepositoryImpl(this.allergyDataSources);
 
   @override
-  Future<Either<Failure, Unit>> createAllergy(
-       Allergy allergy) async {
+  Future<Either<Failure, Unit>> addAllergy(
+       int id) async {
     try {
-      final result = await allergyDataSources.create(
-           Allergy(id: allergy.id, name: allergy.name, code: allergy.code));
+      final result = await allergyDataSources.add(id);
       return Right(result);
     } catch (e) {
       return Left(ServerFailure());
@@ -22,9 +21,9 @@ class AllergyRepositoryImpl implements AllergyRepository {
   }
 
   @override
-  Future<Either<Failure,List<Allergy>>> getAllergy(String id) async {
+  Future<Either<Failure,List<Allergy>>> getAllergy() async {
     try {
-      final result = await allergyDataSources.find(id);
+      final result = await allergyDataSources.find();
       return Right(result.map((e) => Allergy(id: e.id, name: e.name, code: e.code)).toList());
     } catch (e) {
       return Left(ServerFailure());
@@ -32,11 +31,20 @@ class AllergyRepositoryImpl implements AllergyRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteAllergy(String id) async {
+  Future<Either<Failure, Unit>> deleteAllergy(List list) async {
     try {
-      final result = await allergyDataSources.delete(id);
+      final result = await allergyDataSources.delete(list);
       return Right(result);
     } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
+  @override 
+  Future<Either<Failure,List<Allergy>>> searchAllergy(String name) async {
+    try {
+      final result = await allergyDataSources.search(name);
+      return Right(result.map((e) => Allergy(id: e.id, name: e.name, code: e.code)).toList());
+    }catch(e) {
       return Left(ServerFailure());
     }
   }

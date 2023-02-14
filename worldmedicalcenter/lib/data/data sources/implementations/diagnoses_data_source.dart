@@ -4,33 +4,39 @@ import 'package:dartz/dartz.dart';
 import 'package:worldmedicalcenter/domain/models/diagnoses.dart';
 import '../interfaces/diagnoses_data.dart';
 
-const String API_BASE =
-    "https://b138-2a0d-5600-42-3000-00-27e8.ngrok.io/swagger/index.html";
+const String API_BASE = "http://localhost:5260";
 
 class DignosesDataSources implements DiagnosesData {
   @override
-  Future<Unit> create(Diagnoses data) async {
-    await Dio().post("$API_BASE/user/diagnoses", data: {
-      "id": data.id,
-      "name": data.name,
-      "code": data.code,
+  Future<Unit> add(int id) async {
+    await Dio().post("$API_BASE/api/diagnoses",  data:  id);
+    return unit;
+  }
+
+  @override
+  Future<List<Diagnoses>> find() async {
+    var response = await Dio().get("$API_BASE/api/diagnoses");
+    List<Diagnoses> list = [];
+    response.data.forEach((d) => {
+      list.add(Diagnoses(id: d["id"], name: d["name"], code: d["code"]))
     });
-    return unit;
+    
+    return list;
   }
 
   @override
-  Future<Diagnoses> find(String? name) async {
-    var response = await Dio().get("$API_BASE/diagnoses/search/$name");
-    Diagnoses diagnoses = Diagnoses(
-        id: response.data['id'],
-        name: response.data['name'],
-        code: response.data['code']);
-    return diagnoses;
-  }
-
-  @override
-  Future<Unit> delete(String id) async {
-    await Dio().delete("$API_BASE/user/diagnoses/$id");
+  Future<Unit> delete(List list) async {
+    await Dio().post("$API_BASE/api/diagnoses",data: list);
     return unit;
   }
+  @override 
+  Future<List<Diagnoses>> search(String name) async {
+    var response = await Dio().get("$API_BASE/api/search/diagnoses/$name");
+    List<Diagnoses> list= [];
+    response.data.forEach((d) => {
+      list.add(Diagnoses(id: d['id'],name : d['name'],code:d["code"]))
+    });
+    return list;
+  }
+
 }

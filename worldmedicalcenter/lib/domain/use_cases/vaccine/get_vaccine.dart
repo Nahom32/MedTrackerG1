@@ -5,7 +5,7 @@ import 'package:worldmedicalcenter/domain/models/vaccine.dart';
 import '../../repository/interfaces/vaccine_repository.dart';
 
 abstract class GetVaccine {
-  Future<Either<Failure, Vaccine>> execute(String name);
+  Future<Either<Failure, List<Vaccine>>> execute();
 }
 
 class GetVaccineImpl implements GetVaccine {
@@ -13,8 +13,8 @@ class GetVaccineImpl implements GetVaccine {
   GetVaccineImpl(this.vaccineRepository);
 
   @override
-  Future<Either<Failure, Vaccine>> execute(String name) async {
-    final result = vaccineRepository.getVaccine(name);
+  Future<Either<Failure, List<Vaccine>>> execute() async {
+    final result = vaccineRepository.getVaccine();
     return result;
   }
 }

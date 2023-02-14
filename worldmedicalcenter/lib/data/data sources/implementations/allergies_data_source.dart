@@ -5,25 +5,19 @@ import 'package:dartz/dartz.dart';
 import 'package:worldmedicalcenter/domain/models/allergy.dart';
 import '../interfaces/allergies_data.dart';
 
-const String API_BASE =
-    "https://b138-2a0d-5600-42-3000-00-27e8.ngrok.io/swagger/index.html";
+const String API_BASE ="http://localhost:5260";
 
 class AllergiesDataSources implements AllergiesData {
   @override
-  Future<Unit> create(Allergy data) async {
-    await Dio().post("$API_BASE/user/allergies", data: {
-      "id": data.id,
-      "name": data.name,
-      "code": data.code,
-    });
+  Future<Unit> add(int id) async {
+    await Dio().get("$API_BASE/api/allergy");
     return unit;
   }
 
   @override
   Future<List<Allergy>> find(
-    String id,
   ) async {
-    var response = await Dio().get("$API_BASE/allergies/search/$id");
+    var response = await Dio().get("$API_BASE/api/allergy");
     List<Allergy> list = [];
     response.data.forEach((d) {
       Allergy(id: d['id'], name: d['name'], code: d['code']);
@@ -32,8 +26,18 @@ class AllergiesDataSources implements AllergiesData {
   }
 
   @override
-  Future<Unit> delete(String id) async {
-    await Dio().delete("$API_BASE/user/allergies/$id");
+  Future<Unit> delete(List list) async {
+    await Dio().post("$API_BASE/api/allergy", data : list);
     return unit;
+  }
+
+  @override 
+  Future<List<Allergy>> search(String name) async {
+    var response = await Dio().get("$API_BASE/api/search/allergy/$name");
+    List<Allergy> list= [];
+    response.data.forEach((d) => {
+      list.add(Allergy(id: d['id'],name : d['name'],code:d["code"]))
+    });
+    return list;
   }
 }

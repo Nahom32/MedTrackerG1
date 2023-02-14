@@ -5,7 +5,7 @@ import 'package:worldmedicalcenter/domain/repository/interfaces/diagnoses_reposi
  
 
 abstract class CreateDiagnoses {
-  Future<Either<Failure, Unit>> execute(Diagnoses diagnoses);
+  Future<Either<Failure, Unit>> execute(int id);
 }
 
 class CreateAllergyImpl implements CreateDiagnoses {
@@ -14,8 +14,8 @@ class CreateAllergyImpl implements CreateDiagnoses {
 
   @override 
 
-  Future<Either<Failure,Unit>> execute(Diagnoses diagnoses) async {
-    final result = await diagnosesRepository.createDiagnoses(diagnoses);
+  Future<Either<Failure,Unit>> execute(int id) async {
+    final result = await diagnosesRepository.addDiagnoses(id);
     return result;
   }
 }

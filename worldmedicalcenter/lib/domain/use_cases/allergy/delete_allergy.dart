@@ -3,7 +3,7 @@ import 'package:worldmedicalcenter/core/error/failures.dart';
 import 'package:worldmedicalcenter/domain/repository/interfaces/allergy_repository.dart';
 
 abstract class DeleteAllergy {
-  Future<Either<Failure, Unit>> execute(String id);
+  Future<Either<Failure, Unit>> execute(List list);
 }
 
 class DeleteAllergyImpl implements DeleteAllergy {
@@ -11,8 +11,8 @@ class DeleteAllergyImpl implements DeleteAllergy {
   DeleteAllergyImpl(this.allergyRepository);
 
   @override
-  Future<Either<Failure, Unit>> execute(String id) async {
-    final result = await allergyRepository.deleteAllergy(id);
+  Future<Either<Failure, Unit>> execute(List list) async {
+    final result = await allergyRepository.deleteAllergy(list);
     return result;
   }
 }

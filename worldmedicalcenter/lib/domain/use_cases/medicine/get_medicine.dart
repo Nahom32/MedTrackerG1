@@ -6,7 +6,7 @@ import 'package:worldmedicalcenter/domain/repository/interfaces/allergy_reposito
 import 'package:worldmedicalcenter/domain/repository/interfaces/medicine_repository.dart';
 
 abstract class GetMedicine {
-  Future<Either<Failure, Medicine>> execute(String name);
+  Future<Either<Failure, List<Medicine>>> execute( );
 }
 
 class GetMedicineImpl implements GetMedicine {
@@ -14,8 +14,8 @@ class GetMedicineImpl implements GetMedicine {
   GetMedicineImpl(this.medicineRepository);
 
   @override
-  Future<Either<Failure, Medicine>> execute(String name) async {
-    final result = medicineRepository.getMedicine(name);
+  Future<Either<Failure, List<Medicine>>> execute( ) async {
+    final result = medicineRepository.getMedicine();
     return result;
   }
 }

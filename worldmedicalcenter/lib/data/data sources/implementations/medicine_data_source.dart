@@ -11,30 +11,35 @@ const String API_BASE =
 
 class MedicineDataSources implements MedicineData {
   @override
-  Future<Unit> create(Medicine data) async {
-    await Dio().post("$API_BASE/user/medicines", data: {
-      "id": data.id,
-      "name": data.name,
-      "code": data.code,
-    });
+  Future<Unit> add(int id) async {
+    await Dio().post("$API_BASE/api/medicine", data: id);
     return unit;
   }
 
   @override
-  Future<Medicine> find(
-    String? name,
+  Future<List<Medicine>> find(
   ) async {
-    var response = await Dio().get("$API_BASE/medicines/search/$name");
-    Medicine medicine = Medicine(
-        id: response.data['id'],
-        name: response.data['name'],
-        code: response.data['code']);
-    return medicine;
+    var response = await Dio().get("$API_BASE/api/medicine");
+    List<Medicine> list = [];
+    response.data.forEach((d) {
+      list.add(Medicine(id: d['id'], name: d['name'], code: d['code']));
+    });
+    return list;
   }
 
   @override
-  Future<Unit> delete(String id) async {
-    await Dio().delete("$API_BASE/user/medicines/$id");
+  Future<Unit> delete(List list) async {
+    await Dio().post("$API_BASE/api/search/medicine",data: list);
     return unit;
+  }
+
+    @override 
+  Future<List<Medicine>> search(String name) async {
+    var response = await Dio().get("$API_BASE/api/search/medicine/$name");
+    List<Medicine> list= [];
+    response.data.forEach((d) => {
+      list.add(Medicine(id: d['id'],name : d['name'],code:d["code"]))
+    });
+    return list;
   }
 }
