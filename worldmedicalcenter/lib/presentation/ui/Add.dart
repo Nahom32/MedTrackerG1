@@ -40,6 +40,8 @@ class _AddState extends State<Add> {
                 onChanged: (value) {
                   setState(() {
                     showResult = !showResult;
+                    // final allergyBloc = BlocProvider.of<AllergyBloc>(context)
+                    // allergyBloc.add(SearchEvent(searchCtrl.text.trim()))
                   });
                 },
                 decoration: const InputDecoration(

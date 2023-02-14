@@ -972,13 +972,13 @@ class _HomePageState extends State<HomePage> {
     } else {
       //@TODO: change by document implementation
       List state = [
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
-        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
+        NormalModel(userId: "1", name: "Living will", id: "DCE34x"),
       ];
       return ExpandableNotifier(
         child: Padding(

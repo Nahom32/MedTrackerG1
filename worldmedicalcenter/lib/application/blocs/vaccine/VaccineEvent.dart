@@ -10,7 +10,7 @@ class AddVaccine extends VaccineEvent {
 }
 
 class LoadVaccine extends VaccineEvent {
-  final int id;
+  final String id;
 
   LoadVaccine(this.id);
 }

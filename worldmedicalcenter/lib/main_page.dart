@@ -25,13 +25,13 @@ class MainPage extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final allergyBloc = BlocProvider.of<AllergyBloc>(context);
-              allergyBloc.add(LoadAllergy(1));
+              allergyBloc.add(LoadAllergy("1"));
               final medicineBloc = BlocProvider.of<MedicineBloc>(context);
-              medicineBloc.add(LoadMedicine(1));
+              medicineBloc.add(LoadMedicine("1"));
               final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
-              diagnosesBloc.add(LoadDiagnoses(1));
+              diagnosesBloc.add(LoadDiagnoses("1"));
               final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
-              vaccineBloc.add(LoadVaccine(1));
+              vaccineBloc.add(LoadVaccine("1"));
               
               return HomePage();
             } else {

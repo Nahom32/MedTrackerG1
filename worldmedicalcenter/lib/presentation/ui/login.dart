@@ -200,6 +200,7 @@ class _LoginState extends State<Login> {
   }
 
   Future signIn() async {
+    bool flag = true;
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -213,22 +214,26 @@ class _LoginState extends State<Login> {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: emailCtrl.text.trim(), password: passwordCtrl.text.trim());
       } on Exception catch (e) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: ((context) => ErrorPage())));
+        flag = false;
       }
     }
 
-    final allergyBloc = BlocProvider.of<AllergyBloc>(context);
-    allergyBloc.add(LoadAllergy(1));
-    final medicineBloc = BlocProvider.of<MedicineBloc>(context);
-    medicineBloc.add(LoadMedicine(1));
-    final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
-    diagnosesBloc.add(LoadDiagnoses(1));
-    final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
-    vaccineBloc.add(LoadVaccine(1));
+    if (!flag) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: ((context) => ErrorPage())));
+    } else {
+      final allergyBloc = BlocProvider.of<AllergyBloc>(context);
+      allergyBloc.add(LoadAllergy("1"));
+      final medicineBloc = BlocProvider.of<MedicineBloc>(context);
+      medicineBloc.add(LoadMedicine("1"));
+      final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
+      diagnosesBloc.add(LoadDiagnoses("1"));
+      final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
+      vaccineBloc.add(LoadVaccine("1"));
 
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: ((context) => HomePage())));
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: ((context) => HomePage())));
+    }
   }
 }

@@ -1,5 +1,3 @@
-
-
 import '../../../domain/models/NormalModel.dart';
 
 abstract class AllergyEvent {}
@@ -11,7 +9,7 @@ class AddAllergy extends AllergyEvent {
 }
 
 class LoadAllergy extends AllergyEvent {
-  final int id;
+  final String id;
 
   LoadAllergy(this.id);
 }
@@ -20,4 +18,10 @@ class DeleteAllergy extends AllergyEvent {
   final List<NormalModel> allergies;
 
   DeleteAllergy(this.allergies);
+}
+
+class SearchAllergy extends AllergyEvent {
+  final String name;
+
+  SearchAllergy(this.name);
 }
