@@ -10,6 +10,7 @@ class DiagnosesBloc extends Bloc<DiagnosesEvent, DiagnosesState> {
   DiagnosesBloc() : super(Idle()) {
     on<LoadDiagnoses>(_loadDiagnoses);
     on<DeleteDiagnoses>(_deleteDiagnoses);
+    on<SearchDiagnoses>(_searchDiagnoses);
   }
 
   List<NormalModel> testData = [
@@ -27,9 +28,18 @@ class DiagnosesBloc extends Bloc<DiagnosesEvent, DiagnosesState> {
     NormalModel(userId: "1", id: "DMXC001", name: "Diagnoses600"),
   ];
 
-  FutureOr<void> _loadDiagnoses(LoadDiagnoses event, Emitter<DiagnosesState> emit) {
+  FutureOr<void> _loadDiagnoses(
+      LoadDiagnoses event, Emitter<DiagnosesState> emit) {
     emit(LoadingDiagnoses());
-    Future.delayed(Duration(seconds: 5));
+    //fetch here
+    // emit(LoadingAllergy());
+    // final response = await allergyRepo.find(event.id);
+    // List<NormalModel> modified = [];
+    // for (Allergy allergy in response){
+    //   modified.add(NormalModel(userId: allergy.id, id: allergy.code, name: allergy.name));
+    // }
+    // emit(LoadedAllergy(allergies: modified));
+    //end
     emit(LoadedDiagnoses(diagnoses: testData));
   }
 
@@ -37,8 +47,20 @@ class DiagnosesBloc extends Bloc<DiagnosesEvent, DiagnosesState> {
       DeleteDiagnoses event, Emitter<DiagnosesState> emit) {
     emit(LoadingDiagnoses());
     for (NormalModel item in event.diagnoses) {
+      // await allergyRepo.delete(item.id!);
       testData.remove(item);
     }
     emit(LoadedDiagnoses(diagnoses: testData));
+  }
+
+  FutureOr<void> _searchDiagnoses(
+      SearchDiagnoses event, Emitter<DiagnosesState> emit) {
+    emit(LoadingDiagnoses());
+    // final response = await allergyRepo.find(event.name);
+    // List<NormalModel> modified = [];
+    // for (Allergy allergy in response){
+    //   modified.add(NormalModel(userId: allergy.id, id: allergy.code, name: allergy.name));
+    // }
+    // emit(LoadedAllergy(allergies: modified));
   }
 }

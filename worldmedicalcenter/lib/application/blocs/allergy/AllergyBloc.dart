@@ -31,8 +31,6 @@ class AllergyBloc extends Bloc<AllergyEvent, AllergyState> {
   Future<FutureOr<void>> _loadAllergies(
       LoadAllergy event, Emitter<AllergyState> emit) async {
     emit(LoadingAllergy());
-    final idToken = FirebaseAuth.instance.currentUser?.getIdTokenResult();
-
     //fetch here
     // emit(LoadingAllergy());
     // final response = await allergyRepo.find(event.id);
