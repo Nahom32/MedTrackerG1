@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldmedicalcenter/data/data%20sources/implementations/diagnoses_data_source.dart';
 
 import '../../../domain/models/NormalModel.dart';
 import 'DiagnosesEvent.dart';
 import 'DiagnosesState.dart';
 
 class DiagnosesBloc extends Bloc<DiagnosesEvent, DiagnosesState> {
+  final DignosesDataSources diagnosesRepo = DignosesDataSources();
   DiagnosesBloc() : super(Idle()) {
     on<LoadDiagnoses>(_loadDiagnoses);
     on<DeleteDiagnoses>(_deleteDiagnoses);
@@ -32,13 +34,13 @@ class DiagnosesBloc extends Bloc<DiagnosesEvent, DiagnosesState> {
       LoadDiagnoses event, Emitter<DiagnosesState> emit) {
     emit(LoadingDiagnoses());
     //fetch here
-    // emit(LoadingAllergy());
-    // final response = await allergyRepo.find(event.id);
+    // emit(LoadingDiagnoses());
+    // final response = await diagnosesRepo.find(event.id);
     // List<NormalModel> modified = [];
-    // for (Allergy allergy in response){
-    //   modified.add(NormalModel(userId: allergy.id, id: allergy.code, name: allergy.name));
+    // for (Diagnoses diagnoses in response){
+    //   modified.add(NormalModel(userId: diagnoses.id, id: diagnoses.code, name: diagnoses.name));
     // }
-    // emit(LoadedAllergy(allergies: modified));
+    // emit(LoadedDiagnoses(allergies: modified));
     //end
     emit(LoadedDiagnoses(diagnoses: testData));
   }
@@ -47,7 +49,7 @@ class DiagnosesBloc extends Bloc<DiagnosesEvent, DiagnosesState> {
       DeleteDiagnoses event, Emitter<DiagnosesState> emit) {
     emit(LoadingDiagnoses());
     for (NormalModel item in event.diagnoses) {
-      // await allergyRepo.delete(item.id!);
+      // await diagnosesRepo.delete(item.id!);
       testData.remove(item);
     }
     emit(LoadedDiagnoses(diagnoses: testData));
@@ -56,11 +58,11 @@ class DiagnosesBloc extends Bloc<DiagnosesEvent, DiagnosesState> {
   FutureOr<void> _searchDiagnoses(
       SearchDiagnoses event, Emitter<DiagnosesState> emit) {
     emit(LoadingDiagnoses());
-    // final response = await allergyRepo.find(event.name);
+    // final response = await diagnosesRepo.find(event.name);
     // List<NormalModel> modified = [];
-    // for (Allergy allergy in response){
-    //   modified.add(NormalModel(userId: allergy.id, id: allergy.code, name: allergy.name));
+    // for (diagnoses diagnoses in response){
+    //   modified.add(NormalModel(userId: diagnoses.id, id: diagnoses.code, name: diagnoses.name));
     // }
-    // emit(LoadedAllergy(allergies: modified));
+    // emit(Loadeddiagnoses(allergies: modified));
   }
 }

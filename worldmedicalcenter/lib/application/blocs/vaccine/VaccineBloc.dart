@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldmedicalcenter/data/data%20sources/implementations/vaccine_data_source.dart';
 import '../../../domain/models/NormalModel.dart';
 import 'VaccineEvent.dart';
 import 'VaccineState.dart';
 
 class VaccineBloc extends Bloc<VaccineEvent, VaccineState> {
+  final VaccineDataSources vaccineRepo = VaccineDataSources();
   VaccineBloc() : super(Idle()) {
     on<LoadVaccine>(_loadVaccines);
     on<DeleteVaccine>(_deleteVaccines);
@@ -23,13 +25,13 @@ class VaccineBloc extends Bloc<VaccineEvent, VaccineState> {
   _loadVaccines(LoadVaccine event, Emitter<VaccineState> emit) {
     emit(LoadingVaccine());
     //fetch here
-    // emit(LoadingAllergy());
-    // final response = await allergyRepo.find(event.id);
+    // emit(LoadingVaccine());
+    // final response = await vaccineRepo.find(event.id);
     // List<NormalModel> modified = [];
-    // for (Allergy allergy in response){
-    //   modified.add(NormalModel(userId: allergy.id, id: allergy.code, name: allergy.name));
+    // for (Vaccine vaccine in response){
+    //   modified.add(NormalModel(userId: vaccine.id, id: vaccine.code, name: vaccine.name));
     // }
-    // emit(LoadedAllergy(allergies: modified));
+    // emit(LoadedVaccine(allergies: modified));
     //end
     emit(LoadedVaccine(vaccines: testData));
   }
@@ -37,7 +39,7 @@ class VaccineBloc extends Bloc<VaccineEvent, VaccineState> {
   _deleteVaccines(DeleteVaccine event, Emitter<VaccineState> emit) {
     emit(LoadingVaccine());
     for (NormalModel item in event.vaccines) {
-      // await allergyRepo.delete(item.id!);
+      // await vaccineRepo.delete(item.id!);
       testData.remove(item);
     }
     emit(LoadedVaccine(vaccines: testData));
@@ -46,11 +48,11 @@ class VaccineBloc extends Bloc<VaccineEvent, VaccineState> {
   FutureOr<void> _searchVaccines(
       SearchEvent event, Emitter<VaccineState> emit) {
     emit(LoadingVaccine());
-    // final response = await allergyRepo.find(event.name);
+    // final response = await vaccineRepo.find(event.name);
     // List<NormalModel> modified = [];
-    // for (Allergy allergy in response){
-    //   modified.add(NormalModel(userId: allergy.id, id: allergy.code, name: allergy.name));
+    // for (Vaccine vaccine in response){
+    //   modified.add(NormalModel(userId: vaccine.id, id: vaccine.code, name: vaccine.name));
     // }
-    // emit(LoadedAllergy(allergies: modified));
+    // emit(LoadedVaccine(allergies: modified));
   }
 }
