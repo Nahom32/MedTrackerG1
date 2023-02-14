@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:worldmedicalcenter/main.dart';
 import 'package:worldmedicalcenter/presentation/ui/Error.dart';
 import 'package:worldmedicalcenter/presentation/ui/reset_password.dart';
@@ -62,26 +63,29 @@ class _LoginState extends State<Login> {
                 'How would you like to sign-in?',
                 style: TextStyle(color: Colors.black54, fontSize: 13),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 40, horizontal: 12),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5)),
-                padding: EdgeInsets.symmetric(vertical: 8),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/aZqAl.png",
-                        width: 30,
-                        height: 30,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text("Sign-in with Google"),
-                    ],
+              InkWell(
+                onTap: googleSignin,
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 40, horizontal: 12),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5)),
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/aZqAl.png",
+                          width: 30,
+                          height: 30,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("Sign-in with Google"),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -235,5 +239,9 @@ class _LoginState extends State<Login> {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: ((context) => HomePage())));
     }
+  }
+
+  Future googleSignin() async {
+    GoogleSignIn().signIn();
   }
 }
