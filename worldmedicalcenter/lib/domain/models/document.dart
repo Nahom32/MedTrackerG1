@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:worldmedicalcenter/domain/models/user.dart';
 
-class Allergy extends Equatable {
+class Documents extends Equatable {
   final String id;
   final String name;
   final String code;
 
-  const Allergy({
+  const Documents({
     required this.id,
     required this.name,
     required this.code,

@@ -101,6 +101,7 @@ class _LoginState extends State<Login> {
                     child: Column(children: [
                       SizedBox(height: 12),
                       TextField(
+                        key: Key("Email"),
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -111,6 +112,7 @@ class _LoginState extends State<Login> {
                         height: 12,
                       ),
                       TextField(
+                        key: Key("Password"),
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
@@ -152,6 +154,7 @@ class _LoginState extends State<Login> {
                           height: 10,
                         ),
                         TextButton(
+                          key:const Key("Login"),
                             onPressed: () {
                               final allergyBloc =
                                   BlocProvider.of<AllergyBloc>(context);

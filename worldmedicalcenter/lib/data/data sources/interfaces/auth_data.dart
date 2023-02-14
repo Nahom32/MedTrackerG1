@@ -1,6 +1,8 @@
-import 'package:worldmedicalcenter/data/entities/auth_entity.dart';
-import 'package:worldmedicalcenter/data/entities/user_entity.dart';
+
+
+import '../../../domain/models/auth.dart';
+import '../../../domain/models/user.dart';
 
 abstract class AuthData {
-  Future<UserEntity> create(AuthEntity authEntity);
+  Future<User> create(Auth auth);
 }

@@ -1,4 +1,5 @@
 import 'package:expandable/expandable.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +35,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var showChecklist = false;
   var dropdownValue = "French";
-
+  PlatformFile? pickedFile;
   List<String> titleList = [
     "profile",
     "Allergies",
@@ -178,8 +179,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       );
                     }));
-
-                /////////////////////////////////////////////////////////////////////////////////
               },
               icon: const Icon(Icons.more_vert),
               color: Colors.black,
@@ -190,6 +189,7 @@ class _HomePageState extends State<HomePage> {
         body: Container(
           color: Colors.blueGrey[50],
           child: ListView.builder(
+            key: Key("ScrollMain"),
             itemCount: 7,
             itemBuilder: (BuildContext context, int index) {
               if (index == 0) {
@@ -233,8 +233,9 @@ class _HomePageState extends State<HomePage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0),
           child: ExpandablePanel(
+            key: Key("PersonalInfo"),
             header: ListTile(
-              title: Text("Paulos Dessie"),
+              title: Text(testInfo.firstName! + testInfo.lastName!),
               subtitle: Text("Member since 2022"),
               leading: CircleAvatar(
                 radius: 35,
@@ -293,10 +294,11 @@ class _HomePageState extends State<HomePage> {
                       width: 100,
                       height: 40,
                       child: InkWell(
+                        key: Key("EditPersonal"),
                         onTap: () async {
                           var newInfo = await Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const EditPersonalInfo(),
+                              builder: (context) => EditPersonalInfo(testInfo),
                             ),
                           );
 
@@ -967,6 +969,15 @@ class _HomePageState extends State<HomePage> {
       );
     } else {
       //@TODO: change by document implementation
+      List state = [
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+        NormalModel(userId: 1, name: "Living will", id: "DCE34x"),
+      ];
       return ExpandableNotifier(
         child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -975,10 +986,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(0.0),
                 child: ScrollOnExpand(
                   child: ExpandablePanel(
-                      header: getExpandableHeader(index, [
-                        NormalModel(
-                            userId: 1, name: "Living will", id: "DCE34x")
-                      ]),
+                      header: getExpandableHeader(index, state),
                       collapsed: const SizedBox.shrink(),
                       expanded: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -986,7 +994,7 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             height: MediaQuery.of(context).size.height * 0.5,
                             child: ListView.builder(
-                                itemCount: 8,
+                                itemCount: state.length,
                                 itemBuilder: ((context, index) {
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -1004,15 +1012,17 @@ class _HomePageState extends State<HomePage> {
                                             Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "TEST",
+                                                  state[index].name,
                                                 ),
                                                 SizedBox(
                                                   height: 2,
                                                 ),
                                                 Text(
-                                                  "V305",
+                                                  state[index].id,
                                                   style: TextStyle(
                                                       color: Colors.black54,
                                                       fontSize: 12),
@@ -1031,10 +1041,14 @@ class _HomePageState extends State<HomePage> {
                             margin: EdgeInsets.symmetric(
                                 horizontal: 35, vertical: 5),
                             child: InkWell(
-                              onTap: (() => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) => AddDocument())))),
+                              onTap: (() async {
+                                final result =
+                                    await FilePicker.platform.pickFiles();
+                                if (result == null) return;
+                                setState(() {
+                                  pickedFile = result.files.first;
+                                });
+                              }),
                               borderRadius: BorderRadius.circular(100),
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 8, top: 3),
@@ -1124,7 +1138,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   getIcon(index, state) {
-    var selctedColor = state.length > 1 ? Colors.blue : Colors.black;
+    var selctedColor = state.length >= 1 ? Colors.blue : Colors.black;
     switch (index) {
       case 0:
         return Icon(

@@ -13,17 +13,7 @@ class Auth extends Equatable {
     required this.password,
   });
 
-  dynamic toJson() => {
-        'id': id,
-        'emailAddress': emailAddress,
-        'password': password,
-      };
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-
+ 
   @override
   List<Object> get props {
     return [emailAddress, password];
