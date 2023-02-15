@@ -29,7 +29,7 @@ class _BottomState extends State<Bottom> {
                   InkWell(
                       onTap: (() {
                         Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return Subscriptions();
+                          return const Subscriptions();
                         }));
                       }),
                       child: const Padding(

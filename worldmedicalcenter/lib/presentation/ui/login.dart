@@ -166,7 +166,7 @@ class _LoginState extends State<Login> {
                           onTap: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return PasswordReset();
+                              return const PasswordReset();
                             }));
                           }),
                       const SizedBox(

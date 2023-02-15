@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class TermsAndConditions extends StatefulWidget {
-  TermsAndConditions({Key? key}) : super(key: key);
+  const TermsAndConditions({Key? key}) : super(key: key);
 
   @override
   State<TermsAndConditions> createState() => _TermsAndConditionsState();

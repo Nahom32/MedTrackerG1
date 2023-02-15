@@ -46,11 +46,7 @@ dependencies:
   dio: ^4.0.6
   test: ^1.21.4
   firebase_core: ^2.5.0
-<<<<<<< HEAD
   # integration_test: ^0.8.1
-=======
-  integration_test: ^0.8.1
->>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
   google_sign_in: ^5.4.4
   firebase_auth: ^4.2.6
 

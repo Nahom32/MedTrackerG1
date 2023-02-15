@@ -200,7 +200,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                   height: 53,
                                   child: DropdownButtonFormField(
                                     value: genderstate,
-                                    items: [
+                                    items: const [
                                       DropdownMenuItem(
                                           child: Text("Male"), value: "Male"),
                                       DropdownMenuItem(

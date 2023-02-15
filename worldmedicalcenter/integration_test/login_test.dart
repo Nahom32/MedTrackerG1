@@ -13,7 +13,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.pumpAndSettle();
 
-      await Future.delayed(Duration(milliseconds: 2000), () {});
+      await Future.delayed(const Duration(milliseconds: 2000), () {});
       final Finder nextText = find.byKey(const Key("skip"));
       // final Finder text = find.text("Skip Tour");
       // print(nextText);
@@ -24,18 +24,18 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(nextText);
       await tester.pumpAndSettle();
-      await Future.delayed(Duration(milliseconds: 5000), () {});
+      await Future.delayed(const Duration(milliseconds: 5000), () {});
       // print("=======================================");
       await tester.pumpAndSettle();
       final Finder logingbutton = find.byKey(const Key("Login"));
 
       await tester.tap(logingbutton);
       await tester.pumpAndSettle();
-      await Future.delayed(Duration(milliseconds: 3000), () {});
+      await Future.delayed(const Duration(milliseconds: 3000), () {});
       await tester.pumpAndSettle();
       final Finder loginbtn = find.byKey(const Key("Login"));
       final Finder EmailForm = find.byKey(const Key("Email"));
-      final Finder passwordForm = find.byKey(Key("Password"));
+      final Finder passwordForm = find.byKey(const Key("Password"));
 
       await tester.pumpAndSettle();
 
@@ -44,7 +44,7 @@ void main() {
 
       await tester.pumpAndSettle();
       await tester.tap(logingbutton);
-      await Future.delayed(Duration(milliseconds: 5000), () {});
+      await Future.delayed(const Duration(milliseconds: 5000), () {});
       await tester.pumpAndSettle();
     });
   });
