@@ -324,6 +324,16 @@ packages:
       name: intl
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
+=======
+    version: "0.8.1"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
     version: "0.17.0"
   io:
     dependency: transitive

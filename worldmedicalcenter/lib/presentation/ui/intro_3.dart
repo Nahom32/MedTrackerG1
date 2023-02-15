@@ -17,22 +17,23 @@ class _IntroductionThreeState extends State<IntroductionThree> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image(
+              child:const Image(
                 image: AssetImage('assets/intro3.webp'),
                 height: 150,
                 // width: 300,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 120,
             ),
             Column(
+              // ignore: prefer_const_literals_to_create_immutables
               children: [
-                Text(
+                const Text(
                   "Share Your Info",
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(20),
                   child: Text(
                     'You can choose to share your profile with relatives, travel partner or others you trust, so that they can be able to provide you with first line of support.',

@@ -17,7 +17,7 @@ import '../../application/blocs/vaccine/VaccineEvent.dart';
 import 'HomePage.dart';
 
 class Login extends StatefulWidget {
-  Login({Key? key}) : super(key: key);
+  const Login({Key? key}) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
@@ -52,25 +52,25 @@ class _LoginState extends State<Login> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Login to world Medical Card',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 'How would you like to sign-in?',
                 style: TextStyle(color: Colors.black54, fontSize: 13),
               ),
               InkWell(
                 onTap: googleSignin,
                 child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 40, horizontal: 12),
+                  margin:const EdgeInsets.symmetric(vertical: 40, horizontal: 12),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5)),
-                  padding: EdgeInsets.symmetric(vertical: 8),
+                  padding:const EdgeInsets.symmetric(vertical: 8),
                   child: Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -80,10 +80,10 @@ class _LoginState extends State<Login> {
                           width: 30,
                           height: 30,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
-                        Text("Sign-in with Google"),
+                        const Text("Sign-in with Google"),
                       ],
                     ),
                   ),
@@ -94,47 +94,49 @@ class _LoginState extends State<Login> {
                   child: Container(
                     margin: const EdgeInsets.only(left: 10.0, right: 15.0),
                     height: 1,
-                    decoration: BoxDecoration(color: Colors.black),
+                    decoration:const BoxDecoration(color: Colors.black),
                   ),
                 ),
-                Text("OR"),
+                const Text("OR"),
                 Expanded(
                   child: Container(
                     width: 100,
                     margin: const EdgeInsets.only(left: 15.0, right: 10.0),
                     height: 1,
-                    decoration: BoxDecoration(
+                    decoration:const BoxDecoration(
                       color: Colors.black,
                     ),
                   ),
                 ),
               ]),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.2,
                 child: Column(children: [
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   TextField(
+                    key:const Key("Email"),
                     controller: emailCtrl,
                     textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
+                    decoration:const InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
                       label: Text("Email"),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   TextField(
+                    key:const Key("Password"),
                     controller: passwordCtrl,
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        label: Text('Password'),
+                        label:const Text('Password'),
                         suffixIcon: IconButton(
                             icon: Icon(_isObscure
                                 ? Icons.visibility
@@ -149,14 +151,14 @@ class _LoginState extends State<Login> {
                 ]),
               ),
               Expanded(
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       GestureDetector(
-                          child: Text(
+                          child:const Text(
                             'Forgot Password?',
                             style:
                                 TextStyle(decoration: TextDecoration.underline),
@@ -167,31 +169,29 @@ class _LoginState extends State<Login> {
                               return PasswordReset();
                             }));
                           }),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       TextButton(
+                        key:const Key("Login"),
                           onPressed: signIn,
                           child: Container(
-                            child: Text(
-                              'LOGIN',
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.white),
-                            ),
-                            padding: EdgeInsets.symmetric(
+                            padding:const EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 130),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(30)),
                               color: Colors.blue,
                             ),
-                            // shape: RoundedRectangleBorder(
-                            //   borderRadius: BorderRadius.all(Radius.circular(30))
-                            // ),
+                            child:const Text(
+                              'LOGIN',
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.white),
+                            )
                           )
-                          // ,
+                          
                           ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       )
                     ],
@@ -208,12 +208,12 @@ class _LoginState extends State<Login> {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: ((context) => Center(child: CircularProgressIndicator())));
+        builder: ((context) => const Center(child: CircularProgressIndicator())));
 
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailCtrl.text.trim(), password: passwordCtrl.text.trim());
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       flag = false;
     }
 
@@ -223,22 +223,29 @@ class _LoginState extends State<Login> {
             style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.red,
       );
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: ((context) => Login())));
+          context, MaterialPageRoute(builder: ((context) => const Login())));
     } else {
+      // ignore: use_build_context_synchronously
       final allergyBloc = BlocProvider.of<AllergyBloc>(context);
       allergyBloc.add(LoadAllergy("1"));
+      // ignore: use_build_context_synchronously
       final medicineBloc = BlocProvider.of<MedicineBloc>(context);
       medicineBloc.add(LoadMedicine("1"));
+      // ignore: use_build_context_synchronously
       final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
       diagnosesBloc.add(LoadDiagnoses("1"));
+      // ignore: use_build_context_synchronously
       final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
       vaccineBloc.add(LoadVaccine("1"));
 
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: ((context) => HomePage())));
+          context, MaterialPageRoute(builder: ((context) => const HomePage())));
     }
   }
 
@@ -246,7 +253,7 @@ class _LoginState extends State<Login> {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: ((context) => Center(child: CircularProgressIndicator())));
+        builder: ((context) => const Center(child: CircularProgressIndicator())));
 
     GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -260,17 +267,22 @@ class _LoginState extends State<Login> {
     UserCredential user =
         await FirebaseAuth.instance.signInWithCredential(credential);
 
+    // ignore: use_build_context_synchronously
     final allergyBloc = BlocProvider.of<AllergyBloc>(context);
     allergyBloc.add(LoadAllergy("1"));
+    // ignore: use_build_context_synchronously
     final medicineBloc = BlocProvider.of<MedicineBloc>(context);
     medicineBloc.add(LoadMedicine("1"));
+    // ignore: use_build_context_synchronously
     final diagnosesBloc = BlocProvider.of<DiagnosesBloc>(context);
     diagnosesBloc.add(LoadDiagnoses("1"));
+    // ignore: use_build_context_synchronously
     final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
     vaccineBloc.add(LoadVaccine("1"));
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: ((context) => HomePage())));
+        context, MaterialPageRoute(builder: ((context) => const HomePage())));
   }
 }

@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:worldmedicalcenter/presentation/ui/add_document.dart';
 import 'package:worldmedicalcenter/presentation/ui/my_subscripitons.dart';
 import 'package:worldmedicalcenter/presentation/ui/splash.dart';
 import 'package:worldmedicalcenter/presentation/ui/terms_and_conditions.dart';
@@ -114,7 +113,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              //adding navigation to the menu/////////////////////////////////////////////
+              //adding navigation to the menu
               showModalBottomSheet(
                   context: context,
                   elevation: 5,
@@ -171,6 +170,7 @@ class _HomePageState extends State<HomePage> {
                               onTap: () async{
                               await GoogleSignIn().signOut();
                               FirebaseAuth.instance.signOut();
+                              // ignore: use_build_context_synchronously
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
@@ -291,7 +291,11 @@ class _HomePageState extends State<HomePage> {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 2,
+<<<<<<< HEAD
                       child: const DecoratedBox(
+=======
+                      child:const DecoratedBox(
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                           decoration: BoxDecoration(
                               color: Color.fromARGB(255, 236, 236, 236))),
                     ),
@@ -299,11 +303,15 @@ class _HomePageState extends State<HomePage> {
                   getOtherInfo(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
+                    child: SizedBox(
                       width: 100,
                       height: 40,
                       child: InkWell(
+<<<<<<< HEAD
                         key: const Key("EditPersonal"),
+=======
+                        key:const Key("EditPersonal"),
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                         onTap: () async {
                           var newInfo = await Navigator.of(context).push(
                             MaterialPageRoute(
@@ -317,7 +325,11 @@ class _HomePageState extends State<HomePage> {
                         },
                         borderRadius: BorderRadius.circular(100),
                         child: Container(
+<<<<<<< HEAD
                             padding: const EdgeInsets.symmetric(
+=======
+                            padding:const EdgeInsets.symmetric(
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                                 horizontal: 20, vertical: 4),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
@@ -334,7 +346,11 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Text(
                                   buttonList[2][0],
+<<<<<<< HEAD
                                   style: const TextStyle(
+=======
+                                  style:const TextStyle(
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                                       fontSize: 14, color: Colors.black),
                                 )
                               ],
@@ -493,7 +509,11 @@ class _HomePageState extends State<HomePage> {
   Widget basicText(text) {
     return Text(
       text,
+<<<<<<< HEAD
       style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+=======
+      style:const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
     );
   }
 
@@ -553,12 +573,20 @@ class _HomePageState extends State<HomePage> {
   getExpandedContent(index, state) {
     if (state.length == 0) {
       return Container(
+<<<<<<< HEAD
         margin: const EdgeInsets.symmetric(horizontal: 5),
+=======
+        margin:const EdgeInsets.symmetric(horizontal: 5),
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
         child: InkWell(
           onTap: (() => handleButton(1, state, 1)),
           borderRadius: BorderRadius.circular(100),
           child: Container(
+<<<<<<< HEAD
             margin: const EdgeInsets.only(bottom: 8, top: 3),
+=======
+            margin:const EdgeInsets.only(bottom: 8, top: 3),
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
             width: 100,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
             decoration: BoxDecoration(
@@ -576,7 +604,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Text(
                   buttonList[1][0],
+<<<<<<< HEAD
                   style: const TextStyle(fontSize: 14, color: Colors.black),
+=======
+                  style:const TextStyle(fontSize: 14, color: Colors.black),
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                 )
               ],
             ),
@@ -640,7 +672,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Text(
                       buttonList[index][0],
+<<<<<<< HEAD
                       style: const TextStyle(fontSize: 14, color: Colors.black),
+=======
+                      style:const TextStyle(fontSize: 14, color: Colors.black),
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                     )
                   ],
                 ),
@@ -659,7 +695,11 @@ class _HomePageState extends State<HomePage> {
         isScrollControlled: true,
         builder: (BuildContext context) {
           return Container(
+<<<<<<< HEAD
             padding: const EdgeInsets.all(12),
+=======
+            padding:const EdgeInsets.all(12),
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
             height: MediaQuery.of(context).size.height * 0.75,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -688,7 +728,7 @@ class _HomePageState extends State<HomePage> {
                           value: value,
                           child: Text(
                             value,
-                            // style: TextStyle(fontSize: 30),
+
                           ),
                         );
                       }).toList(),
@@ -709,6 +749,7 @@ class _HomePageState extends State<HomePage> {
                   height: 15,
                 ),
                 Expanded(
+<<<<<<< HEAD
                   child: Container(
                     child: ListView.builder(
                         itemCount: state.length,
@@ -773,6 +814,70 @@ class _HomePageState extends State<HomePage> {
                           );
                         })),
                   ),
+=======
+                  child: ListView.builder(
+                      itemCount: state.length,
+                      itemBuilder: ((context, index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                  left: BorderSide(
+                                    width: 4,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+    
+                              ),
+                              padding:const EdgeInsets.only(left: 5),
+                              child: Text(
+                                state[index].name!,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Card(
+                              elevation: 2,
+                              color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      state[index]
+                                          .name!, //change to translated name
+                                      style:const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 5.0),
+                                      child: Row(
+                                        children: [
+                                          Text("Code: ${state[index].id}")
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        );
+                      })),
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                 )
               ],
             ),
@@ -788,7 +893,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.blueGrey[900],
           isScrollControlled: true,
           builder: ((context) {
-            return Container(
+            return SizedBox(
               height: 70,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -801,7 +906,11 @@ class _HomePageState extends State<HomePage> {
                         });
                         Navigator.pop(context);
                       }),
+<<<<<<< HEAD
                       child: const Padding(
+=======
+                      child:const Padding(
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                         padding: EdgeInsets.only(left: 10.0),
                         child: Text(
                           "Remove item(s)",
@@ -832,7 +941,11 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Text(
                         state[index].name!,
+<<<<<<< HEAD
                         style: const TextStyle(
+=======
+                        style:const TextStyle(
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                             fontWeight: FontWeight.w400, fontSize: 16),
                       ),
                       const SizedBox(
@@ -840,10 +953,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Text(
                         state[index].id.toString(),
+<<<<<<< HEAD
                         style: const TextStyle(
+=======
+                        style:const TextStyle(
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                             color: Colors.black45,
-                            // fontWeight:
-                            //     FontWeight.w200,
+              
                             fontSize: 12),
                       )
                     ],
@@ -870,7 +986,11 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Text(
                               state[index].name!,
+<<<<<<< HEAD
                               style: const TextStyle(
+=======
+                              style:const TextStyle(
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                                   fontWeight: FontWeight.w400, fontSize: 16),
                             ),
                             const SizedBox(
@@ -880,8 +1000,7 @@ class _HomePageState extends State<HomePage> {
                               state[index].id.toString(),
                               style: const TextStyle(
                                   color: Colors.black45,
-                                  // fontWeight:
-                                  //     FontWeight.w200,
+                              
                                   fontSize: 12),
                             )
                           ],
@@ -909,7 +1028,11 @@ class _HomePageState extends State<HomePage> {
                     showChecklist = false;
                   });
                 }),
+<<<<<<< HEAD
                 child: const Text(
+=======
+                child:const Text(
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                   "Cancel",
                   style: TextStyle(color: Colors.blue),
                 )),
@@ -1000,7 +1123,7 @@ class _HomePageState extends State<HomePage> {
                       expanded: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          SizedBox(
                             height: MediaQuery.of(context).size.height * 0.5,
                             child: ListView.builder(
                                 itemCount: state.length,
@@ -1047,7 +1170,11 @@ class _HomePageState extends State<HomePage> {
                                 })),
                           ),
                           Container(
+<<<<<<< HEAD
                             margin: const EdgeInsets.symmetric(
+=======
+                            margin:const EdgeInsets.symmetric(
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                                 horizontal: 35, vertical: 5),
                             child: InkWell(
                               onTap: (() async {
@@ -1060,9 +1187,15 @@ class _HomePageState extends State<HomePage> {
                               }),
                               borderRadius: BorderRadius.circular(100),
                               child: Container(
+<<<<<<< HEAD
                                 margin: const EdgeInsets.only(bottom: 8, top: 3),
                                 width: 100,
                                 padding: const EdgeInsets.symmetric(
+=======
+                                margin:const EdgeInsets.only(bottom: 8, top: 3),
+                                width: 100,
+                                padding:const EdgeInsets.symmetric(
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                                     horizontal: 20, vertical: 4),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(100),
@@ -1079,7 +1212,11 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     Text(
                                       buttonList[1][0],
+<<<<<<< HEAD
                                       style: const TextStyle(
+=======
+                                      style:const TextStyle(
+>>>>>>> ca7cb44eec75874d50d4555c5bc79754a3b024fb
                                           fontSize: 14, color: Colors.black),
                                     )
                                   ],

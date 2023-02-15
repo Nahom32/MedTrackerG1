@@ -6,7 +6,7 @@ import 'package:open_file/open_file.dart';
 
 
 class AddDocument extends StatefulWidget {
-  AddDocument({Key? key}) : super(key: key);
+  const AddDocument({Key? key}) : super(key: key);
 
   @override
   State<AddDocument> createState() => _AddDocumentState();
@@ -14,9 +14,8 @@ class AddDocument extends StatefulWidget {
 
 class _AddDocumentState extends State<AddDocument> {
   PlatformFile? pickedFile;
-  // void openFile(PlatformFile file){
-  //   OpenFile.open(file.path!);
-  // }
+
+  // ignore: non_constant_identifier_names
   SelectFile() async{
     final result = await FilePicker.platform.pickFiles();
     if(result == null) return;
@@ -35,9 +34,9 @@ class _AddDocumentState extends State<AddDocument> {
           if (pickedFile != null)
           GestureDetector(
             child: Container(
-            padding: EdgeInsets.fromLTRB(150, 15, 150, 15),
-            child:Text(pickedFile!.name),
+            padding: const EdgeInsets.fromLTRB(150, 15, 150, 15),
             decoration: BoxDecoration(border: Border.all()),
+            child:Text(pickedFile!.name),
             ),
             onTap: (){
               SelectFile();
@@ -50,17 +49,17 @@ class _AddDocumentState extends State<AddDocument> {
             // key: _formKey,
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 12
                 ),
-                TextField(
+                const TextField(
                 decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Document Title',
   ),
 ),
-SizedBox(height: 12,),
-TextField(
+const SizedBox(height: 12,),
+const TextField(
   decoration: InputDecoration(
     border: OutlineInputBorder(),
     hintText: 'Description(optional)',
@@ -68,7 +67,7 @@ TextField(
   ),
 ),
 
- ElevatedButton(child: Text('pick file'),
+ ElevatedButton(child: const Text('pick file'),
         onPressed: () {
             SelectFile();
         },),
@@ -80,11 +79,11 @@ TextField(
           Expanded(child:  TextButton(
               onPressed: (){},
               child: Container(
-              child:Text('UPLOAD NEW DOCUMENT', style: TextStyle(fontSize: 12, color: Colors.white),),
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 130),
-              decoration: BoxDecoration(borderRadius:  BorderRadius.all(Radius.circular(30)),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 130),
+              decoration: const BoxDecoration(borderRadius:  BorderRadius.all(Radius.circular(30)),
               color:  Colors.blue,
-              ),)) )
+              ),
+              child:const Text('UPLOAD NEW DOCUMENT', style: TextStyle(fontSize: 12, color: Colors.white),),)) )
         ],),
       )
     );
