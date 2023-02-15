@@ -38,8 +38,8 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    await tester.enterText(EmailForm, "pauldessie@gmail.com");
-    await tester.enterText(passwordForm, "password");
+    await tester.enterText(EmailForm, "misrakdnh@gmail.com");
+    await tester.enterText(passwordForm, "qwerty");
 
     await tester.pumpAndSettle();
     await tester.tap(logingbutton);
