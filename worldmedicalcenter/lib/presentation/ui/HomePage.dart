@@ -51,20 +51,47 @@ class _HomePageState extends State<HomePage> {
   ];
 
   Map<String, List<String>> inkwellKeys = {
-    "profile": ["profileTranslate", "profileAdd", "profileEdit", "profileShare"],
-    "allergies": ["allergiesTranslate", "allergiesAdd", "allergiesEdit", "allergiesShare"],
-    "medicine": ["medicineTanslate", "medicineAdd", "medicineEdit", "medicineShare"],
-    "diagnoses": ["diagnosesTranslate", "diagnosesAadd", "diagnosesEdit", "diagnosesShare"],
-    "vaccines": ["vaccinesTranslate", "vaccinesAdd", "vaccinesEdit", "vaccinesShare"],
+    "profile": [
+      "profileTranslate",
+      "profileAdd",
+      "profileEdit",
+      "profileShare"
+    ],
+    "allergies": [
+      "allergiesTranslate",
+      "allergiesAdd",
+      "allergiesEdit",
+      "allergiesShare"
+    ],
+    "medicine": [
+      "medicineTanslate",
+      "medicineAdd",
+      "medicineEdit",
+      "medicineShare"
+    ],
+    "diagnoses": [
+      "diagnosesTranslate",
+      "diagnosesAdd",
+      "diagnosesEdit",
+      "diagnosesShare"
+    ],
+    "vaccines": [
+      "vaccinesTranslate",
+      "vaccinesAdd",
+      "vaccinesEdit",
+      "vaccinesShare"
+    ],
     "documents": ["documentAdd"],
   };
 
-  List<String> expandablesKey =["profile", 
-  "allergies", 
-  "medicine", 
-  "diagnoses",
-   "vaccines",
-    "documents"];
+  List<String> expandablesKey = [
+    "profile",
+    "allergies",
+    "medicine",
+    "diagnoses",
+    "vaccines",
+    "documents"
+  ];
   PersonalInfo testInfo = PersonalInfo(
       id: 01,
       firstName: "Paulos",
@@ -184,15 +211,15 @@ class _HomePageState extends State<HomePage> {
                             height: 20,
                           ),
                           InkWell(
-                              onTap: () async{
-                              await GoogleSignIn().signOut();
-                              FirebaseAuth.instance.signOut();
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) => Splash())));
-                            },
-                            child: Padding(
+                              onTap: () async {
+                                await GoogleSignIn().signOut();
+                                FirebaseAuth.instance.signOut();
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) => Splash())));
+                              },
+                              child: Padding(
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: Text(
                                   "Sign Out",
@@ -214,7 +241,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Container(
-        key:const Key("ScrollMain"),
+        key: const Key("ScrollMain"),
         color: Colors.blueGrey[50],
         child: ListView.builder(
           itemCount: 7,
@@ -286,7 +313,7 @@ class _HomePageState extends State<HomePage> {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 2,
-                      child:const DecoratedBox(
+                      child: const DecoratedBox(
                           decoration: BoxDecoration(
                               color: Color.fromARGB(255, 236, 236, 236))),
                     ),
@@ -1127,7 +1154,8 @@ class _HomePageState extends State<HomePage> {
                   key: Key(expandablesKey[index]),
                   header: getExpandableHeader(index, state),
                   collapsed: const SizedBox.shrink(),
-                  expanded: getExpandedContent(index, state, expandablesKey[index] ),
+                  expanded:
+                      getExpandedContent(index, state, expandablesKey[index]),
                 ),
               ),
             ),
