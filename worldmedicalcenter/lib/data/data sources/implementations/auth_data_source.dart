@@ -5,14 +5,14 @@ import '../interfaces/auth_data.dart';
 
 // ignore: constant_identifier_names
 const String API_BASE =
-    "http://localhost:5260";
+    "https://b6f8-197-156-107-249.eu.ngrok.io";
 
 class AuthDataSource implements AuthData {
   @override
-  Future<PersonalInfo> create(Auth auth) async {
-    var response = await Dio().post('$API_BASE/api/auth/login',
-        data: {'emailAddress': auth.emailAddress, 'password': auth.password},options: Options(headers: {"" : ""}));
-     PersonalInfo user = PersonalInfo(id: response.data['id']);
-    return user;
+  Future<String> create(String email, String password) async {
+    var response = await Dio().post('https://b6f8-197-156-107-249.eu.ngrok.io/api/auth/login',
+        data: {'email': email, 'password': password},options: Options(headers: {"Content-Type" : "application/json"}));
+     String userToken = response.data['token'];
+    return userToken;
   }
 }
