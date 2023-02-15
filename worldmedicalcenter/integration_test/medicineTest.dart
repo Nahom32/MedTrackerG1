@@ -44,7 +44,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(logingbutton);
     await tester.pumpAndSettle();
-    await Future.delayed(Duration(milliseconds: 6000), () {});
+    await Future.delayed(const Duration(milliseconds: 6000), () {});
     await tester.pumpAndSettle();
 
     final Finder expandAllergies = find.byKey(const Key("medicine"));
@@ -53,13 +53,14 @@ void main() {
     await tester.tap(expandAllergies);
     await tester.pumpAndSettle();
 
-    await Future.delayed(Duration(milliseconds: 2000), () {});
+    await Future.delayed(const Duration(milliseconds: 2000), () {});
 
     await tester.drag(mainContainer, const Offset(0, -700));
-    await Future.delayed(Duration(milliseconds: 1000), () {});
+    await Future.delayed(const Duration(milliseconds: 1000), () {});
 
     await tester.pumpAndSettle();
     await tester.tap(editButton);
     await tester.pumpAndSettle();
+    await Future.delayed(const Duration(milliseconds: 6000), () {});
   });
 }
