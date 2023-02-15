@@ -120,13 +120,13 @@ class _LoginState extends State<Login> {
                     key: const Key("Email"),
                     controller: emailCtrl,
                     textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
                       label: Text("Email"),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   TextField(
@@ -158,7 +158,7 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       GestureDetector(
-                          child:const Text(
+                          child: const Text(
                             'Forgot Password?',
                             style:
                                 TextStyle(decoration: TextDecoration.underline),
@@ -173,7 +173,7 @@ class _LoginState extends State<Login> {
                         height: 10,
                       ),
                       TextButton(
-                          key:const Key("Login"),
+                          key: const Key("Login"),
                           onPressed: signIn,
                           child: Container(
                             padding: EdgeInsets.symmetric(
@@ -183,7 +183,7 @@ class _LoginState extends State<Login> {
                                   BorderRadius.all(Radius.circular(30)),
                               color: Colors.blue,
                             ),
-                            child:const Text(
+                            child: const Text(
                               'LOGIN',
                               style:
                                   TextStyle(fontSize: 12, color: Colors.white),
@@ -217,6 +217,7 @@ class _LoginState extends State<Login> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailCtrl.text.trim(), password: passwordCtrl.text.trim());
     } on FirebaseAuthException catch (e) {
+      print(e);
       flag = false;
     }
 

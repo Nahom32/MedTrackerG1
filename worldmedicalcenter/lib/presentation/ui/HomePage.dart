@@ -49,7 +49,18 @@ class _HomePageState extends State<HomePage> {
     "Vaccines",
     "Documents",
   ];
-  PersonalInfo testInfo = new PersonalInfo(
+
+  Map<String, List<String>> inkwellKeys = {
+    "profile": ["profileTranslate", "profileAdd", "profileEdit", "profileShare"],
+    "Allergies": ["allergiesTranslate", "allergiesAdd", "allergiesEdit", "allergiesShare"],
+    "Medicine": ["medicineTanslate", "medicineAdd", "medicineEdit", "medicineShare"],
+    "Diagnoses": ["diagnosesTranslate", "diagnosesAadd", "diagnosesEdit", "diagnosesShare"],
+    "Vaccines": ["vaccinesTranslate", "vaccinesAdd", "vaccinesEdit", "vaccinesShare"],
+    "Documents": ["documentAdd"],
+  };
+
+  List<String> expandablesKey =["profile", "allergies", "medicine", "diagnoses", "vaccines", "documents"];
+  PersonalInfo testInfo = PersonalInfo(
       id: 01,
       firstName: "Paulos",
       lastName: "Dessie",
@@ -74,28 +85,28 @@ class _HomePageState extends State<HomePage> {
   List buttonList = [
     [
       "Translate",
-      Icon(
+      const Icon(
         CupertinoIcons.globe,
         size: 20,
       )
     ],
     [
       "Add",
-      Icon(
+      const Icon(
         Icons.add,
         size: 20,
       )
     ],
     [
       "Edit",
-      Icon(
+      const Icon(
         Icons.edit,
         size: 20,
       )
     ],
     [
       "Share",
-      Icon(
+      const Icon(
         Icons.share,
         size: 20,
       )
@@ -198,6 +209,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Container(
+        key:const Key("ScrollMain"),
         color: Colors.blueGrey[50],
         child: ListView.builder(
           itemCount: 7,
@@ -269,7 +281,7 @@ class _HomePageState extends State<HomePage> {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 2,
-                      child: DecoratedBox(
+                      child:const DecoratedBox(
                           decoration: BoxDecoration(
                               color: Color.fromARGB(255, 236, 236, 236))),
                     ),
@@ -514,8 +526,8 @@ class _HomePageState extends State<HomePage> {
               height: 150,
               fit: BoxFit.cover,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 13),
+            const Padding(
+              padding: EdgeInsets.only(left: 8.0, top: 13),
               child: Text("Card will Expire in 208 days"),
             ),
           ],
@@ -539,7 +551,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(titleList[index], style: const TextStyle(fontSize: 18)),
-              SizedBox(
+              const SizedBox(
                 height: 2,
               ),
               checkAmount(state),
@@ -550,7 +562,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getExpandedContent(index, state) {
+  getExpandedContent(index, state, contextKey) {
     if (state.length == 0) {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: 5),
@@ -571,7 +583,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 buttonList[1][1],
-                SizedBox(
+                const SizedBox(
                   width: 6,
                 ),
                 Text(
@@ -1106,9 +1118,10 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(0.0),
               child: ScrollOnExpand(
                 child: ExpandablePanel(
+                  key: Key(expandablesKey[index]),
                   header: getExpandableHeader(index, state),
                   collapsed: const SizedBox.shrink(),
-                  expanded: getExpandedContent(index, state),
+                  expanded: getExpandedContent(index, state, expandablesKey[index] ),
                 ),
               ),
             ),

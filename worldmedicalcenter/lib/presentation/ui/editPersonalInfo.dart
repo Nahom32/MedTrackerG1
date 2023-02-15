@@ -52,13 +52,14 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
       "Please fill your personal information to create an account, you can change them latter";
   Widget build(BuildContext context) {
     return Container(
-      color:const Color.fromARGB(255, 250, 250, 250),
+      color: const Color.fromARGB(255, 250, 250, 250),
       child: Padding(
-        padding:const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
         child: Scaffold(
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniCenterDocked,
           floatingActionButton: Container(
+              // key: const Key("Save"),
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
               child: BlocConsumer<PersonalInfoBloc, PersonalInfoState>(
@@ -66,10 +67,11 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                   // String adaptiveText = "Save";
                   return Padding(
                     // alignment: Alignment.bottomCenter,
-                    padding:const EdgeInsets.symmetric(vertical: 6.0),
+                    padding: const EdgeInsets.symmetric(vertical: 6.0),
                     child: FloatingActionButton.extended(
-                      key: Key("Save"),
+                      key: const Key("Save"),
                       onPressed: () {
+                        print("Pressed");
                         if (firstNameController.text.isNotEmpty &&
                             // ignore: unrelated_type_equality_checks
                             firstNameController.text != prevInfo.firstName) {
@@ -101,7 +103,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
 
                         Navigator.of(context).pop(prevInfo);
                       },
-                      label: Text("Save"),
+                      label: const Text("Save"),
                     ),
                   );
                 },
@@ -114,8 +116,8 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
               )),
           appBar: AppBar(
             elevation: 0,
-            backgroundColor:const Color.fromARGB(255, 250, 250, 250),
-            leading:const BackButton(color: Colors.grey),
+            backgroundColor: const Color.fromARGB(255, 250, 250, 250),
+            leading: const BackButton(color: Colors.grey),
           ),
           body: Container(
             height: MediaQuery.of(context).size.height * 0.78,
@@ -151,11 +153,10 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                         ),
                         // The below container containes the form for the first name
                         Container(
-                          
-                          padding:const EdgeInsets.symmetric(vertical: 7),
+                          padding: const EdgeInsets.symmetric(vertical: 7),
                           child: TextField(
-                            key:const Key("First name"),
-                            decoration:const InputDecoration(
+                            key: const Key("First name"),
+                            decoration: const InputDecoration(
                                 labelText: "First Name",
                                 border: OutlineInputBorder()),
                             controller: firstNameController,
@@ -164,11 +165,10 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                         ),
                         // The below container contains the textfield for the last name
                         Container(
-                          
                           padding: EdgeInsets.symmetric(vertical: 7),
                           child: TextField(
-                            key:const Key("Last name"),
-                            decoration:const InputDecoration(
+                            key: const Key("Last name"),
+                            decoration: const InputDecoration(
                               labelText: "Last Name",
                               border: OutlineInputBorder(),
                             ),
@@ -188,8 +188,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                       MediaQuery.of(context).size.width * 0.43,
                                   child: TextField(
                                     key: Key("DOB"),
-                                    decoration:const InputDecoration(
-                                      
+                                    decoration: const InputDecoration(
                                         labelText: "Date of Birth",
                                         border: OutlineInputBorder()),
                                     controller: DOBController,
@@ -202,18 +201,19 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                   height: 53,
                                   child: Container(
                                     child: DropdownButtonFormField(
-                                      key:const Key("Gender drop down"),
+                                      key: const Key("Gender drop down"),
                                       value: genderstate,
                                       items: const [
                                         DropdownMenuItem(
                                           key: Key("Male item"),
                                           value: "Male",
-                                            child: Text("Male"), ),
+                                          child: Text("Male"),
+                                        ),
                                         DropdownMenuItem(
                                           key: Key("Female item"),
-                                            value: "Female",
-                                            child: Text("Female"),
-                                            )
+                                          value: "Female",
+                                          child: Text("Female"),
+                                        )
                                       ],
                                       dropdownColor: Colors.white,
                                       isExpanded: true,
@@ -223,7 +223,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                           genderstate = val!;
                                         });
                                       },
-                                      decoration:const InputDecoration(
+                                      decoration: const InputDecoration(
                                           border: OutlineInputBorder()),
                                     ),
                                   ),
@@ -231,7 +231,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                               ]),
                         ),
                         Container(
-                          padding:const EdgeInsets.symmetric(vertical: 7),
+                          padding: const EdgeInsets.symmetric(vertical: 7),
                           child: TextField(
                             key: Key("SSN"),
                             decoration: InputDecoration(
@@ -244,7 +244,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 7),
                           child: TextField(
-                            key:const Key("Nationality"),
+                            key: const Key("Nationality"),
                             decoration: const InputDecoration(
                                 labelText: "Nationality",
                                 border: OutlineInputBorder()),
@@ -253,10 +253,10 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                           ),
                         ),
                         Container(
-                          padding:const EdgeInsets.symmetric(vertical: 7),
+                          padding: const EdgeInsets.symmetric(vertical: 7),
                           child: TextField(
-                            key:const Key("Tlf.nr"),
-                            decoration:const InputDecoration(
+                            key: const Key("Tlf.nr"),
+                            decoration: const InputDecoration(
                                 labelText: "Tlf.nr.",
                                 border: OutlineInputBorder()),
                             controller: TLFController,
@@ -264,25 +264,27 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                           ),
                         ),
                         Container(
-                            padding:const EdgeInsets.symmetric(vertical: 7),
-                            child:const Text(
+                            padding: const EdgeInsets.symmetric(vertical: 7),
+                            child: const Text(
                               "Would you like to be an organ donor?",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 15),
                             )),
                         Container(
-                          padding:const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: DropdownButtonFormField(
-                            key:const Key("DonorState"),
+                            key: const Key("DonorState"),
                             value: donorState,
-                            items: const[
+                            items: const [
                               DropdownMenuItem(
-                                key: Key("Donor Yes"), value: "Yes",
+                                  key: Key("Donor Yes"),
+                                  value: "Yes",
                                   child: Text("Yes")),
                               DropdownMenuItem(
                                 key: Key("Donor No"),
                                 value: "No",
-                                child: Text("No"),)
+                                child: Text("No"),
+                              )
                             ],
                             dropdownColor: Colors.white,
                             isExpanded: true,
@@ -292,14 +294,14 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                 donorState = val!;
                               });
                             },
-                            decoration:
-                                const InputDecoration(border: OutlineInputBorder()),
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder()),
                           ),
                         ),
                         Container(
-                            padding:const EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 7, horizontal: 8),
-                            child:const Text(
+                            child: const Text(
                               "Healthcare proffesionals will be required to ask family to confirm your decision.",
                               style: TextStyle(
                                   color: Color.fromARGB(255, 124, 124, 124),
@@ -326,19 +328,20 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                           ),
                         ),
                         Container(
-                          padding:const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: DropdownButtonFormField(
-                            key:const Key("TOI"),
+                            key: const Key("TOI"),
                             value: insuranceState,
                             items: const [
                               DropdownMenuItem(
-                                key: Key("TI"),
-                                value: "TI",
+                                  key: Key("TI"),
+                                  value: "TI",
                                   child: Text("Travel Insurance")),
                               DropdownMenuItem(
-                                  key: Key("HI"),
-                                  value: "HI",
-                                  child: Text("Health Insurance"), )
+                                key: Key("HI"),
+                                value: "HI",
+                                child: Text("Health Insurance"),
+                              )
                             ],
                             dropdownColor: Colors.white,
                             isExpanded: true,
@@ -348,12 +351,12 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                 insuranceState = val!;
                               });
                             },
-                            decoration:
-                                const InputDecoration(border: OutlineInputBorder()),
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder()),
                           ),
                         ),
                         Container(
-                          padding:const EdgeInsets.symmetric(vertical: 7),
+                          padding: const EdgeInsets.symmetric(vertical: 7),
                           child: TextField(
                             decoration: const InputDecoration(
                                 labelText: "Insurance Company",
@@ -363,9 +366,9 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                           ),
                         ),
                         Container(
-                          padding:const EdgeInsets.symmetric(vertical: 7),
+                          padding: const EdgeInsets.symmetric(vertical: 7),
                           child: TextField(
-                            decoration:const InputDecoration(
+                            decoration: const InputDecoration(
                                 labelText: "Policy number(optional)",
                                 border: OutlineInputBorder()),
                             controller: policyNumController,
@@ -373,9 +376,9 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                           ),
                         ),
                         Container(
-                          padding:const EdgeInsets.symmetric(vertical: 7),
+                          padding: const EdgeInsets.symmetric(vertical: 7),
                           child: TextField(
-                            decoration:const InputDecoration(
+                            decoration: const InputDecoration(
                                 labelText: "Alarm Telephone(optional)",
                                 border: OutlineInputBorder()),
                             controller: alarmTelController,
@@ -401,9 +404,9 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                           ),
                         ),
                         Container(
-                          padding:const EdgeInsets.symmetric(vertical: 7),
+                          padding: const EdgeInsets.symmetric(vertical: 7),
                           child: TextField(
-                            decoration:const InputDecoration(
+                            decoration: const InputDecoration(
                                 labelText: "Name",
                                 border: OutlineInputBorder()),
                             controller: emergencyName1Controller,
@@ -418,7 +421,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                 width: MediaQuery.of(context).size.width * 0.43,
                                 padding: EdgeInsets.symmetric(vertical: 7),
                                 child: TextField(
-                                  decoration:const InputDecoration(
+                                  decoration: const InputDecoration(
                                       labelText: "Phone number",
                                       border: OutlineInputBorder()),
                                   controller: emergencyPhonenum1Controller,
@@ -429,7 +432,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                                 width: MediaQuery.of(context).size.width * 0.43,
                                 padding: EdgeInsets.symmetric(vertical: 7),
                                 child: TextField(
-                                  decoration:const InputDecoration(
+                                  decoration: const InputDecoration(
                                       labelText: "Relationship",
                                       border: OutlineInputBorder()),
                                   controller: relationship1Controller,
@@ -442,7 +445,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 7),
                           child: TextField(
-                            decoration:const InputDecoration(
+                            decoration: const InputDecoration(
                                 labelText: "Name",
                                 border: OutlineInputBorder()),
                             controller: emergencyName2Controller,
@@ -456,7 +459,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                               width: MediaQuery.of(context).size.width * 0.43,
                               padding: EdgeInsets.symmetric(vertical: 7),
                               child: TextField(
-                                decoration:const InputDecoration(
+                                decoration: const InputDecoration(
                                     labelText: "Phone number",
                                     border: OutlineInputBorder()),
                                 controller: emergencyPhonenum2Controller,
@@ -467,7 +470,7 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                               width: MediaQuery.of(context).size.width * 0.43,
                               padding: EdgeInsets.symmetric(vertical: 7),
                               child: TextField(
-                                decoration:const InputDecoration(
+                                decoration: const InputDecoration(
                                     labelText: "Relationship",
                                     border: OutlineInputBorder()),
                                 controller: relationship2Controller,
@@ -499,8 +502,8 @@ class _EditPersonalInfoState extends State<EditPersonalInfo> {
                             keyboardType: TextInputType.multiline,
                             minLines: 5,
                             maxLines: 5,
-                            decoration:const
-                                InputDecoration(border: OutlineInputBorder()),
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder()),
                             controller: otherController,
                           ),
                         )
