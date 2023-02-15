@@ -44,6 +44,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(logingbutton);
     await Future.delayed(Duration(milliseconds: 3000), () {});
+    await tester.pumpAndSettle();
 
     final Finder expandPersonal = find.byKey(Key("PersonalInfo"));
     final Finder mainContainer = find.byKey(Key("ScrollMain"));
