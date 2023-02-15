@@ -5,7 +5,6 @@ import 'package:worldmedicalcenter/application/blocs/medicine/MedicineBloc.dart'
 import 'package:worldmedicalcenter/application/blocs/vaccine/VaccineBloc.dart';
 import 'package:worldmedicalcenter/main_page.dart';
 import 'package:worldmedicalcenter/presentation/ui/Add.dart';
-import 'package:worldmedicalcenter/presentation/ui/splash.dart';
 import 'application/blocs/allergy/AllergyBloc.dart';
 import 'application/blocs/diagnoses/DiagnosesBloc.dart';
 import 'application/blocs/personnalInfo/personalInfoBloc.dart';
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
             bodyText1: TextStyle(fontFamily: "Nunito Sans", fontSize: 10)),
         inputDecorationTheme: const InputDecorationTheme(
           enabledBorder: OutlineInputBorder(
-            // borderSide: BorderSide(width: 1, color: Colors.black),
+
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
           focusedBorder: OutlineInputBorder(
@@ -51,7 +50,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: MainPage(),
+      home: const MainPage(),
     );
   }
 }

@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:worldmedicalcenter/presentation/ui/add_document.dart';
 import 'package:worldmedicalcenter/presentation/ui/my_subscripitons.dart';
 import 'package:worldmedicalcenter/presentation/ui/splash.dart';
 import 'package:worldmedicalcenter/presentation/ui/terms_and_conditions.dart';
@@ -49,7 +48,7 @@ class _HomePageState extends State<HomePage> {
     "Vaccines",
     "Documents",
   ];
-  PersonalInfo testInfo = new PersonalInfo(
+  PersonalInfo testInfo = PersonalInfo(
       id: 01,
       firstName: "Paulos",
       lastName: "Dessie",
@@ -74,28 +73,28 @@ class _HomePageState extends State<HomePage> {
   List buttonList = [
     [
       "Translate",
-      Icon(
+      const Icon(
         CupertinoIcons.globe,
         size: 20,
       )
     ],
     [
       "Add",
-      Icon(
+      const Icon(
         Icons.add,
         size: 20,
       )
     ],
     [
       "Edit",
-      Icon(
+      const Icon(
         Icons.edit,
         size: 20,
       )
     ],
     [
       "Share",
-      Icon(
+      const Icon(
         Icons.share,
         size: 20,
       )
@@ -114,7 +113,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              //adding navigation to the menu/////////////////////////////////////////////
+              //adding navigation to the menu
               showModalBottomSheet(
                   context: context,
                   elevation: 5,
@@ -134,8 +133,8 @@ class _HomePageState extends State<HomePage> {
                                   return Subscriptions();
                                 }));
                               }),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 10.0),
                                 child: Text(
                                   "My Subscriptions",
                                   style: TextStyle(
@@ -144,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                                       fontSize: 18),
                                 ),
                               )),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           InkWell(
@@ -154,8 +153,8 @@ class _HomePageState extends State<HomePage> {
                                   return TermsAndConditions();
                                 }));
                               }),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 10.0),
                                 child: Text(
                                   "Terms And Conditions",
                                   style: TextStyle(
@@ -164,20 +163,21 @@ class _HomePageState extends State<HomePage> {
                                       fontSize: 18),
                                 ),
                               )),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           InkWell(
                               onTap: () async{
                               await GoogleSignIn().signOut();
                               FirebaseAuth.instance.signOut();
+                              // ignore: use_build_context_synchronously
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: ((context) => Splash())));
                             },
-                            child: Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
+                            child: const Padding(
+                                padding: EdgeInsets.only(left: 10.0),
                                 child: Text(
                                   "Sign Out",
                                   style: TextStyle(
@@ -225,9 +225,9 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(
           width: 10,
         ),
-        Text(
+        const Text(
           "Good Morning",
-          style: const TextStyle(
+          style: TextStyle(
               color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 24),
         ),
       ],
@@ -242,10 +242,10 @@ class _HomePageState extends State<HomePage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0),
           child: ExpandablePanel(
-            key: Key("PersonalInfo"),
+            key: const Key("PersonalInfo"),
             header: ListTile(
               title: Text(testInfo.firstName! + testInfo.lastName!),
-              subtitle: Text("Member since 2022"),
+              subtitle: const Text("Member since 2022"),
               leading: CircleAvatar(
                 radius: 35,
                 backgroundColor: Colors.grey[200],
@@ -269,7 +269,7 @@ class _HomePageState extends State<HomePage> {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 2,
-                      child: DecoratedBox(
+                      child: const DecoratedBox(
                           decoration: BoxDecoration(
                               color: Color.fromARGB(255, 236, 236, 236))),
                     ),
@@ -280,7 +280,7 @@ class _HomePageState extends State<HomePage> {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 2,
-                      child: DecoratedBox(
+                      child: const DecoratedBox(
                           decoration: BoxDecoration(
                               color: Color.fromARGB(255, 236, 236, 236))),
                     ),
@@ -291,7 +291,7 @@ class _HomePageState extends State<HomePage> {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 2,
-                      child: DecoratedBox(
+                      child:const DecoratedBox(
                           decoration: BoxDecoration(
                               color: Color.fromARGB(255, 236, 236, 236))),
                     ),
@@ -299,11 +299,11 @@ class _HomePageState extends State<HomePage> {
                   getOtherInfo(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
+                    child: SizedBox(
                       width: 100,
                       height: 40,
                       child: InkWell(
-                        key: Key("EditPersonal"),
+                        key:const Key("EditPersonal"),
                         onTap: () async {
                           var newInfo = await Navigator.of(context).push(
                             MaterialPageRoute(
@@ -317,7 +317,7 @@ class _HomePageState extends State<HomePage> {
                         },
                         borderRadius: BorderRadius.circular(100),
                         child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding:const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 4),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
@@ -329,12 +329,12 @@ class _HomePageState extends State<HomePage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 buttonList[2][1],
-                                SizedBox(
+                                const SizedBox(
                                   width: 6,
                                 ),
                                 Text(
                                   buttonList[2][0],
-                                  style: TextStyle(
+                                  style:const TextStyle(
                                       fontSize: 14, color: Colors.black),
                                 )
                               ],
@@ -493,7 +493,7 @@ class _HomePageState extends State<HomePage> {
   Widget basicText(text) {
     return Text(
       text,
-      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+      style:const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
     );
   }
 
@@ -514,8 +514,8 @@ class _HomePageState extends State<HomePage> {
               height: 150,
               fit: BoxFit.cover,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 13),
+            const Padding(
+              padding: EdgeInsets.only(left: 8.0, top: 13),
               child: Text("Card will Expire in 208 days"),
             ),
           ],
@@ -539,7 +539,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(titleList[index], style: const TextStyle(fontSize: 18)),
-              SizedBox(
+              const SizedBox(
                 height: 2,
               ),
               checkAmount(state),
@@ -553,14 +553,14 @@ class _HomePageState extends State<HomePage> {
   getExpandedContent(index, state) {
     if (state.length == 0) {
       return Container(
-        margin: EdgeInsets.symmetric(horizontal: 5),
+        margin:const EdgeInsets.symmetric(horizontal: 5),
         child: InkWell(
           onTap: (() => handleButton(1, state, 1)),
           borderRadius: BorderRadius.circular(100),
           child: Container(
-            margin: EdgeInsets.only(bottom: 8, top: 3),
+            margin:const EdgeInsets.only(bottom: 8, top: 3),
             width: 100,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
                 border: Border.all(
@@ -571,12 +571,12 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 buttonList[1][1],
-                SizedBox(
+                const SizedBox(
                   width: 6,
                 ),
                 Text(
                   buttonList[1][0],
-                  style: TextStyle(fontSize: 14, color: Colors.black),
+                  style:const TextStyle(fontSize: 14, color: Colors.black),
                 )
               ],
             ),
@@ -589,20 +589,20 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 8, left: 3, right: 3),
+            margin: const EdgeInsets.only(bottom: 8, left: 3, right: 3),
             height: 1,
             color: Colors.blueGrey[200],
           ),
           Container(
               height: MediaQuery.of(context).size.height * 0.5,
-              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+              padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
               child: getDetailedList(index, state)),
           Container(
             height: 70,
-            padding: EdgeInsets.symmetric(vertical: 15),
+            padding: const EdgeInsets.symmetric(vertical: 15),
             child: getButtons(index, state),
           ),
-          SizedBox(
+          const SizedBox(
             height: 6,
           )
         ],
@@ -612,19 +612,19 @@ class _HomePageState extends State<HomePage> {
 
   getButtons(idx, state) {
     if (showChecklist == true) {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
     return ListView.builder(
         itemCount: 4,
         scrollDirection: Axis.horizontal,
         itemBuilder: ((context, index) {
           return Container(
-            margin: EdgeInsets.symmetric(horizontal: 5),
+            margin: const EdgeInsets.symmetric(horizontal: 5),
             child: InkWell(
               onTap: (() => handleButton(index, state, idx)),
               borderRadius: BorderRadius.circular(100),
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                     border: Border.all(
@@ -635,12 +635,12 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     buttonList[index][1],
-                    SizedBox(
+                    const SizedBox(
                       width: 6,
                     ),
                     Text(
                       buttonList[index][0],
-                      style: TextStyle(fontSize: 14, color: Colors.black),
+                      style:const TextStyle(fontSize: 14, color: Colors.black),
                     )
                   ],
                 ),
@@ -659,17 +659,17 @@ class _HomePageState extends State<HomePage> {
         isScrollControlled: true,
         builder: (BuildContext context) {
           return Container(
-            padding: EdgeInsets.all(12),
+            padding:const EdgeInsets.all(12),
             height: MediaQuery.of(context).size.height * 0.75,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'My ${titleList[idx]}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 15),
+                  margin: const EdgeInsets.symmetric(vertical: 15),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10)),
@@ -688,7 +688,7 @@ class _HomePageState extends State<HomePage> {
                           value: value,
                           child: Text(
                             value,
-                            // style: TextStyle(fontSize: 30),
+
                           ),
                         );
                       }).toList(),
@@ -703,76 +703,74 @@ class _HomePageState extends State<HomePage> {
                 //Translated version starts here
                 Text(
                   "My ${titleList[idx]}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Expanded(
-                  child: Container(
-                    child: ListView.builder(
-                        itemCount: state.length,
-                        itemBuilder: ((context, index) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    left: BorderSide(
-                                      width: 4,
-                                      color: Colors.blue,
+                  child: ListView.builder(
+                      itemCount: state.length,
+                      itemBuilder: ((context, index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                  left: BorderSide(
+                                    width: 4,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+    
+                              ),
+                              padding:const EdgeInsets.only(left: 5),
+                              child: Text(
+                                state[index].name!,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Card(
+                              elevation: 2,
+                              color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      state[index]
+                                          .name!, //change to translated name
+                                      style:const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
                                     ),
-                                  ),
-                                  // borderRadius: BorderRadius.circular(5)
-                                ),
-                                padding: EdgeInsets.only(left: 5),
-                                child: Text(
-                                  state[index].name!,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Card(
-                                elevation: 2,
-                                color: Colors.white,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        state[index]
-                                            .name!, //change to translated name
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 5.0),
+                                      child: Row(
+                                        children: [
+                                          Text("Code: ${state[index].id}")
+                                        ],
                                       ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 5.0),
-                                        child: Row(
-                                          children: [
-                                            Text("Code: ${state[index].id}")
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                    )
+                                  ],
                                 ),
                               ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          );
-                        })),
-                  ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        );
+                      })),
                 )
               ],
             ),
@@ -788,7 +786,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.blueGrey[900],
           isScrollControlled: true,
           builder: ((context) {
-            return Container(
+            return SizedBox(
               height: 70,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -801,8 +799,8 @@ class _HomePageState extends State<HomePage> {
                         });
                         Navigator.pop(context);
                       }),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
+                      child:const Padding(
+                        padding: EdgeInsets.only(left: 10.0),
                         child: Text(
                           "Remove item(s)",
                           style: TextStyle(
@@ -832,18 +830,17 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Text(
                         state[index].name!,
-                        style: TextStyle(
+                        style:const TextStyle(
                             fontWeight: FontWeight.w400, fontSize: 16),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                       Text(
                         state[index].id.toString(),
-                        style: TextStyle(
+                        style:const TextStyle(
                             color: Colors.black45,
-                            // fontWeight:
-                            //     FontWeight.w200,
+              
                             fontSize: 12),
                       )
                     ],
@@ -870,18 +867,17 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Text(
                               state[index].name!,
-                              style: TextStyle(
+                              style:const TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 16),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 6,
                             ),
                             Text(
                               state[index].id.toString(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.black45,
-                                  // fontWeight:
-                                  //     FontWeight.w200,
+                              
                                   fontSize: 12),
                             )
                           ],
@@ -909,11 +905,11 @@ class _HomePageState extends State<HomePage> {
                     showChecklist = false;
                   });
                 }),
-                child: Text(
+                child:const Text(
                   "Cancel",
                   style: TextStyle(color: Colors.blue),
                 )),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             InkWell(
@@ -925,7 +921,7 @@ class _HomePageState extends State<HomePage> {
                     showChecklist = false;
                   });
                 }),
-                child: Text(
+                child: const Text(
                   "Remove",
                   style: TextStyle(color: Colors.blue),
                 )),
@@ -942,7 +938,7 @@ class _HomePageState extends State<HomePage> {
           if (state is LoadedAllergy) {
             return getCommonContent(index, state.allergies);
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         },
       );
@@ -952,7 +948,7 @@ class _HomePageState extends State<HomePage> {
           if (state is LoadedMedicine) {
             return getCommonContent(index, state.medicines);
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         },
       );
@@ -962,7 +958,7 @@ class _HomePageState extends State<HomePage> {
           if (state is LoadedDiagnoses) {
             return getCommonContent(index, state.diagnoses);
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         },
       );
@@ -1000,7 +996,7 @@ class _HomePageState extends State<HomePage> {
                       expanded: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          SizedBox(
                             height: MediaQuery.of(context).size.height * 0.5,
                             child: ListView.builder(
                                 itemCount: state.length,
@@ -1047,7 +1043,7 @@ class _HomePageState extends State<HomePage> {
                                 })),
                           ),
                           Container(
-                            margin: EdgeInsets.symmetric(
+                            margin:const EdgeInsets.symmetric(
                                 horizontal: 35, vertical: 5),
                             child: InkWell(
                               onTap: (() async {
@@ -1060,9 +1056,9 @@ class _HomePageState extends State<HomePage> {
                               }),
                               borderRadius: BorderRadius.circular(100),
                               child: Container(
-                                margin: EdgeInsets.only(bottom: 8, top: 3),
+                                margin:const EdgeInsets.only(bottom: 8, top: 3),
                                 width: 100,
-                                padding: EdgeInsets.symmetric(
+                                padding:const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 4),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(100),
@@ -1074,12 +1070,12 @@ class _HomePageState extends State<HomePage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     buttonList[1][1],
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 6,
                                     ),
                                     Text(
                                       buttonList[1][0],
-                                      style: TextStyle(
+                                      style:const TextStyle(
                                           fontSize: 14, color: Colors.black),
                                     )
                                   ],
@@ -1118,9 +1114,9 @@ class _HomePageState extends State<HomePage> {
 
   checkAmount(state) {
     if (state.length == 0) {
-      return Text(
+      return const Text(
         "No allergies Listed",
-        style: const TextStyle(fontSize: 14, color: Colors.black54),
+        style: TextStyle(fontSize: 14, color: Colors.black54),
       );
     } else {
       return Text(
@@ -1150,7 +1146,7 @@ class _HomePageState extends State<HomePage> {
     var selctedColor = state.length >= 1 ? Colors.blue : Colors.black;
     switch (index) {
       case 0:
-        return Icon(
+        return const Icon(
           Icons.no_accounts_rounded,
         );
       case 1:

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../ui/login.dart';
-import 'HomePage.dart';
 
 
 class Hello extends StatelessWidget {
@@ -14,15 +13,16 @@ class Hello extends StatelessWidget {
         body: Center(child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image(image: AssetImage('assets/medical-card-phone.png'), height: 350,),
-            Container(child: Column(
+            const Image(image: AssetImage('assets/medical-card-phone.png'), height: 350,),
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // ignore: prefer_const_literals_to_create_immutables
               children:[
-                Text('World Medical Card', textAlign: TextAlign.center, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
-                SizedBox(height: 10,),
-                Text('YOUR PERSONAL MEDICAL RECORD ALWAYS AVAILABLE', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black54),)
+                const Text('World Medical Card', textAlign: TextAlign.center, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
+                const SizedBox(height: 10,),
+                const Text('YOUR PERSONAL MEDICAL RECORD ALWAYS AVAILABLE', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black54),)
               ]
-            ),),
+            ),
             TextButton(
             onPressed: (){
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
@@ -44,18 +44,14 @@ class Hello extends StatelessWidget {
             //   }));
             // },
             child: Container(
-            child:Text(
-              key: Key("Login"),
-              'LOGIN', style: TextStyle(fontSize: 12, color: Colors.white),),
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 130),
-            decoration: BoxDecoration(borderRadius:  BorderRadius.all(Radius.circular(30)),
+            decoration: const BoxDecoration(borderRadius:  BorderRadius.all(Radius.circular(30)),
             color:  Colors.blue,
             ),
-            // shape: RoundedRectangleBorder(
-            //   borderRadius: BorderRadius.all(Radius.circular(30))
-            // ),
+            child:const Text(
+              key: Key("Login"),
+              'LOGIN', style: TextStyle(fontSize: 12, color: Colors.white),),
             )
-            // ,
             )
           ],
         ),)

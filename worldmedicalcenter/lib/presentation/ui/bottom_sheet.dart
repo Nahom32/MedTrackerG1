@@ -4,7 +4,7 @@ import 'package:worldmedicalcenter/presentation/ui/my_subscripitons.dart';
 import 'package:worldmedicalcenter/presentation/ui/terms_and_conditions.dart';
 
 class Bottom extends StatefulWidget {
-  Bottom({Key? key}) : super(key: key);
+  const Bottom({Key? key}) : super(key: key);
 
   @override
   State<Bottom> createState() => _BottomState();
@@ -32,8 +32,8 @@ class _BottomState extends State<Bottom> {
                           return Subscriptions();
                         }));
                       }),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 10.0),
                         child: Text(
                           "My Subscriptions",
                           style: TextStyle(
@@ -48,8 +48,8 @@ class _BottomState extends State<Bottom> {
                           return TermsAndConditions();
                         }));
                       }),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 10.0),
                         child: Text(
                           "Terms And Conditions",
                           style: TextStyle(
@@ -61,8 +61,8 @@ class _BottomState extends State<Bottom> {
                   InkWell(
                       onTap: (() {
                       }),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 10.0),
                         child: Text(
                           "Sign Out",
                           style: TextStyle(

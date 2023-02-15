@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 class IntroductionTwo extends StatefulWidget {
-  IntroductionTwo({Key? key}) : super(key: key);
+  const IntroductionTwo({Key? key}) : super(key: key);
 
   @override
   State<IntroductionTwo> createState() => _IntroductionTwoState();
@@ -18,20 +18,21 @@ class _IntroductionTwoState extends State<IntroductionTwo> {
             children: [
               ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image(
+              child:const Image(
               image: AssetImage('assets/intro2.webp'),
               height: 150,
               ),
               
             ),
-              SizedBox(height: 120,),
+              const SizedBox(height: 120,),
               Column(
+                // ignore: prefer_const_literals_to_create_immutables
                 children: [
-                  Text(
+                  const Text(
                     "Travel Worry Free", 
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
-                    Padding(padding: EdgeInsets.all(20),
+                    const Padding(padding: EdgeInsets.all(20),
                     child: Text('You will have your own personal profile which can be accessed via app or browser. There is a build in translation function for 19 languages which will ase communication in relevant local terms.',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.black54 ),

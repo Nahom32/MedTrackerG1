@@ -5,7 +5,7 @@ import '../ui/HomePage.dart';
 
 
 class PasswordReset extends StatefulWidget {
-  PasswordReset({Key? key}) : super(key: key);
+  const PasswordReset({Key? key}) : super(key: key);
 
   @override
   State<PasswordReset> createState() => _PasswordResetState();
@@ -18,29 +18,29 @@ class _PasswordResetState extends State<PasswordReset> {
       body: Column(
         children: [
 
-         SizedBox(height: 100),
-         Text('Reset Password', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
-         Text('Please type your email address and press the button to reset your password'),
-         SizedBox(height: 30,),
+         const SizedBox(height: 100),
+         const Text('Reset Password', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+         const Text('Please type your email address and press the button to reset your password'),
+         const SizedBox(height: 30,),
          Form(child: Column(
           children: [
-            TextField(
+            const TextField(
               decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Email',
   ),),
-            SizedBox(
+            const SizedBox(
               height: 30
             ),
             
                TextButton(
             onPressed: (){},
             child: Container(
-            child:Text('RESET PASSWORD', style: TextStyle(fontSize: 12, color: Colors.white),),
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 130),
-            decoration: BoxDecoration(borderRadius:  BorderRadius.all(Radius.circular(30)),
-            color:  Colors.blue,
+            padding:const EdgeInsets.symmetric(vertical: 20, horizontal: 130),
+            decoration: const BoxDecoration(borderRadius:  BorderRadius.all(Radius.circular(30)),
+            color: Colors.blue,
             ),
+            child: const Text('RESET PASSWORD', style: TextStyle(fontSize: 12, color: Colors.white),),
   
           )
           

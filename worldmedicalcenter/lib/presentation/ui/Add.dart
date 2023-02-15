@@ -23,11 +23,11 @@ class _AddState extends State<Add> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text(
+          title: const Text(
             "Add New Vaccine",
           ),
-          titleTextStyle: TextStyle(color: Colors.black),
-          iconTheme: IconThemeData(color: Colors.black),
+          titleTextStyle: const TextStyle(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
           backgroundColor: Colors.blueGrey[50],
         ),
         body: Container(
@@ -50,7 +50,7 @@ class _AddState extends State<Add> {
                     prefixIcon: Icon(Icons.search),
                     label: Text("search")),
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               getResultCard()
             ],
           ),
@@ -61,11 +61,11 @@ class _AddState extends State<Add> {
 
   getResultCard() {
     if (searchCtrl.text == null || searchCtrl.text == "") {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
     return Container(
       height: 300,
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10)
@@ -77,15 +77,16 @@ class _AddState extends State<Add> {
               padding: const EdgeInsets.symmetric(vertical: 12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                // ignore: prefer_const_literals_to_create_immutables
                 children: [
-                  Text(
+                  const Text(
                     "Saccharomyces ellips",
                     style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
-                  Text(
+                  const Text(
                     "WMCX0002",
                     style: TextStyle(
                         color: Colors.black45,

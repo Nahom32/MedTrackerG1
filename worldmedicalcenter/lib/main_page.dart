@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldmedicalcenter/presentation/ui/HomePage.dart';
-import 'package:worldmedicalcenter/presentation/ui/login.dart';
 import 'package:worldmedicalcenter/presentation/ui/splash.dart';
 
 import 'application/blocs/allergy/AllergyBloc.dart';
@@ -33,9 +32,9 @@ class MainPage extends StatelessWidget {
               final vaccineBloc = BlocProvider.of<VaccineBloc>(context);
               vaccineBloc.add(LoadVaccine("1"));
               
-              return HomePage();
+              return const HomePage();
             } else {
-              return Splash();
+              return const Splash();
             }
           }),
     );
