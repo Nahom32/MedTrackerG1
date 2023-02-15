@@ -6,7 +6,7 @@ import 'package:worldmedicalcenter/main.dart' as app;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  testWidgets("Edit Personal Info Test", (WidgetTester tester) async {
+  testWidgets("allergies Wdget test", (WidgetTester tester) async {
     app.main();
 
     await tester.pumpAndSettle();
@@ -47,10 +47,10 @@ void main() {
     await Future.delayed(Duration(milliseconds: 6000), () {});
     await tester.pumpAndSettle();
 
-    final Finder expandPersonal = find.byKey(Key("PersonalInfo"));
-    final Finder mainContainer = find.byKey(Key("ScrollMain"));
-    final Finder editButton = find.byKey(Key("EditPersonal"));
-    await tester.tap(expandPersonal);
+    final Finder expandAllergies = find.byKey(const Key("allergies"));
+    final Finder mainContainer = find.byKey(const Key("ScrollMain"));
+    final Finder editButton = find.byKey(const Key("allergiesAdd"));
+    await tester.tap(expandAllergies);
     await tester.pumpAndSettle();
 
     await Future.delayed(Duration(milliseconds: 2000), () {});

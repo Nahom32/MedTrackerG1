@@ -52,14 +52,19 @@ class _HomePageState extends State<HomePage> {
 
   Map<String, List<String>> inkwellKeys = {
     "profile": ["profileTranslate", "profileAdd", "profileEdit", "profileShare"],
-    "Allergies": ["allergiesTranslate", "allergiesAdd", "allergiesEdit", "allergiesShare"],
-    "Medicine": ["medicineTanslate", "medicineAdd", "medicineEdit", "medicineShare"],
-    "Diagnoses": ["diagnosesTranslate", "diagnosesAadd", "diagnosesEdit", "diagnosesShare"],
-    "Vaccines": ["vaccinesTranslate", "vaccinesAdd", "vaccinesEdit", "vaccinesShare"],
-    "Documents": ["documentAdd"],
+    "allergies": ["allergiesTranslate", "allergiesAdd", "allergiesEdit", "allergiesShare"],
+    "medicine": ["medicineTanslate", "medicineAdd", "medicineEdit", "medicineShare"],
+    "diagnoses": ["diagnosesTranslate", "diagnosesAadd", "diagnosesEdit", "diagnosesShare"],
+    "vaccines": ["vaccinesTranslate", "vaccinesAdd", "vaccinesEdit", "vaccinesShare"],
+    "documents": ["documentAdd"],
   };
 
-  List<String> expandablesKey =["profile", "allergies", "medicine", "diagnoses", "vaccines", "documents"];
+  List<String> expandablesKey =["profile", 
+  "allergies", 
+  "medicine", 
+  "diagnoses",
+   "vaccines",
+    "documents"];
   PersonalInfo testInfo = PersonalInfo(
       id: 01,
       firstName: "Paulos",
@@ -612,7 +617,7 @@ class _HomePageState extends State<HomePage> {
           Container(
             height: 70,
             padding: EdgeInsets.symmetric(vertical: 15),
-            child: getButtons(index, state),
+            child: getButtons(index, state, contextKey),
           ),
           SizedBox(
             height: 6,
@@ -622,7 +627,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getButtons(idx, state) {
+  getButtons(idx, state, ctxKey) {
     if (showChecklist == true) {
       return SizedBox.shrink();
     }
@@ -633,6 +638,7 @@ class _HomePageState extends State<HomePage> {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
             child: InkWell(
+              key: Key(inkwellKeys[ctxKey]![index]),
               onTap: (() => handleButton(index, state, idx)),
               borderRadius: BorderRadius.circular(100),
               child: Container(
