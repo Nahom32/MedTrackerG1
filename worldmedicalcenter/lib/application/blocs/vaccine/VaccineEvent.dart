@@ -1,4 +1,3 @@
-
 import '../../../domain/models/NormalModel.dart';
 
 abstract class VaccineEvent {}
@@ -19,4 +18,10 @@ class DeleteVaccine extends VaccineEvent {
   final List<NormalModel> vaccines;
 
   DeleteVaccine(this.vaccines);
+}
+
+class SearchEvent extends VaccineEvent {
+  final String name;
+
+  SearchEvent(this.name);
 }
