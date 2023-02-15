@@ -117,6 +117,7 @@ class _LoginState extends State<Login> {
                 child: Column(children: [
                   SizedBox(height: 12),
                   TextField(
+                    key: Key("Email"),
                     controller: emailCtrl,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
@@ -129,6 +130,7 @@ class _LoginState extends State<Login> {
                     height: 12,
                   ),
                   TextField(
+                    key: Key("Password"),
                     controller: passwordCtrl,
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
@@ -171,6 +173,7 @@ class _LoginState extends State<Login> {
                         height: 10,
                       ),
                       TextButton(
+                        key: Key("Login"),
                           onPressed: signIn,
                           child: Container(
                             child: Text(

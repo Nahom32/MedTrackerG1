@@ -47,6 +47,8 @@ dependencies:
   test: ^1.21.4
   firebase_core: ^2.5.0
   integration_test: ^0.8.1
+  google_sign_in: ^5.4.4
+  firebase_auth: ^4.2.6
 
 
 
