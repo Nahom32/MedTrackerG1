@@ -38,12 +38,14 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    await tester.enterText(EmailForm, "pauldessie@gmail.com");
-    await tester.enterText(passwordForm, "password");
+    await tester.enterText(EmailForm, "misrakdnh@gmail.com");
+    await tester.enterText(passwordForm, "qwerty");
 
     await tester.pumpAndSettle();
     await tester.tap(logingbutton);
-    await Future.delayed(Duration(milliseconds: 3000), () {});
+    await tester.pumpAndSettle();
+    await Future.delayed(Duration(milliseconds: 10000), () {});
+    await tester.pumpAndSettle();
 
     final Finder expandPersonal = find.byKey(Key("PersonalInfo"));
     final Finder mainContainer = find.byKey(Key("ScrollMain"));
@@ -53,13 +55,39 @@ void main() {
 
     await Future.delayed(Duration(milliseconds: 2000), () {});
 
-    await tester.drag(
-        mainContainer,const Offset(0, -300));
-    await Future.delayed(Duration(milliseconds: 1000), () {}); 
+    await tester.drag(mainContainer, const Offset(0, -300));
+    await Future.delayed(Duration(milliseconds: 1000), () {});
 
     await tester.pumpAndSettle();
     await tester.tap(editButton);
     await tester.pumpAndSettle();
+    await Future.delayed(const Duration(milliseconds: 2000), () {});
+    final Finder firstNameField = find.byKey(const Key("First name"));
+    final Finder lastNameField = find.byKey(const Key("Last name"));
+    final Finder DOBField = find.byKey(const Key("DOB"));
+    final Finder GDD = find.byKey(const Key("Gender drop down"));
+    final Finder SSNField = find.byKey(const Key("SSN"));
+    final Finder nationalityField = find.byKey(const Key("Nationality"));
+    final Finder tlf_nr_Field = find.byKey(const Key("Tlf.nr"));
+    final Finder saveFormbutton = find.byKey(const Key("Save"));
+
+    await tester.pumpAndSettle();
+    await tester.enterText(firstNameField, "NewFirstName");
+    await tester.enterText(lastNameField, "NewLastName");
+    await tester.enterText(DOBField, "23 Dec 2324");
+    await tester.tap(GDD);
+
+    final Finder gendetItem = find.byKey(const Key("Male item"));
+
+    await tester.tap(gendetItem);
+
+    await tester.enterText(SSNField, "0987654321");
+    await tester.enterText(nationalityField, "Ethiopian");
+    await tester.enterText(tlf_nr_Field, "34258769");
+    await tester.tap(saveFormbutton);
+
+    await tester.pumpAndSettle();
     await Future.delayed(Duration(milliseconds: 2000), () {});
+
   });
 }

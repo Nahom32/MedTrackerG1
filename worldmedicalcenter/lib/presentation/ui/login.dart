@@ -117,6 +117,7 @@ class _LoginState extends State<Login> {
                 child: Column(children: [
                   SizedBox(height: 12),
                   TextField(
+                    key: const Key("Email"),
                     controller: emailCtrl,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
@@ -129,6 +130,7 @@ class _LoginState extends State<Login> {
                     height: 12,
                   ),
                   TextField(
+                    key: const Key("Password"),
                     controller: passwordCtrl,
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
@@ -156,7 +158,7 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       GestureDetector(
-                          child: Text(
+                          child:const Text(
                             'Forgot Password?',
                             style:
                                 TextStyle(decoration: TextDecoration.underline),
@@ -167,23 +169,24 @@ class _LoginState extends State<Login> {
                               return PasswordReset();
                             }));
                           }),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       TextButton(
+                          key:const Key("Login"),
                           onPressed: signIn,
                           child: Container(
-                            child: Text(
-                              'LOGIN',
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.white),
-                            ),
                             padding: EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 130),
                             decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(30)),
                               color: Colors.blue,
+                            ),
+                            child:const Text(
+                              'LOGIN',
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.white),
                             ),
                             // shape: RoundedRectangleBorder(
                             //   borderRadius: BorderRadius.all(Radius.circular(30))
