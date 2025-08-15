@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:worldmedicalcenter/domain/models/vaccine.dart';
 
 import '../../../core/error/failures.dart';
+import '../../models/vaccine.dart';
 
 
 abstract class VaccineRepository {
